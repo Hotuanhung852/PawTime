@@ -1379,3 +1379,94 @@ Days of the week
   align-items: center;
   justify-content: center;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pet-sitters {
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+
+.pet-sttiers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 65px auto;
+  flex-wrap: wrap;
+}
+
+.pet-sitters-content {
+  flex: 1;
+  max-width: 600px;
+  margin: 0px 25px;
+}
+
+.pet-sitters-content h2 {
+  font-size: 38px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.pet-sitters-content p {
+  font-size: 24px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+.pet-sitters-image {
+  flex: 1;
+  max-width: 900px;
+  margin: auto;
+}
+
+.pet-sitters-imgtag {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .pet-sitters {
+    margin: 0px;
+  }
+
+  .pet-sttiers-container {
+    width: 100%;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px 20px;
+  }
+
+  .pet-sitters-content {
+    width: 100%;
+    margin: 20px 0px;
+  }
+
+  .pet-sitters-content h2 {
+    font-size: 24px;
+  }
+
+  .pet-sitters-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .pet-sitters-imgtag {
+    width: 100%;
+  }
+}
+
+.pet-sitters-content .btn {
+  background-color: var(--black);
+  margin-top: 20px;
+}
+
+.pet-sitters-content .btn:is(:hover, :focus) {
+  background-color: var(--portland-orange);
+}
