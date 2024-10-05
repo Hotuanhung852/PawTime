@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 
+    - primary meta tag
+  -->
+    <title>PawTime</title>
+    <meta name="title" content="PawTime">
+    <meta name="description" content="">
+
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <!-- 
+    - custom css link
+  -->
+    <link rel="stylesheet" href="./assets/css/price.css">
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bangers&family=Carter+One&family=Nunito+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- 
+    - preload images
+  -->
+    <link rel="preload" as="image" href="./assets/images/hero-banner.jpg">
+
+    <!-- Font Awesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Custom CSS File -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
+
+</head>
+
+<body id="top">
+
+    <!-- 
+    - #HEADER
+  -->
+
+    <header class="header" data-header>
+        <div class="container">
+
+            <button class="nav-toggle-btn" aria-label="toggle manu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-label="true" class="close-icon"></ion-icon>
+            </button>
+
+            <a href="#" class="logo">PawTime</a>
+
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link" data-nav-link>Home</a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="#" class="navbar-link" data-nav-link>About</a>
+                    </li>
+
+                    <li class="navbar-item"></li>
+                    <a href="#" class="navbar-link" data-nav-link>Price</a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="PetTimer.html" class="navbar-link" data-nav-link>Pet Service</a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
+                    </li>
+
+                </ul>
+
+                <a href="#" class="navbar-action-btn">Log In</a>
+            </nav>
+
+            <div class="header-actions">
+
+                <!-- <button class="action-btn" aria-label="Search">
+          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+        </button> -->
+
+                <button class="action-btn user" aria-label="User">
+                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+
+
+
+
+    <main>
+        <article>
+
+
+            <!-- 
+        - #HERO
+        -->
+
+            <section class="section hero has-bg-image" id="home" aria-label="home"
+                style="background-image: url('./assets/images/hero-banner5.jpg')">
+                <div class="container">
+
+                    <h1 class="h1 hero-title">
+                        <span class="span">1-month free trial</span>
+                    </h1>
+
+                    <p class="hero-text">
+                        We provide opportunities for your companion to be happy and adventurous
+                    </p>
+
+                    <a href="#" class="btn">Try Now</a>
+
+                </div>
+            </section>
+
+            <div style="padding: 20px;">
+                <h2 class="h2 section-title" style="font-size: 30px;">
+                    Price <span class="span">Planning</span>
+                </h2>
+                <h3 class="h3 section-title" style="font-size: 50px;">
+                    Choose the <span class="span">Best Price</span>
+                </h3>
+            </div>
+            <section class="price-comparison">
+                <div class="price-column">
+                    <div class="price-header">
+                        <div class="price">
+                            <div class="dollar-sign">$</div>
+                            24
+                            <div class="per-month">/month</div>
+                        </div>
+                        <div class="plan-name">Basic</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Pet Boarding
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        House Sitting
+                    </div>
+                    <div class="feature inactive">
+                        <img src="./assets/images/x-square.svg">
+                        Drop-In Visits
+                    </div>
+                    <div class="feature inactive">
+                        <img src="./assets/images/x-square.svg">
+                        Groom Tracker
+                    </div>
+                    <div class="feature inactive">
+                        <img src="./assets/images/x-square.svg">
+                        Veteran Badge
+                    </div>
+                    <button class="cta">Start Today</button>
+                </div>
+                <div class="price-column popular">
+                    <div class="most-popular">Most Popular</div>
+                    <div class="price-header">
+                        <div class="price">
+                            <div class="dollar-sign">$</div>
+                            120
+                            <div class="per-month">/6 months</div>
+                        </div>
+                        <div class="plan-name">Standard</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Pet Boarding
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        House Sitting
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Drop-In Visits
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Groom Tracker
+                    </div>
+                    <div class="feature inactive">
+                        <img src="./assets/images/x-square.svg">
+                        Veteran Badge
+                    </div>
+                    <button class="cta">Start Today</button>
+                </div>
+                <div class="price-column">
+                    <div class="price-header">
+                        <div class="price">
+                            <div class="dollar-sign">$</div>
+                            145
+                            <div class="per-month">/year</div>
+                        </div>
+                        <div class="plan-name">Premium</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Pet Boarding
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        House Sitting
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Drop-In Visits
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Groom Tracker
+                    </div>
+                    <div class="feature">
+                        <img src="./assets/images/check-circle.svg">
+                        Veteran Badge
+                    </div>
+                    <button class="cta">Start Today</button>
+                </div>
+            </section>
+            <!-- 
+        - #SERVICE
+        -->
+
+            <section class="section service" aria-label="service">
+                <div class="container">
+
+                    <img src="./assets/images/service-image.png" width="122" height="136" loading="lazy" alt=""
+                        class="img">
+
+                    <h2 class="h2 section-title">
+                        <span class="span">What your pet needs,</span> when they need it.
+                    </h2>
+
+                </div>
+            </section>
+
+
+
+        </article>
+    </main>
+
+
+
+
+
+    <!-- 
+    - #FOOTER
+  -->
+
+    <footer class="footer" style="background-image: url('./assets/images/footer-bg.jpg')">
+
+        <div class="footer-top section">
+            <div class="container">
+
+                <div class="footer-brand">
+
+                    <a href="#" class="logo">PawTime</a>
+
+                    <p class="footer-text">
+                        If you have any question, please contact us at <a href="mailto:support@gmail.com"
+                            class="link">support@gmail.com</a>
+                    </p>
+
+                    <ul class="contact-list">
+
+                        <li class="contact-item">
+                            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+
+                            <address class="address">
+                                30 Buttonwood St.Pataskala OH 43062
+                            </address>
+                        </li>
+
+                        <li class="contact-item">
+                            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+                            <a href="tel:+16234567891011" class="contact-link">(+1)-6234-56-789-1011</a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="social-list">
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-pinterest"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Corporate</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Careers</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">About Us</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Contact Us</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">FAQs</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Vendors</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Affiliate Program</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Information</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Online Store</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Refund Policy</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Shipping Policy</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Track Order</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Services</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Grooming</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Positive Dog Training</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Veterinary Services</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Petco Insurance</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Pet Adoption</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Resource Center</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+
+                <p class="copyright">
+                    &copy; 2024 Made with ♥ by <a href="#" class="copyright-link">PawTime.</a>
+                </p>
+
+                <img src="./assets/images/payment.png" width="397" height="32" loading="lazy" alt="payment method"
+                    class="img">
+
+            </div>
+        </div>
+
+    </footer>
+
+
+
+
+
+    <!-- 
+    - #BACK TO TOP
+  -->
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+    </a>
+
+
+
+
+
+    <!-- 
+    - custom js link
+  -->
+    <script src="./assets/js/script.js" defer></script>
+
+    <!-- 
+    - ionicon link
+  -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
