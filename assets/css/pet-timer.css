@@ -1594,6 +1594,13 @@ Days of the week
 
 .pet-sitters-service .service-items {
   display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust the gap between rows as needed */
+}
+
+.pet-sitters-service .service-item {
+  display: flex;
   align-items: center;
-  gap: 10px; /* Adjust the gap as needed */
+  gap: 10px; /* Adjust the gap between icon and text as needed */
+
 }

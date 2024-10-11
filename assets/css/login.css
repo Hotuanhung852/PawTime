@@ -16,7 +16,7 @@ body{
     
 }
 .container{
-    height: 700px;
+    height: 750px;
     width: 410px;
     background: #eeeeeebe;
     border-radius: 3em;
@@ -120,10 +120,10 @@ input#checked{
     border-radius: 50px;
     border: none;
     outline: none;
-    background: linear-gradient(45deg ,#ed6335,60% ,#00000067);
+    background: linear-gradient(45deg ,#ed6335,60% ,#ffffff);
     font-size: 19px;
     font-weight: 500;
-    color: #eee;
+    color: #0000007a;
     position: relative;
     cursor: pointer;
     z-index: 1;
@@ -136,7 +136,7 @@ input#checked{
     top: 0%;
     height: 100%;
     width: 00%;
-    background: linear-gradient(45deg ,#ed6335,60% ,#00000067);
+    background: linear-gradient(45deg ,#ed6335,60% ,#000000);
     transition: .5s ease;
     z-index: -1;
 }
@@ -205,7 +205,7 @@ p{
 
 @media(max-width: 768px){
     .container{
-        height: 500px;
+        height: 600px;
         width: 380px;
     }
     h2{
@@ -257,7 +257,7 @@ p{
 }
 @media(max-width: 480px){
     .container{
-        height: 450px;
+        height: 500px;
         width: 310px;
     }
     h2{
@@ -309,7 +309,7 @@ p{
 }
 @media(max-width:365px){
     .container{
-        height: 420px;
+        height: 450px;
         width: 280px;
     }
     h2{
