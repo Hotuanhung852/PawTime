@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawTime</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="container">
+        <div class="Form login-form">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-box">
+                    <i class='bx bxs-user'></i>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter Your Username*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-envelope'></i>
+                    <input type="password" id="password" placeholder="Enter Your Password*" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Or Sign up using</p>
+            <p class="RegisteBtn RegiBtn"><a href="#">Register Now</a></p>
+        </div>
+        <div class="Form Register-form">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="input-box">
+                    <i class='bx bxs-user'></i>
+                    <label for="newUsername">Username</label>
+                    <input type="text" id="newUsername" placeholder="Enter Your Username*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-user-detail'></i>
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter Your Full Name*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-phone'></i>
+                    <input type="number" id="phoneNumber" placeholder="Enter Your Phone Number*" required pattern="\d*">
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-envelope'></i>
+                    <input type="password" id="newPassword" placeholder="Enter Your Password*" required>
+                    <label for="newPassword">Password</label>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-envelope'></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Your Password*" required>
+                    <label for="confirmPassword">Confirm Password</label>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p class="LoginBtn"><a href="#">Login Now</a></p>
+        </div>
+    </div>
+    <script>
+ const apiEndpoint = 'https://67093fbbaf1a3998baa0e523.mockapi.io/Users';
+
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(apiEndpoint);
+                const users = await response.json();
+
+                const user = users.find(user => user.username === username && user.password === password);
+
+                if (user) {
+                    alert('Login successful');
+                    localStorage.setItem('loggedIn', true); // Set login flag in localStorage
+                    redirectUser(user.role);
+                } else {
+                    alert('Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong');
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const newUsername = document.getElementById('newUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            const newUser = {
+                username: newUsername,
+                password: newPassword,
+                fullname: fullName,
+                "phone-number": phoneNumber,
+                role: 'guest',
+                plan: 'none',
+                createdAt: null,
+                name: '',
+                avatar: ''
+            };
+
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                });
+
+                if (response.ok) {
+                    alert('Registration successful');
+                } else {
+                    alert('Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong');
+            }
+        });
+
+        function redirectUser(role) {
+            if (role === 'guest') {
+                window.location.href = 'index.html';
+            } else {
+                window.location.href = 'other.html'; // Adjust based on the specific role
+            }
+        }
+
+        const RegiBtn = document.querySelector('.RegiBtn');
+        const LoginBtn = document.querySelector('.LoginBtn');
+        const loginForm = document.querySelector('.login-form');
+        const registerForm = document.querySelector('.Register-form');
+
+        RegiBtn.addEventListener('click', () => {
+            registerForm.classList.add('active');
+            loginForm.classList.add('active');
+        });
+
+        LoginBtn.addEventListener('click', () => {
+            registerForm.classList.remove('active');
+            loginForm.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>

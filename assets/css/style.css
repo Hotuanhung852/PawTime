@@ -439,10 +439,11 @@ body {
   font-size: var(--fs-7);
   text-transform: uppercase;
   font-weight: var(--fw-700);
+  color: var(--white);
 }
 
 .offer-card .card-title {
-  color: var(--black);
+  color: var(--white);
   margin-block: 5px 24px;
 }
 

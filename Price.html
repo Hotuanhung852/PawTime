@@ -44,71 +44,80 @@
     <!-- Custom CSS File -->
     <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
 
-</head>
-
-<body id="top">
-
-    <!-- 
-    - #HEADER
-  -->
-
-    <header class="header" data-header>
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem('loggedIn')) {
+          window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+      </script>
+    </head>
+    
+    <body id="top">
+    
+      <!-- 
+        - #HEADER
+      -->
+    
+      <header class="header" data-header>
         <div class="container">
-
-            <button class="nav-toggle-btn" aria-label="toggle manu" data-nav-toggler>
-                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
-                <ion-icon name="close-outline" aria-label="true" class="close-icon"></ion-icon>
+    
+          <button class="nav-toggle-btn" aria-label="toggle manu" data-nav-toggler>
+            <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+            <ion-icon name="close-outline" aria-label="true" class="close-icon"></ion-icon>
+          </button>
+    
+          <a href="#" class="logo">PawTime</a>
+    
+          <nav class="navbar" data-navbar>
+            <ul class="navbar-list">
+    
+              <li class="navbar-item">
+                <a href="index.html" class="navbar-link" data-nav-link>Home</a>
+              </li>
+    
+              <li class="navbar-item">
+                <a href="#" class="navbar-link" data-nav-link>About</a>
+              </li>
+    
+              <li class="navbar-item"></li>
+              <a href="Price.html" class="navbar-link" data-nav-link>Price</a>
+              </li>
+    
+              <li class="navbar-item">
+                <a href="PetTimer.html" class="navbar-link" data-nav-link>Pet Service</a>
+              </li>
+    
+              <!-- <li class="navbar-item">
+                <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
+              </li> -->
+    
+              <li class="navbar-item">
+                <a href="AdoptMe.html" class="navbar-link" data-nav-link>Adopt Me</a>
+              </li>
+    
+            </ul>
+    
+            <a href="#" class="navbar-action-btn">Log In</a>
+          </nav>
+    
+          <div class="header-actions">
+    
+            <!-- <button class="action-btn" aria-label="Search">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+            </button> -->
+    
+            <button class="action-btn user" aria-label="User">
+              <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
             </button>
-
-            <a href="#" class="logo">PawTime</a>
-
-            <nav class="navbar" data-navbar>
-                <ul class="navbar-list">
-
-                    <li class="navbar-item">
-                        <a href="index.html" class="navbar-link" data-nav-link>Home</a>
-                    </li>
-
-                    <li class="navbar-item">
-                        <a href="#" class="navbar-link" data-nav-link>About</a>
-                    </li>
-
-                    <li class="navbar-item"></li>
-                    <a href="#" class="navbar-link" data-nav-link>Price</a>
-                    </li>
-
-                    <li class="navbar-item">
-                        <a href="PetTimer.html" class="navbar-link" data-nav-link>Pet Service</a>
-                    </li>
-
-                    <!-- <li class="navbar-item">
-                        <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
-                    </li> -->
-
-                    <li class="navbar-item">
-                        <a href="AdoptMe.html" class="navbar-link" data-nav-link>Adopt Me</a>
-                    </li>
-
-                </ul>
-
-                <a href="#" class="navbar-action-btn">Log In</a>
-            </nav>
-
-            <div class="header-actions">
-
-                <!-- <button class="action-btn" aria-label="Search">
-          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-        </button> -->
-
-                <button class="action-btn user" aria-label="User">
-                    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-                </button>
-
-            </div>
-
+    
+            <button class="action-btn logout" aria-label="Logout" id="logoutButton">
+              <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+            </button>
+    
+          </div>
+    
         </div>
-    </header>
-
+      </header>
 
 
 
@@ -133,12 +142,12 @@
                         We provide opportunities for your companion to be happy and adventurous
                     </p>
 
-                    <a href="#" class="btn">Try Now</a>
+                    <a href="#price" class="btn">Try Now</a>
 
                 </div>
             </section>
 
-            <div style="padding: 20px;">
+            <div style="padding: 20px;" id="price">
                 <h2 class="h2 section-title" style="font-size: 30px;">
                     Price <span class="span">Planning</span>
                 </h2>
@@ -171,7 +180,7 @@
                     </div>
                     <div class="feature inactive">
                         <img src="./assets/images/x-square.svg">
-                        Groom Tracker
+                        Adopt Me
                     </div>
                     <div class="feature inactive">
                         <img src="./assets/images/x-square.svg">
@@ -204,7 +213,7 @@
                     </div>
                     <div class="feature">
                         <img src="./assets/images/check-circle.svg">
-                        Groom Tracker
+                        Adopt Me
                     </div>
                     <div class="feature inactive">
                         <img src="./assets/images/x-square.svg">
@@ -477,6 +486,18 @@
   -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        // Add this script to your existing script or a new script file linked in your HTML file
+    
+        document.getElementById('logoutButton').addEventListener('click', function () {
+          // Clear the login flag from localStorage
+          localStorage.removeItem('loggedIn');
+    
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+    
+      </script>
 
 </body>
 

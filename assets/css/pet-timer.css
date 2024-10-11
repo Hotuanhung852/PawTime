@@ -1094,7 +1094,7 @@ p {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.textarea{
+.textarea {
   width: 500px;
   height: 300px;
 }
@@ -1111,11 +1111,10 @@ p {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .textarea{
+  .textarea {
     width: 225px;
     height: 300px;
   }
-  
 }
 
 .form-container header {
@@ -1182,9 +1181,10 @@ p {
 }
 
 .checkbox-item input[type="checkbox"]:checked {
-  accent-color: var(--portland-orange); /* This will change the checkbox itself */
+  accent-color: var(
+    --portland-orange
+  ); /* This will change the checkbox itself */
 }
-
 
 /* 
 RADIO 
@@ -1268,7 +1268,6 @@ input[type="radio"]:checked + span.radio-item {
 .how-often-container .radio-item:hover {
   background-color: #f0f0f0;
 }
-
 
 .form-container form .fields {
   display: flex;
@@ -1469,4 +1468,132 @@ Days of the week
 
 .pet-sitters-content .btn:is(:hover, :focus) {
   background-color: var(--portland-orange);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.card__container {
+  font-family: "Quicksand", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin-block: 2rem;
+  gap: 2rem;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background: #ece9e6;
+  background: linear-gradient(to right, #ffffff, #ece9e6);
+  transition: transform 1s, box-shadow 0.5s;
+}
+
+.card__content:hover {
+  transform: translateY(-1.5rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.card__text {
+  font-size: 1.5em;
+}
+
+.card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tag {
+  align-self: flex-start;
+  padding: 0.25em 0.75em;
+  border-radius: 1em;
+  font-size: 1.75rem;
+}
+
+.tag + .tag {
+  margin-left: 0.5em;
+}
+
+.tag-cat {
+  background: #E6E6FA;
+  background: linear-gradient(to bottom, #D8BFD8, #E6E6FA);
+  color: #fafafa
+}
+
+.tag-dog {
+  background: #87CEEB;
+  background: linear-gradient(to bottom, #00BFFF, #87CEEB);
+  color: #fafafa;
+}
+
+.tag-catndog {
+  background: #DAA520;
+  background: linear-gradient(to bottom, #FFD700, #DAA520);
+  color: #fafafa;
+}
+
+.card__body h4 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.card__footer {
+  display: flex;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.user {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user__image {
+  width: 90px;  /* Adjust the width to your desired size */
+  height: 90px; /* Adjust the height to your desired size */
+  object-fit: cover;
+  border-radius: 50%; /* Keeps the circular shape */
+}
+
+
+.user__info > small {
+  color: #666;
+}
+
+
+
+
+.icon-wrapperr {
+  background-color: #ed6335;
+  position: relative;
+  font-size: 15px;
+  height: 2.1em;
+  width: 2.1em;
+  color: #ffffff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.pet-sitters-service .service-items {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap as needed */
 }

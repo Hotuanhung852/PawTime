@@ -37,6 +37,12 @@
   -->
   <link rel="preload" as="image" href="./assets/images/hero-banner.jpg">
 
+  <script>
+    // Check if the user is logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html'; // Redirect to login page if not logged in
+    }
+  </script>
 </head>
 
 <body id="top">
@@ -97,6 +103,10 @@
           <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
         </button>
 
+        <button class="action-btn logout" aria-label="Logout" id="logoutButton">
+          <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+        </button>
+
       </div>
 
     </div>
@@ -123,7 +133,7 @@
 
           <p class="hero-text">Try out 1 month free trial as pet sitters</p>
 
-          <a href="#" class="btn">Get Started</a>
+          <a href="Price.html#price" class="btn">Get Started</a>
 
         </div>
       </section>
@@ -180,7 +190,7 @@
 
       <section class="section offer" id="groom_tracker" aria-label="offer">
         <h2 class="h2 section-title">
-          <span class="span">Groom</span> Tracker
+          <span class="span">Adopt</span> Me
         </h2>
         <div class="container">
 
@@ -188,45 +198,43 @@
 
             <li>
               <div class="offer-card has-bg-image img-holder"
-                style="background-image: url('./assets/images/offer-banner-1.jpg'); --width: 540; --height: 374;">
+                style="background-image: url('./assets/images/street-cat.jpg'); --width: 540; --height: 374;">
 
-                <p class="card-subtitle">Selected Items. Online Only.</p>
+                <p class="card-subtitle">In Need of Loving Homes</p>
 
-                <h3 class="h3 card-title">
-                  Hot Summer <span class="span">Deals</span>
-                </h3>
+                <h3 class="h3 card-title"> Give a Foster Cat <span class="span">Home</span> </h3>
 
-                <a href="./GroomTracker.html" class="btn">Read More</a>
 
-              </div>
-            </li>
 
-            <li>
-              <div class="offer-card has-bg-image img-holder"
-                style="background-image: url('./assets/images/offer-banner-2.jpg'); --width: 540; --height: 374;">
-
-                <p class="card-subtitle">Treats & Grooming</p>
-
-                <h3 class="h3 card-title">
-                  Spoil your true <span class="span">love</span>
-                </h3>
-
-                <a href="#" class="btn">Read More</a>
+                <a href="AdoptMe.html" class="btn">Read More</a>
 
               </div>
             </li>
 
             <li>
               <div class="offer-card has-bg-image img-holder"
-                style="background-image: url('./assets/images/offer-banner-3.jpg'); --width: 540; --height: 374;">
+                style="background-image: url('./assets/images/street-catndog.jpg'); --width: 540; --height: 374;">
 
-                <p class="card-subtitle">Our Brand You Will Love</p>
+                <p class="card-subtitle">They all deserve a loving home</p>
 
                 <h3 class="h3 card-title">
-                  New in this <span class="span">year</span>
+                  Spoil your <span class="span"></span>true love</span>
                 </h3>
 
-                <a href="#" class="btn">Read More</a>
+                <a href="AdoptMe.html" class="btn">Read More</a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="offer-card has-bg-image img-holder"
+                style="background-image: url('./assets/images/street-dog.jpg'); --width: 540; --height: 374;">
+
+                <p class="card-subtitle">Searching for Forever Homes</p>
+
+                <h3 class="h3 card-title"> Rescue Dog <span class="span">Adoptions</span> </h3>
+
+                <a href="AdoptMe.html" class="btn">Read More</a>
 
               </div>
             </li>
@@ -464,7 +472,18 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // Add this script to your existing script or a new script file linked in your HTML file
 
+    document.getElementById('logoutButton').addEventListener('click', function () {
+      // Clear the login flag from localStorage
+      localStorage.removeItem('loggedIn');
+
+      // Redirect to login page
+      window.location.href = 'login.html';
+    });
+
+  </script>
 </body>
 
 </html>
