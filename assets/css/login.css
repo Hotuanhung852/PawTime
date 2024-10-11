@@ -18,8 +18,8 @@ body{
 .container{
     height: 700px;
     width: 410px;
-    background: #eee;
-    border-radius: 15px;
+    background: #eeeeeebe;
+    border-radius: 3em;
     display: flex;
     justify-content: center;
     align-items: center;
