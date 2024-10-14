@@ -10,7 +10,7 @@
     <!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                     <input type="text" id="username" placeholder="Enter Your Username*" required>
                 </div>
                 <div class="input-box">
-                    <i class='bx bxs-lock' ></i>
+                    <i class='bx bxs-lock'></i>
                     <input type="password" id="password" placeholder="Enter Your Password*" required>
                     <label for="password">Password</label>
                 </div>
@@ -52,12 +52,12 @@
                     <label for="phoneNumber">Phone Number</label>
                 </div>
                 <div class="input-box">
-                    <i class='bx bxs-lock' ></i>
+                    <i class='bx bxs-lock'></i>
                     <input type="password" id="newPassword" placeholder="Enter Your Password*" required>
                     <label for="newPassword">Password</label>
                 </div>
                 <div class="input-box">
-                    <i class='bx bxs-lock' ></i>
+                    <i class='bx bxs-lock'></i>
                     <input type="password" id="confirmPassword" placeholder="Confirm Your Password*" required>
                     <label for="confirmPassword">Confirm Password</label>
                 </div>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <script>
- const apiEndpoint = 'https://67093fbbaf1a3998baa0e523.mockapi.io/Users';
+        const apiEndpoint = 'http://localhost:3000';
 
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
             event.preventDefault();
@@ -76,17 +76,22 @@
             const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch(apiEndpoint);
-                const users = await response.json();
+                const response = await fetch(`${apiEndpoint}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
 
-                const user = users.find(user => user.username === username && user.password === password);
+                const result = await response.json();
 
-                if (user) {
-                    alert('Login successful');
+                if (response.ok) {
+                    alert(result.message);
                     localStorage.setItem('loggedIn', true); // Set login flag in localStorage
-                    redirectUser(user.role);
+                    redirectUser(result.role);
                 } else {
-                    alert('Invalid credentials');
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -112,16 +117,11 @@
                 username: newUsername,
                 password: newPassword,
                 fullname: fullName,
-                "phone-number": phoneNumber,
-                role: 'guest',
-                plan: 'none',
-                createdAt: null,
-                name: '',
-                avatar: ''
+                phoneNumber: phoneNumber
             };
 
             try {
-                const response = await fetch(apiEndpoint, {
+                const response = await fetch(`${apiEndpoint}/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -129,10 +129,12 @@
                     body: JSON.stringify(newUser)
                 });
 
+                const result = await response.json();
+
                 if (response.ok) {
-                    alert('Registration successful');
+                    alert(result.message);
                 } else {
-                    alert('Registration failed');
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
