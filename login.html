@@ -68,13 +68,13 @@
     </div>
     <script>
         const apiEndpoint = 'http://localhost:3000';
-
+    
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
             event.preventDefault();
-
+    
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-
+    
             try {
                 const response = await fetch(`${apiEndpoint}/login`, {
                     method: 'POST',
@@ -83,12 +83,13 @@
                     },
                     body: JSON.stringify({ username, password })
                 });
-
+    
                 const result = await response.json();
-
+    
                 if (response.ok) {
                     alert(result.message);
                     localStorage.setItem('loggedIn', true); // Set login flag in localStorage
+                    localStorage.setItem('userId', result.userId); // Store user ID in localStorage
                     redirectUser(result.role);
                 } else {
                     alert(result.message);
@@ -98,28 +99,28 @@
                 alert('Something went wrong');
             }
         });
-
+    
         document.getElementById('registerForm').addEventListener('submit', async function (event) {
             event.preventDefault();
-
+    
             const newUsername = document.getElementById('newUsername').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const fullName = document.getElementById('fullName').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
-
+    
             if (newPassword !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
-
+    
             const newUser = {
                 username: newUsername,
                 password: newPassword,
                 fullname: fullName,
                 phoneNumber: phoneNumber
             };
-
+    
             try {
                 const response = await fetch(`${apiEndpoint}/register`, {
                     method: 'POST',
@@ -128,9 +129,9 @@
                     },
                     body: JSON.stringify(newUser)
                 });
-
+    
                 const result = await response.json();
-
+    
                 if (response.ok) {
                     alert(result.message);
                 } else {
@@ -141,7 +142,7 @@
                 alert('Something went wrong');
             }
         });
-
+    
         function redirectUser(role) {
             if (role === 'guest') {
                 window.location.href = 'index.html';
@@ -149,17 +150,17 @@
                 window.location.href = 'other.html'; // Adjust based on the specific role
             }
         }
-
+    
         const RegiBtn = document.querySelector('.RegiBtn');
         const LoginBtn = document.querySelector('.LoginBtn');
         const loginForm = document.querySelector('.login-form');
         const registerForm = document.querySelector('.Register-form');
-
+    
         RegiBtn.addEventListener('click', () => {
             registerForm.classList.add('active');
             loginForm.classList.add('active');
         });
-
+    
         LoginBtn.addEventListener('click', () => {
             registerForm.classList.remove('active');
             loginForm.classList.remove('active');

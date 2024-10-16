@@ -12,7 +12,8 @@
     "axe/forms": [
       "default",
       {
-        "label": "off"
+        "label": "off",
+        "select-name": "off"
       }
     ],
     "no-inline-styles": "off",
@@ -23,6 +24,7 @@
           "backdrop-filter"
         ]
       }
-    ]
+    ],
+    "button-type": "off"
   }
 }
