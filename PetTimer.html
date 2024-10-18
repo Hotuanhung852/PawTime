@@ -134,7 +134,9 @@
           <h1 class="h1 hero-title" style="margin-bottom: 0.5em;">
             <span class="span">Services for every</span> cat and dog
           </h1>
-          <a href="#service" class="btn">Read More</a>
+          <a href="#service" style="margin-top: 2em; padding: 1em 2em;" class="btn">Read More</a>
+          <a href="./ViewBookingService/PetBoarding.html" class="btn" style="margin-top: 2em; padding: 1em 2em;">View
+            Your Booking Service</a>
         </div>
       </section>
 
@@ -344,85 +346,73 @@
       -->
 
       <section class="section petboarding-form" aria-label="form" id="petboarding-form">
-
         <h2 class="h2 section-title">
-          Book your service now <span class="span">for when you're away</span>
+            Book your service now <span class="span">for when you're away</span>
         </h2>
         <div class="icon-wrapper">
-          <i class="fa-solid fa-suitcase"></i>
+            <i class="fa-solid fa-suitcase"></i>
         </div>
         <h3>Pet Boarding</h3>
         <div class="form-container">
-
-          <header>Pet Boarding</header>
-          <form action="#">
-            <div class="form first">
-              <div class="information">
-                <span class="title">Pet Boarding Information</span>
-                <div class="pet-type-container">
-                  <label for="pet-type">Pet Type</label>
-
-                  <div class="checkbox-container">
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="cat" name="pet-type" value="cat">
-                      <label for="cat">Cat</label>
+            <header>Pet Boarding</header>
+            <form id="petBoardingForm">
+                <div class="form first">
+                    <div class="information">
+                        <span class="title">Pet Boarding Information</span>
+                        <div class="pet-type-container">
+                            <label for="pet-type">Pet Type</label>
+                            <div class="checkbox-container">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="cat" name="petType" value="Cat">
+                                    <label for="cat">Cat</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="dog" name="petType" value="Dog">
+                                    <label for="dog">Dog</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pet-count-container">
+                            <label>How many pets?</label>
+                            <fieldset role="radiogroup" class="radio-group">
+                                <label>
+                                    <input type="radio" role="radio" name="petCount" value="1" checked>
+                                    <span class="radio-item">1</span>
+                                </label>
+                                <label>
+                                    <input type="radio" role="radio" name="petCount" value="2">
+                                    <span class="radio-item">2</span>
+                                </label>
+                                <label>
+                                    <input type="radio" role="radio" name="petCount" value="3">
+                                    <span class="radio-item">3+</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                        <div class="input-field">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="Enter your address">
+                        </div>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label for="dropOffDate">Drop off</label>
+                                <input type="date" id="dropOffDate" name="dropOffDate">
+                            </div>
+                            <div class="input-field">
+                                <label for="pickUpDate">Pick up</label>
+                                <input type="date" id="pickUpDate" name="pickUpDate">
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label for="condition">Condition / Note (optional)</label>
+                            <textarea class="textarea" id="condition" name="condition" placeholder="Enter your condition"></textarea>
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="dog" name="pet-type" value="dog">
-                      <label for="dog">Dog</label>
-                    </div>
-                  </div>
+                    <button type="submit" class="btn">Submit</button>
                 </div>
-
-                <div class="pet-count-container">
-                  <label>How many pets?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="1" checked>
-                      <span class="radio-item">1</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="2">
-                      <span class="radio-item">2</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="3">
-                      <span class="radio-item">3+</span>
-                    </label>
-                  </fieldset>
-                </div>
-
-                <div class="input-field">
-                  <label for="address">Address</label>
-                  <input type="text" placeholder="Enter your address">
-                </div>
-
-                <div class="fields">
-
-                  <div class="input-field">
-                    <label for="city">Drop off</label>
-                    <input type="date" placeholder="Drop off">
-                  </div>
-
-                  <div class="input-field">
-                    <label for="state">Pick up</label>
-                    <input type="date" placeholder="Pick up">
-                  </div>
-
-                </div>
-
-                <div class="input-field">
-                  <label for="condition">Condition (optional)</label>
-                  <textarea class="textarea" placeholder="Enter your condition"></textarea>
-                </div>
-              </div>
-              <button type="submit" class="btn">Submit</button>
-            </div>
-
-          </form>
+            </form>
         </div>
-
-      </section>
+    </section>
 
       <section class="section housesitting-form" aria-label="form" id="housesitting-form">
 
@@ -879,6 +869,68 @@
     });
 
   </script>
+  
+  <script>
+    document.getElementById('petBoardingForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        // Form validation
+        const petType = document.querySelector('input[name="petType"]:checked');
+        const petCount = document.querySelector('input[name="petCount"]:checked');
+        const address = document.getElementById('address').value.trim();
+        const dropOffDate = document.getElementById('dropOffDate').value;
+        const pickUpDate = document.getElementById('pickUpDate').value;
+
+        if (!petType) {
+            alert('Please select a pet type.');
+            return;
+        }
+
+        if (!petCount) {
+            alert('Please select the number of pets.');
+            return;
+        }
+
+        if (!address) {
+            alert('Please enter your address.');
+            return;
+        }
+
+        if (!dropOffDate) {
+            alert('Please select a drop-off date.');
+            return;
+        }
+
+        if (!pickUpDate) {
+            alert('Please select a pick-up date.');
+            return;
+        }
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        data.userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage
+
+        try {
+            const response = await fetch('/pet-boarding', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('Booking successful');
+                window.location.href = '/ViewBookingService/PetBoarding.html';
+            } else {
+                alert('Booking failed: ' + result.message);
+            }
+        } catch (error) {
+            alert('Booking failed: ' + error.message);
+        }
+    });
+</script>
+
 </body>
 
 </html>

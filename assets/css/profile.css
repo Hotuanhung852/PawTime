@@ -368,3 +368,41 @@ body > main > article > div > div > div.text-right.mt-3 > button:nth-child(2):ho
     background-color: var(--portland-orange);
     border-color: var(--portland-orange);
 }
+
+/* Responsive styling for screens around 793px width */
+@media (min-width: 793px) {
+    .info-card-container {
+        padding: 15px;
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .info-card {
+        padding: 15px;
+        width: 100%; /* Make the card take up most of the screen width */
+        margin: 0 auto; /* Center the card */
+    }
+
+    .avatar-wrapper {
+        height: 120px; /* Adjust avatar size for smaller screens */
+        width: 120px;
+        margin: -60px auto 10px auto;
+    }
+
+
+    .info-card .col-md-3,
+    .info-card .col-md-9 {
+        width: 100%; /* Full width for each column */
+    }
+
+    .avatar-wrapper .upload-button .fa-arrow-circle-up {
+        position: absolute;
+        font-size: 143px;
+        top: -11px;
+        left: -1px;
+        text-align: center;
+    }
+
+    .avatar-wrapper .profile-pic:after {
+        font-size: 110px; /* Adjust font size for smaller screens */
+    }
+}

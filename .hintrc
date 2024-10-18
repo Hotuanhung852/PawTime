@@ -22,7 +22,9 @@
       {
         "ignore": [
           "backdrop-filter",
-          "zoom"
+          "zoom",
+          "text-wrap",
+          "text-wrap: nowrap"
         ]
       }
     ],
@@ -36,7 +38,8 @@
     "axe/name-role-value": [
       "default",
       {
-        "link-name": "off"
+        "link-name": "off",
+        "button-name": "off"
       }
     ]
   }

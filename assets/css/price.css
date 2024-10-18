@@ -1135,7 +1135,3 @@ Price Comparison Table
 .cta:hover, .cta:focus {
   transform: scale(1.1);
 }
-
-#top > main > article > section.price-comparison{
-  zoom: 1.2;
-}

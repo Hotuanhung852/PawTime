@@ -46,8 +46,20 @@ const petSchema = new mongoose.Schema({
     imageURL: String,
 });
 
+const petBoardingSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    petType: String,
+    petCount: Number,
+    address: String,
+    dropOffDate: Date,
+    pickUpDate: Date,
+    condition: String,
+    createdAt: { type: Date, default: Date.now }
+});
+
 const User = mongoose.model('User', userSchema);
 const Pet = mongoose.model('Pet', petSchema);
+const PetBoarding = mongoose.model('PetBoarding', petBoardingSchema);
 
 // Set up storage for uploaded images using multer
 const storage = multer.diskStorage({
@@ -169,6 +181,47 @@ app.post('/upload-avatar/:userId', upload.single('avatar'), async (req, res) => 
         } else {
             res.status(404).json({ message: 'User not found' });
         }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to handle pet boarding form submission
+app.post('/pet-boarding', async (req, res) => {
+    const { userId, petType, petCount, address, dropOffDate, pickUpDate, condition } = req.body;
+    try {
+        const newPetBoarding = new PetBoarding({
+            userId,
+            petType,
+            petCount,
+            address,
+            dropOffDate,
+            pickUpDate,
+            condition
+        });
+        await newPetBoarding.save();
+        res.status(201).json({ message: 'Booking successful' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get pet boarding details for a specific user
+app.get('/pet-boarding/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const petBoardingDetails = await PetBoarding.find({ userId }).sort({ createdAt: -1 });
+        res.status(200).json(petBoardingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all pet boarding details
+app.get('/pet-boarding', async (req, res) => {
+    try {
+        const petBoardingDetails = await PetBoarding.find().sort({ createdAt: -1 });
+        res.status(200).json(petBoardingDetails);
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
     }
