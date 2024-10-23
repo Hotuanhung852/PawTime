@@ -493,3 +493,27 @@ main p{
   justify-content: flex-end;
   gap: 10px;
 }
+
+.social-media-links a {
+  margin-right: 10px;
+  color: #000;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-media-links a:hover .fa-facebook {
+  color: #3b5998; /* Facebook blue */
+}
+
+.social-media-links a:hover .fa-instagram {
+  color: #e4405f; /* Instagram pink */
+}
+
+.social-media-links a:hover .fa-tiktok {
+  color: #010101; /* TikTok black */
+}
+
+.social-media-links a:hover .fa-twitter {
+  color: #1da1f2; /* Twitter blue */
+}

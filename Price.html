@@ -576,6 +576,50 @@
         document.addEventListener('DOMContentLoaded', handlePetSitterAccess);
     </script>
 
+    <!-- Modal Structure -->
+<div id="modall" class="modall">
+    <span class="closee">&times;</span>
+    <img class="modall-content" id="modall-image">
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('modall');
+  const modalImg = document.getElementById('modall-image');
+  const closeBtn = document.getElementsByClassName('closee')[0];
+
+  const buttons = document.querySelectorAll('.cta');
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+      let imgSrc;
+      switch(index) {
+        case 0:
+          imgSrc = './assets/images/PawTime Basic.png';
+          break;
+        case 1:
+          imgSrc = './assets/images/PawTime Standard.png';
+          break;
+        case 2:
+          imgSrc = './assets/images/PawTime Premium.png';
+          break;
+      }
+      modal.style.display = 'block';
+      modalImg.src = imgSrc;
+    });
+  });
+
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+});
+  </script>
+
 </body>
 
 </html>
