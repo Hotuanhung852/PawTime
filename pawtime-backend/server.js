@@ -57,9 +57,21 @@ const petBoardingSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+const houseSittingSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    petType: String,
+    petCount: Number,
+    address: String,
+    dropOffDate: Date,
+    pickUpDate: Date,
+    condition: String,
+    createdAt: { type: Date, default: Date.now }
+});
+
 const User = mongoose.model('User', userSchema);
 const Pet = mongoose.model('Pet', petSchema);
 const PetBoarding = mongoose.model('PetBoarding', petBoardingSchema);
+const HouseSitting = mongoose.model('HouseSitting', houseSittingSchema);
 
 // Set up storage for uploaded images using multer
 const storage = multer.diskStorage({
@@ -103,7 +115,7 @@ app.post('/register', async (req, res) => {
             fullname,
             phoneNumber,
             role: 'guest',
-            plan: 'none',
+            plan: 'Guest',
             createdAt: new Date(),
             name: '',
             avatar: '',
@@ -222,6 +234,147 @@ app.get('/pet-boarding', async (req, res) => {
     try {
         const petBoardingDetails = await PetBoarding.find().sort({ createdAt: -1 });
         res.status(200).json(petBoardingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to delete a pet boarding entry
+app.delete('/pet-boarding/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await PetBoarding.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Pet boarding entry deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to upgrade user to pet sitter role
+app.post('/upgrade-to-pet-sitter/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { role: 'pet_sitter' },
+            { new: true }
+        );
+        
+        if (user) {
+            res.status(200).json({ 
+                message: 'Successfully upgraded to pet sitter',
+                user 
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Modify your login route to include more user information
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await User.findOne({ username, password });
+        if (user) {
+            // Store more user information in the response
+            res.status(200).json({ 
+                message: 'Login successful',
+                userId: user._id,
+                role: user.role,
+                username: user.username
+            });
+        } else {
+            res.status(401).json({ message: 'Invalid credentials' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all pet boarding details
+app.get('/all-pet-boarding', async (req, res) => {
+    try {
+        const petBoardingDetails = await PetBoarding.find().sort({ createdAt: -1 });
+        res.status(200).json(petBoardingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get user details by userId
+app.get('/user/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const user = await User.findById(userId);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to handle pet boarding form submission
+app.post('/pet-boarding', async (req, res) => {
+    const { userId, petType, petCount, address, dropOffDate, pickUpDate, condition } = req.body;
+    try {
+        const newPetBoarding = new PetBoarding({
+            userId,
+            petType,
+            petCount,
+            address,
+            dropOffDate,
+            pickUpDate,
+            condition
+        });
+        await newPetBoarding.save();
+        res.status(201).json({ message: 'Booking successful' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to handle house sitting form submission
+app.post('/house-sitting', async (req, res) => {
+    const { userId, petType, petCount, address, dropOffDate, pickUpDate, condition } = req.body;
+    try {
+        const newHouseSitting = new HouseSitting({
+            userId,
+            petType,
+            petCount,
+            address,
+            dropOffDate,
+            pickUpDate,
+            condition
+        });
+        await newHouseSitting.save();
+        res.status(201).json({ message: 'Booking successful' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all house sitting details
+app.get('/house-sitting', async (req, res) => {
+    try {
+        const houseSittingDetails = await HouseSitting.find().sort({ createdAt: -1 });
+        res.status(200).json(houseSittingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to delete a house sitting entry
+app.delete('/house-sitting/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await HouseSitting.findByIdAndDelete(id);
+        res.status(200).json({ message: 'House sitting entry deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
     }

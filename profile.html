@@ -54,7 +54,7 @@
                                                 <div class="upload-button">
                                                     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                                                 </div>
-                                                <input class="file-upload" type="file" accept="image/*" />
+                                                <input class="file-upload" type="file" accept="image/*" style="display: none;"/>
                                             </div>
                                         </div>
                                         <hr class="border-light m-0">
@@ -70,6 +70,10 @@
                                             <div class="form-group">
                                                 <label class="form-label">Phone number</label>
                                                 <input type="text" class="form-control" id="phoneNumberGeneral">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Plan</label>
+                                                <input type="text" class="form-control mb-1" id="plan" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -181,6 +185,7 @@
                     document.getElementById('fullname').value = user.fullname;
                     document.getElementById('phoneNumberGeneral').value = user.phoneNumber;
                     document.getElementById('phoneNumberInfo').value = user.phoneNumber;
+                    document.getElementById('plan').value = user.plan;
 
                     // Ensure the avatar URL is correctly prefixed with the server address
                     const avatarUrl = user.avatar ? `http://localhost:3000${user.avatar}` : 'default-avatar.png';

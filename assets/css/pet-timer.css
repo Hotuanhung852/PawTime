@@ -1470,137 +1470,102 @@ Days of the week
   background-color: var(--portland-orange);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+/* Pet sitter nav and icon */
+.navbar-link {
+  display: flex;
+  align-items: center;
+}
+.navbar-link ion-icon {
+  margin-left: 8px; /* Adjust the spacing as needed */
+  font-size: 20px;
+  padding-bottom: 1px;
+}
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 0;
+/*Modal CSS*/
+
+.modal-container {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background-color: #fffffff2;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  text-align: center;
+  width: 690px;
+  max-width: 100%;
+  transform: translateY(-200%);
+  transition: transform 0.3s ease;
+}
+
+.modal-container.show .modal {
+  transform: translateY(0);
+}
+
+.modal h1 {
   margin: 0;
 }
 
-.card__container {
-  font-family: "Quicksand", sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin-block: 2rem;
-  gap: 2rem;
+.modal p {
+  font-size: 21px;
+  opacity: 0.7;
+  padding: 1em 0;
 }
 
-.card__content {
-  display: flex;
-  flex-direction: column;
-  padding: 2em;
-  width: 100%;
-  overflow: hidden;
-  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 1em;
-  background: #ece9e6;
-  background: linear-gradient(to right, #ffffff, #ece9e6);
-  transition: transform 1s, box-shadow 0.5s;
+.button-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%; /* Make sure it spans the modal's width */
 }
 
-.card__content:hover {
-  transform: translateY(-1.5rem);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+.modal button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.card__text {
-  font-size: 1.5em;
+#close {
+  background-color: #f44336; /* Red color */
+  color: white;
+  margin-right: auto; /* Aligns to the left */
+  border-radius: 5px;
 }
 
-.card__body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+#close:hover {
+  background-color: #d32f2f; /* Darker red on hover */
 }
 
-.tag {
-  align-self: flex-start;
-  padding: 0.25em 0.75em;
-  border-radius: 1em;
-  font-size: 1.75rem;
+.modal button a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.tag + .tag {
-  margin-left: 0.5em;
+.modal button:last-child {
+  background-color: #4caf50; /* Green color */
+  color: white;
+  margin-left: auto; /* Aligns to the right */
+  border-radius: 5px;
 }
 
-.tag-cat {
-  background: #E6E6FA;
-  background: linear-gradient(to bottom, #D8BFD8, #E6E6FA);
-  color: #fafafa
-}
-
-.tag-dog {
-  background: #87CEEB;
-  background: linear-gradient(to bottom, #00BFFF, #87CEEB);
-  color: #fafafa;
-}
-
-.tag-catndog {
-  background: #DAA520;
-  background: linear-gradient(to bottom, #FFD700, #DAA520);
-  color: #fafafa;
-}
-
-.card__body h4 {
-  font-size: 1.5rem;
-  text-transform: capitalize;
-}
-
-.card__footer {
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
-}
-
-.user {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.user__image {
-  width: 90px;  /* Adjust the width to your desired size */
-  height: 90px; /* Adjust the height to your desired size */
-  object-fit: cover;
-  border-radius: 50%; /* Keeps the circular shape */
-}
-
-
-.user__info > small {
-  color: #666;
-}
-
-
-
-
-.icon-wrapperr {
-  background-color: #ed6335;
-  position: relative;
-  font-size: 15px;
-  height: 2.1em;
-  width: 2.1em;
-  color: #ffffff;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-
-.pet-sitters-service .service-items {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Adjust the gap between rows as needed */
-}
-
-.pet-sitters-service .service-item {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Adjust the gap between icon and text as needed */
-
+.modal button:last-child:hover {
+  background-color: #388e3c; /* Darker green on hover */
 }

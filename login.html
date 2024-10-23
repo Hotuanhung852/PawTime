@@ -68,13 +68,13 @@
     </div>
     <script>
         const apiEndpoint = 'http://localhost:3000';
-    
+
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
             event.preventDefault();
-    
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-    
+
             try {
                 const response = await fetch(`${apiEndpoint}/login`, {
                     method: 'POST',
@@ -83,44 +83,51 @@
                     },
                     body: JSON.stringify({ username, password })
                 });
-    
+
                 const result = await response.json();
-    
+
                 if (response.ok) {
-                    alert(result.message);
-                    localStorage.setItem('loggedIn', true); // Set login flag in localStorage
-                    localStorage.setItem('userId', result.userId); // Store user ID in localStorage
+                    // Store all necessary user information in localStorage
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('userId', result.userId);
+                    localStorage.setItem('userRole', result.role);
+                    localStorage.setItem('username', result.username);
+
+                    // Show success message
+                    alert('Login successful!');
+
+                    // Redirect based on role
                     redirectUser(result.role);
                 } else {
                     alert(result.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Something went wrong');
+                alert('Something went wrong during login');
             }
         });
-    
+
         document.getElementById('registerForm').addEventListener('submit', async function (event) {
             event.preventDefault();
-    
+
             const newUsername = document.getElementById('newUsername').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const fullName = document.getElementById('fullName').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
-    
+
             if (newPassword !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
-    
+
             const newUser = {
                 username: newUsername,
                 password: newPassword,
                 fullname: fullName,
                 phoneNumber: phoneNumber
             };
-    
+
             try {
                 const response = await fetch(`${apiEndpoint}/register`, {
                     method: 'POST',
@@ -129,38 +136,46 @@
                     },
                     body: JSON.stringify(newUser)
                 });
-    
+
                 const result = await response.json();
-    
+
                 if (response.ok) {
-                    alert(result.message);
+                    alert('Registration successful! Please login to continue.');
+                    // Switch back to login form
+                    registerForm.classList.remove('active');
+                    loginForm.classList.remove('active');
+                    // Clear registration form
+                    document.getElementById('registerForm').reset();
                 } else {
                     alert(result.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Something went wrong');
+                alert('Something went wrong during registration');
             }
         });
-    
+
+        // Function to handle user redirection based on role
         function redirectUser(role) {
-            if (role === 'guest') {
-                window.location.href = 'index.html';
-            } else {
-                window.location.href = 'other.html'; // Adjust based on the specific role
+            switch (role) {
+                case 'guest':
+                default:
+                    window.location.href = 'index.html';
+                    break;
             }
         }
-    
+
+        // Form toggle functionality
         const RegiBtn = document.querySelector('.RegiBtn');
         const LoginBtn = document.querySelector('.LoginBtn');
         const loginForm = document.querySelector('.login-form');
         const registerForm = document.querySelector('.Register-form');
-    
+
         RegiBtn.addEventListener('click', () => {
             registerForm.classList.add('active');
             loginForm.classList.add('active');
         });
-    
+
         LoginBtn.addEventListener('click', () => {
             registerForm.classList.remove('active');
             loginForm.classList.remove('active');

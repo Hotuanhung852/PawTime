@@ -28,11 +28,11 @@ body{
 #sidebar{
   box-sizing: border-box;
   height: 100vh;
-  width: 250px;
+  width: 300px;
   padding: 5px 1em;
   background-color: black;
   border-right: 1px solid var(--line-clr);
-  z-index: 100;
+
   position: sticky;
   top: 0;
   align-self: start;
@@ -144,7 +144,9 @@ main p{
   margin-bottom: 20px;
   padding: min(3em, 15%);
 
-  h2, p { margin-top: 1em }
+  h2, p {
+     margin-top: 1em ;
+    }
 }
 
 @media(max-width: 800px){
@@ -323,156 +325,32 @@ main p{
   border-radius: 50%;
 }
 
-
-
-
-
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-.card__container {
-  font-family: "Quicksand", sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin-block: 2rem;
-  gap: 2rem;
-}
-
-.card__content {
-  display: flex;
-  flex-direction: column;
-  padding: 2em;
-  width: 100%;
-  overflow: hidden;
-  box-shadow: 0 0.1rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 1em;
-  background: #ece9e6;
-  background: linear-gradient(to right, #ffffff, #ece9e6);
-  transition: transform 1s, box-shadow 0.5s;
-  color: #000;
-}
-
-.card__content:hover {
-  transform: translateY(-1.5rem);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-}
-
-.card__text {
-  font-size: 1.5em;
-  color: #000;
-}
-
-.card__body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.tag {
-  align-self: flex-start;
-  padding: 0.25em 0.75em;
-  border-radius: 1em;
-  font-size: 1.75rem;
-  margin-bottom: 1em;
-}
-
-.tag + .tag {
-  margin-left: 0.5em;
-}
-
-.tag-cat {
-  background: #e6e6fa;
-  background: linear-gradient(to bottom, #d8bfd8, #e6e6fa);
-  color: #fafafa;
-}
-
-.tag-dog {
-  background: #87ceeb;
-  background: linear-gradient(to bottom, #00bfff, #87ceeb);
-  color: #fafafa;
-}
-
-.tag-catndog {
-  background: #daa520;
-  background: linear-gradient(to bottom, #ffd700, #daa520);
-  color: #fafafa;
-}
-
-.card__body h4 {
-  font-size: 1.5rem;
-  text-transform: capitalize;
-}
-
-.card__footer {
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
-}
-
-.user {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.user__image {
-  width: 90px; /* Adjust the width to your desired size */
-  height: 90px; /* Adjust the height to your desired size */
-  object-fit: cover;
-  border-radius: 50%; /* Keeps the circular shape */
-}
-
-.user__info > small {
-  color: #666;
-}
-
-.icon-wrapperr {
-  background-color: #ed6335;
-  position: relative;
-  font-size: 15px;
-  height: 2.1em;
-  width: 2.1em;
-  color: #ffffff;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-
-.pet-sitters-service .service-items {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Adjust the gap between rows as needed */
-  margin-top: 1em;
-}
-
-.pet-sitters-service .service-item {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Adjust the gap between icon and text as needed */
-}
-
-
-
-
-
-
-.contact-btn, .accept-btn {
-  padding: 15px 25px;
+.btn {
+  padding: 15px 30px;
   border: none;
   color: white;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: background-color 0.3s, transform 0.3s;
-  margin: 5px;
+  margin: 0 10px;
+}
+
+.green-bg {
+  background-color: green;
+}
+
+.green-bg:hover {
+  background-color: darkgreen;
+  transform: scale(1.05);
+}
+
+.red-bg {
+  background-color: red;
+}
+
+.red-bg:hover {
+  background-color: darkred;
+  transform: scale(1.05);
 }
 
 .contact-btn {
@@ -480,16 +358,144 @@ main p{
 }
 .contact-btn:hover {
   background-color: #005f73;
+  transform: scale(1.05);
 }
 
-.accept-btn {
-  background-color: #4CAF50; /* Green */
+
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+
+/* -------------- BUTTON */
+.button {
+  appearance: none;
+  background-color: #008CBA; /* Blue */
+  border-radius: 0.5em;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 500;
+  height: 3em;
+  line-height: 3em;
+  padding: 0 1em;
+  transition: background-color 0.2s ease-out;
 }
-.accept-btn:hover {
-  background-color: #357a38;
+
+.button:hover {
+  background-color: #005f73;
+  transform: scale(1.05);
 }
-.card__actions {
+/* -------------- DETAILS MODAL */
+.details-modal {
+  background: #ffffff;
+  border-radius: 0.5em;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  left: 50%;
+  max-width: 90%;
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30em;
+  text-align: left;
+  max-height: 90vh;
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  flex-direction: column;
+}
+
+/* -------------- TITLE */
+.details-modal-title {
+  color: #111827;
+  padding: 1.5em 2em;
+  pointer-events: all;
+  position: relative;
+  width: calc(100% - 4.5em);
+}
+
+.details-modal-title h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: normal;
+}
+
+/* -------------- CONTENT */
+.details-modal-content {
+  border-top: 1px solid #e0e0e0;
+  padding: 2em;
+  pointer-events: all;
+  overflow: auto;
+}
+
+/* -------------- OVERLAY */
+.details-modal-overlay {
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+
+  position: fixed;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+details[open] .details-modal-overlay {
+  pointer-events: all;
+  opacity: 0.5;
+}
+
+/* -------------- DETAILS */
+details summary {
+  list-style: none;
+}
+
+details summary:focus {
+  outline: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* -------------- OTHER */
+code {
+  font-family: Monaco, monospace;
+  line-height: 100%;
+  background-color: #2d2d2c;
+  padding: 0.1em 0.4em;
+  letter-spacing: -0.05em;
+  word-break: normal;
+  border-radius: 7px;
+  color: white;
+  font-weight: normal;
+  font-size: 1.75rem;
+  position: relative;
+  top: -2px;
+}
+
+.modal-container {
+  text-align: center;
+  max-width: 40em;
+  padding: 2em;
+}
+
+.modal-container > h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: normal;
+  color: #111827;
+}
+
+.modal-container > p {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.modal-container sup {
+  font-size: 1rem;
+  margin-left: 0.25em;
+  opacity: 0.5;
+  position: relative;
 }

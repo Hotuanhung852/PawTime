@@ -11,10 +11,12 @@
     - favicon
   -->
   <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
   <nav id="sidebar">
+    <!-- Sidebar content -->
     <ul>
       <li>
         <span class="logo">PawTime</span>
@@ -55,7 +57,7 @@
     </ul>
   </nav>
   <main>
-    <a href="../PetTimer.html">
+    <a href="../PetTimer.html" style="text-decoration: none;">
       <button class="back-button">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
           <path d="m368-417 202 202-90 89-354-354 354-354 90 89-202 202h466v126H368Z" />
@@ -63,10 +65,93 @@
         <span style="color: white;">Back</span>
       </button>
     </a>
-    <div id="">
+
+    <a href="../PetTimer.html#housesitting-form" style="margin-left: 1em; text-decoration: none;">
+      <button class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+          <path
+            d="M680-80v-120H560v-80h120v-120h80v120h120v80H760v120h-80Zm-480-80q-33 0-56.5-23.5T120-240v-480q0-33 23.5-56.5T200-800h40v-80h80v80h240v-80h80v80h40q33 0 56.5 23.5T760-720v244q-20-3-40-3t-40 3v-84H200v320h280q0 20 3 40t11 40H200Zm0-480h480v-80H200v80Zm0 0v-80 80Z" />
+        </svg>
+        <span style="color: white;">Book House Sitting</span>
+      </button>
+    </a>
+
+    <div id="houseSittingDetails">
       <p>Loading...</p>
     </div>
   </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            const response = await fetch('/house-sitting');
+            const data = await response.json();
+            console.log('Fetched data:', data); // Debugging: Log the fetched data
+
+            if (response.ok) {
+                const detailsContainer = document.getElementById('houseSittingDetails');
+                detailsContainer.innerHTML = ''; // Clear the loading text
+
+                if (data.length === 0) {
+                    detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No house sitting forms have been created</p>';
+                } else {
+                    data.forEach(item => {
+                        const createdAt = new Date(item.createdAt);
+                        const dropOffDate = new Date(item.dropOffDate);
+                        const pickUpDate = new Date(item.pickUpDate);
+
+                        const detailDiv = document.createElement('div');
+                        detailDiv.innerHTML = `
+                            <div class="container">
+                                <h2 style="line-height: 1.5;">House Sitting – ${createdAt.toLocaleDateString()} - ${createdAt.toLocaleTimeString()}</h2>
+                                <div style="margin: 3em 0;">
+                                  <p style="line-height: 1.5;">- <strong>Pet Type:</strong> ${item.petType || 'N/A'}</p>
+                                  <p style="line-height: 1.5;">- <strong>Number of pets:</strong> ${item.petCount || 'N/A'}</p>
+                                  <p style="line-height: 1.5;">- <strong>Address:</strong> ${item.address || 'N/A'}</p>
+                                  <p style="line-height: 1.5;">- <strong>Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}</p>
+                                  <p style="line-height: 1.5;">- <strong>Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}</p>
+                                  <p style="line-height: 1.5;">- <strong>Condition (optional):</strong> ${item.condition || 'None'}</p>
+                                </div>
+                                <div class="button-container">
+                                  <a href="../HouseSittingDetail.html?id=${item._id}">
+                                    <button class="view-button">View</button>
+                                  </a>
+                                  <button class="delete-button" onclick="deleteHouseSitting('${item._id}')">Delete</button>
+                                </div>
+                            </div>
+                        `;
+                        detailsContainer.appendChild(detailDiv);
+                    });
+                }
+            } else {
+                alert('Failed to load house sitting details: ' + data.message);
+            }
+        } catch (error) {
+            alert('Failed to load house sitting details: ' + error.message);
+        }
+    });
+
+    async function deleteHouseSitting(id) {
+        if (!confirm('Are you sure you want to delete this entry?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/house-sitting/${id}`, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('House sitting entry deleted successfully');
+                location.reload(); // Reload the page to reflect the changes
+            } else {
+                alert('Failed to delete house sitting entry: ' + result.message);
+            }
+        } catch (error) {
+            alert('Failed to delete house sitting entry: ' + error.message);
+        }
+    }
+  </script>
 </body>
 
 </html>
