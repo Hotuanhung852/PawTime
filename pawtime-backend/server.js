@@ -40,10 +40,14 @@ const userSchema = new mongoose.Schema({
 });
 
 const petSchema = new mongoose.Schema({
-    name: String,
-    age: String,
-    gender: String,
-    imageURL: String,
+    id: String,
+    name: String, // Tên thú cưng
+    weight: String, // Cân nặng thú cưng
+    gender: String, // Giới tính thú cưng
+    phone: String, // Số điện thoại liên lạc
+    date: { type: Date, default: Date.now }, // Ngày (với giá trị mặc định là ngày hiện tại)
+    imageURL: String, // URL hình ảnh
+    details: String, // Chi tiết về thú cưng
 });
 
 const petBoardingSchema = new mongoose.Schema({
@@ -259,11 +263,11 @@ app.post('/upgrade-to-pet-sitter/:userId', async (req, res) => {
             { role: 'pet_sitter' },
             { new: true }
         );
-        
+
         if (user) {
-            res.status(200).json({ 
+            res.status(200).json({
                 message: 'Successfully upgraded to pet sitter',
-                user 
+                user
             });
         } else {
             res.status(404).json({ message: 'User not found' });
@@ -280,7 +284,7 @@ app.post('/login', async (req, res) => {
         const user = await User.findOne({ username, password });
         if (user) {
             // Store more user information in the response
-            res.status(200).json({ 
+            res.status(200).json({
                 message: 'Login successful',
                 userId: user._id,
                 role: user.role,
@@ -377,6 +381,130 @@ app.delete('/house-sitting/:id', async (req, res) => {
         res.status(200).json({ message: 'House sitting entry deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// routes get pet by id
+app.get("/pet/:id", async (req, res) => {
+    const { id } = req.params; // Lấy id từ params
+    try {
+        // Tìm thú cưng theo trường id trong schema
+        const pet = await Pet.findOne({ id: id });
+        if (pet) {
+            res.json(pet); // Trả về dữ liệu thú cưng
+        } else {
+            res.status(404).json({ message: "Pet not found" });
+        }
+    } catch (error) {
+        console.error("Error fetching pet:", error); // Log lỗi để debug
+        res.status(500).json({ message: "Something went wrong", error });
+    }
+});
+
+// Route thêm thú cưng (nên là /pets)
+app.post("/pets", async (req, res) => {
+    try {
+        // Tìm pet cuối cùng trong database để lấy id hiện tại
+        const lastPet = await Pet.findOne().sort({ id: -1 });
+
+        // Tự động tạo id mới, tăng thêm 1 so với id của pet cuối cùng
+        const newId = lastPet ? parseInt(lastPet.id) + 1 : 1; // Nếu không có pet nào, id sẽ bắt đầu từ 1
+
+        const petData = {
+            id: newId.toString(), // Đảm bảo id là chuỗi
+            name: req.body.name,
+            weight: req.body.weight,
+            gender: req.body.gender,
+            phone: req.body.phone,
+            date: req.body.date,
+            imageURL: req.body.imageURL,
+            details: req.body.details,
+        };
+
+        const newPet = new Pet(petData);
+        await newPet.save();
+        res.status(201).json({ message: "Pet added successfully", pet: newPet });
+    } catch (error) {
+        console.error("Error adding pet:", error);
+        res
+            .status(500)
+            .json({ message: "Something went wrong", error: error.message });
+    }
+});
+
+// delete pet route
+app.delete("/pets/:id", async (req, res) => {
+    const petId = req.params.id; // Lấy id từ tham số
+
+    try {
+        const result = await Pet.deleteOne({ id: petId });
+
+        if (result.deletedCount > 0) {
+            return res
+                .status(200)
+                .json({ message: `Pet with ID ${petId} deleted successfully.` });
+        } else {
+            return res.status(404).json({ message: "Pet not found." });
+        }
+    } catch (error) {
+        console.error("Error deleting pet:", error);
+        return res
+            .status(500)
+            .json({ message: "Something went wrong", error: error.message });
+    }
+});
+
+// Update pet route
+app.put("/pet/:id", async (req, res) => {
+    const { id } = req.params;
+    const { name, weight, gender, phone, date, imageURL, details } = req.body;
+
+    console.log("Received update request for pet ID:", id); // In ID để kiểm tra
+    console.log("Update data:", req.body); // In ra dữ liệu nhận được
+
+    try {
+        const updateData = {};
+
+        // Thêm kiểm tra xem các trường có hợp lệ không
+        if (name) updateData.name = name;
+        if (weight) updateData.weight = weight;
+        if (gender) updateData.gender = gender;
+        if (phone) updateData.phone = phone;
+        if (date) updateData.date = new Date(date); // Chuyển đổi date sang dạng Date
+        if (imageURL) updateData.imageURL = imageURL;
+        if (details) updateData.details = details;
+
+        // Kiểm tra xem có trường nào để cập nhật không
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ message: "No fields to update" });
+        }
+
+        // Tìm và cập nhật pet
+        const pet = await Pet.findOneAndUpdate({ id: id }, updateData, {
+            new: true,
+            runValidators: true, // Chạy các validator nếu có
+        });
+
+        if (pet) {
+            res.status(200).json({ message: "Pet updated successfully", pet });
+        } else {
+            res.status(404).json({ message: "Pet not found" });
+        }
+    } catch (error) {
+        console.error("Error updating pet:", error);
+        res
+            .status(500)
+            .json({ message: "Something went wrong", error: error.message });
+    }
+});
+
+// Route to get all pets
+app.get("/pets", async (req, res) => {
+    try {
+        const pets = await Pet.find();
+        res.status(200).json(pets);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong", error });
     }
 });
 
