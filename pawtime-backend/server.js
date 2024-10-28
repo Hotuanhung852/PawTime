@@ -72,10 +72,25 @@ const houseSittingSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+const dropInVisitSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add userId field
+    petType: [String],
+    spacesRequired: String,
+    dropInVisitAddress: String,
+    serviceFrequency: String,
+    fromDate: String,
+    toDate: String,
+    startDate: String,
+    dropInVisitCondition: String,
+    days: [String],
+    createdAt: { type: Date, default: Date.now }
+});
+
 const User = mongoose.model('User', userSchema);
 const Pet = mongoose.model('Pet', petSchema);
 const PetBoarding = mongoose.model('PetBoarding', petBoardingSchema);
 const HouseSitting = mongoose.model('HouseSitting', houseSittingSchema);
+const DropInVisit = mongoose.model('DropInVisit', dropInVisitSchema);
 
 // Set up storage for uploaded images using multer
 const storage = multer.diskStorage({
@@ -153,6 +168,8 @@ app.get('/pets', async (req, res) => {
 // Route to get user profile
 app.get('/profile/:userId', async (req, res) => {
     const { userId } = req.params;
+    console.log('Fetching profile for userId:', userId); // Debugging
+
     try {
         const user = await User.findById(userId);
         if (user) {
@@ -161,6 +178,7 @@ app.get('/profile/:userId', async (req, res) => {
             res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
+        console.error('Error fetching user profile:', error); // Debugging
         res.status(500).json({ message: 'Something went wrong', error });
     }
 });
@@ -505,6 +523,70 @@ app.get("/pets", async (req, res) => {
         res.status(200).json(pets);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong", error });
+    }
+});
+
+app.post('/api/drop-in-visits', async (req, res) => {
+    try {
+        const dropInVisit = new DropInVisit(req.body);
+        await dropInVisit.save();
+        res.status(201).send(dropInVisit);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+app.delete('/api/drop-in-visits/:id', async (req, res) => {
+    try {
+        const dropInVisit = await DropInVisit.findByIdAndDelete(req.params.id);
+        if (!dropInVisit) {
+            return res.status(404).send();
+        }
+        res.status(200).send(dropInVisit);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+// Route to get all house sitting details
+app.get('/house-sitting', async (req, res) => {
+    try {
+        const houseSittingDetails = await HouseSitting.find().sort({ createdAt: -1 });
+        res.status(200).json(houseSittingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all drop-in visits
+app.get('/api/drop-in-visits', async (req, res) => {
+    try {
+        const dropInVisits = await DropInVisit.find().sort({ createdAt: -1 });
+        res.status(200).json(dropInVisits);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get house sitting details for a specific user
+app.get('/house-sitting/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const houseSittingDetails = await HouseSitting.find({ userId }).sort({ createdAt: -1 });
+        res.status(200).json(houseSittingDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get drop-in visit details for a specific user
+app.get('/api/drop-in-visits/:userId', async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const dropInVisitDetails = await DropInVisit.find({ userId }).sort({ createdAt: -1 });
+        res.status(200).json(dropInVisitDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
     }
 });
 

@@ -12,6 +12,8 @@
   -->
   <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!-- Font Awesome CDN-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
 <body>
@@ -104,25 +106,29 @@
               const pickUpDate = new Date(item.pickUpDate);
 
               const detailDiv = document.createElement('div');
-              detailDiv.innerHTML = `
-                            <div class="container">
-                                <h2 style="line-height: 1.5;">Pet Boarding – ${createdAt.toLocaleDateString()} - ${createdAt.toLocaleTimeString()}</h2>
-                                <div style="margin: 3em 0;">
-                                  <p style="line-height: 1.5;">- <strong>Pet Type:</strong> ${item.petType || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Number of pets:</strong> ${item.petCount || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Address:</strong> ${item.address || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}</p>
-                                  <p style="line-height: 1.5;">- <strong>Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}</p>
-                                  <p style="line-height: 1.5;">- <strong>Condition / Description (optional):</strong> ${item.condition || 'None'}</p>
-                                </div>
-                                <div class="button-container">
-                                  <a href="../PetBoardingDetail.html?id=${item._id}">
-                                    <button class="view-button">View</button>
-                                    </a>
-                                    <button class="delete-button" onclick="deletePetBoarding('${item._id}')">Delete</button>
-                                </div>
-                            </div>
-                        `;
+              detailDiv.innerHTML = ` 
+<div class="container"> 
+    <h2 style="line-height: 1.5;">
+  🧳 Pet Boarding – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
+</h2>
+
+    <div style="margin: 3em 0;"> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}</p> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}</p> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}</p> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}</p> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}</p> 
+        <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Condition / Description:</strong></p> 
+        ${item.condition || 'N/A'}
+    </div> 
+    <div class="button-container"> 
+        <a href="../PetBoardingDetail.html?id=${item._id}"> 
+            <button class="view-button">View</button> 
+        </a> 
+        <button class="delete-button" onclick="deletePetBoarding('${item._id}')">Delete</button> 
+    </div> 
+</div>`; 
+
               detailsContainer.appendChild(detailDiv);
             });
           }

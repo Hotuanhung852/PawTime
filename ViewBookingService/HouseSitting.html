@@ -12,11 +12,12 @@
   -->
   <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Font Awesome CDN-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
 <body>
   <nav id="sidebar">
-    <!-- Sidebar content -->
     <ul>
       <li>
         <span class="logo">PawTime</span>
@@ -82,74 +83,84 @@
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-        try {
-            const response = await fetch('/house-sitting');
-            const data = await response.json();
-            console.log('Fetched data:', data); // Debugging: Log the fetched data
-
-            if (response.ok) {
-                const detailsContainer = document.getElementById('houseSittingDetails');
-                detailsContainer.innerHTML = ''; // Clear the loading text
-
-                if (data.length === 0) {
-                    detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No house sitting forms have been created</p>';
-                } else {
-                    data.forEach(item => {
-                        const createdAt = new Date(item.createdAt);
-                        const dropOffDate = new Date(item.dropOffDate);
-                        const pickUpDate = new Date(item.pickUpDate);
-
-                        const detailDiv = document.createElement('div');
-                        detailDiv.innerHTML = `
-                            <div class="container">
-                                <h2 style="line-height: 1.5;">House Sitting – ${createdAt.toLocaleDateString()} - ${createdAt.toLocaleTimeString()}</h2>
-                                <div style="margin: 3em 0;">
-                                  <p style="line-height: 1.5;">- <strong>Pet Type:</strong> ${item.petType || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Number of pets:</strong> ${item.petCount || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Address:</strong> ${item.address || 'N/A'}</p>
-                                  <p style="line-height: 1.5;">- <strong>Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}</p>
-                                  <p style="line-height: 1.5;">- <strong>Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}</p>
-                                  <p style="line-height: 1.5;">- <strong>Condition (optional):</strong> ${item.condition || 'None'}</p>
-                                </div>
-                                <div class="button-container">
-                                  <a href="../HouseSittingDetail.html?id=${item._id}">
-                                    <button class="view-button">View</button>
-                                  </a>
-                                  <button class="delete-button" onclick="deleteHouseSitting('${item._id}')">Delete</button>
-                                </div>
-                            </div>
-                        `;
-                        detailsContainer.appendChild(detailDiv);
-                    });
-                }
-            } else {
-                alert('Failed to load house sitting details: ' + data.message);
-            }
-        } catch (error) {
-            alert('Failed to load house sitting details: ' + error.message);
-        }
-    });
-
-    async function deleteHouseSitting(id) {
-        if (!confirm('Are you sure you want to delete this entry?')) {
-            return;
-        }
-
-        try {
-            const response = await fetch(`/house-sitting/${id}`, {
-                method: 'DELETE'
+    document.addEventListener('DOMContentLoaded', async function () {
+      const userId = localStorage.getItem('userId'); // Retrieve the user ID from localStorage
+  
+      if (!userId) {
+        alert('User not logged in');
+        return;
+      }
+  
+      try {
+        const response = await fetch(`/house-sitting/${userId}`);
+        const data = await response.json();
+        console.log('Fetched data:', data); // Debugging: Log the fetched data
+  
+        if (response.ok) {
+          const detailsContainer = document.getElementById('houseSittingDetails');
+          detailsContainer.innerHTML = ''; // Clear the loading text
+  
+          if (data.length === 0) {
+            detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No house sitting forms have been created</p>';
+          } else {
+            data.forEach(item => {
+              const createdAt = new Date(item.createdAt);
+              const dropOffDate = new Date(item.dropOffDate);
+              const pickUpDate = new Date(item.pickUpDate);
+  
+              const detailDiv = document.createElement('div');
+              detailDiv.innerHTML = `
+                <div class="container">
+                  <h2 style="line-height: 1.5;">
+                    🏠 House Sitting – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
+                  </h2>
+                  <div style="margin: 3em 0;">
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}</p>
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}</p>
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}</p>
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}</p>
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}</p>
+                    <p style="line-height: 1.5; display: flex; align-items: center;"><i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i> <strong style="margin-right: 0.5em;">Condition / Description:</strong></p>
+                    ${item.condition || 'N/A'}
+                  </div>
+                  <div class="button-container">
+                    <a href="../HouseSittingDetail.html?id=${item._id}">
+                      <button class="view-button">View</button>
+                    </a>
+                    <button class="delete-button" onclick="deleteHouseSitting('${item._id}')">Delete</button>
+                  </div>
+                </div>
+              `;
+              detailsContainer.appendChild(detailDiv);
             });
-            const result = await response.json();
-            if (response.ok) {
-                alert('House sitting entry deleted successfully');
-                location.reload(); // Reload the page to reflect the changes
-            } else {
-                alert('Failed to delete house sitting entry: ' + result.message);
-            }
-        } catch (error) {
-            alert('Failed to delete house sitting entry: ' + error.message);
+          }
+        } else {
+          alert('Failed to load house sitting details: ' + data.message);
         }
+      } catch (error) {
+        alert('Failed to load house sitting details: ' + error.message);
+      }
+    });
+  
+    async function deleteHouseSitting(id) {
+      if (!confirm('Are you sure you want to delete this entry?')) {
+        return;
+      }
+  
+      try {
+        const response = await fetch(`/house-sitting/${id}`, {
+          method: 'DELETE'
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert('House sitting entry deleted successfully');
+          location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert('Failed to delete house sitting entry: ' + result.message);
+        }
+      } catch (error) {
+        alert('Failed to delete house sitting entry: ' + error.message);
+      }
     }
   </script>
 </body>

@@ -382,141 +382,127 @@
         </div>
     </section>
 
-      <section class="section drop-in-visits-form" aria-label="form" id="drop-in-visits-form">
-
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-bone"></i>
-        </div>
-        <h3>Drop-In Visits</h3>
-        <div class="form-container">
-
-          <header>Drop-In Visits</header>
-          <form action="#">
-            <div class="form first">
-              <div class="information">
-                <span class="title">Drop-In Visits Information</span>
-                <div class="pet-type-container">
-                  <label for="pet-type">Pet Type</label>
-                  <div class="checkbox-container">
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="cat" name="pet-type" value="cat">
-                      <label for="cat">Cat</label>
-                    </div>
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="dog" name="pet-type" value="dog">
-                      <label for="dog">Dog</label>
-                    </div>
+    <section class="section drop-in-visits-form" aria-label="form" id="drop-in-visits-form">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-bone"></i>
+      </div>
+      <h3>Drop-In Visits</h3>
+      <div class="form-container">
+        <header>Drop-In Visits</header>
+        <form id="dropInForm">
+          <div class="form first">
+            <div class="information">
+              <span class="title">Drop-In Visits Information</span>
+              <div class="pet-type-container">
+                <label for="pet-type">Pet Type</label>
+                <div class="checkbox-container">
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="cat" name="pet-type" value="cat">
+                    <label for="cat">Cat</label>
                   </div>
-                </div>
-
-                <div class="pet-count-container">
-                  <label>How many pets?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="1" checked>
-                      <span class="radio-item">1</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="2">
-                      <span class="radio-item">2</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="3">
-                      <span class="radio-item">3+</span>
-                    </label>
-                  </fieldset>
-                </div>
-
-                <div class="input-field">
-                  <label for="address">Address</label>
-                  <input type="text" placeholder="Enter your address">
-                </div>
-
-                <div class="how-often-container">
-                  <label>How often do you need this service?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="service-frequency" value="one-time" checked
-                        onchange="toggleVisibility()">
-                      <span class="radio-item"><i class="fa-regular fa-calendar"></i>One Time</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="service-frequency" value="repeat-weekly"
-                        onchange="toggleVisibility()">
-                      <span class="radio-item"><i class="fa-solid fa-calendar-week"></i>Repeat Weekly</span>
-                    </label>
-                  </fieldset>
-                </div>
-
-                <div class="one-time-selected" style="margin-top: 10px;">
-                  <div class="fields">
-                    <div class="input-field">
-                      <label for="from-date">From what date?</label>
-                      <input type="date">
-                    </div>
-                    <div class="input-field">
-                      <label for="to-date">To what date?</label>
-                      <input type="date">
-                    </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="dog" name="pet-type" value="dog">
+                    <label for="dog">Dog</label>
                   </div>
-                </div>
-
-                <div class="repeat-weekly-selected" style="display:none; margin-top: 10px;">
-                  <label for="which-days">For which days?</label>
-                  <div class="Popover">
-                    <div class="Wrapper">
-                      <fieldset class="Fieldset">
-                        <label class="Button">
-                          <input type="checkbox" id="sunday">
-                          <span>Sun</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="monday">
-                          <span>Mon</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="tuesday">
-                          <span>Tue</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="wednesday">
-                          <span>Wed</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="thursday">
-                          <span>Thu</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="friday">
-                          <span>Fri</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="saturday">
-                          <span>Sat</span>
-                        </label>
-                      </fieldset>
-                    </div>
-                  </div>
-                  <div class="input-field">
-                    <label for="start-date">Start Date</label>
-                    <input type="date">
-                  </div>
-                </div>
-
-
-
-                <div class="input-field">
-                  <label for="condition">Condition (optional)</label>
-                  <textarea class="textarea" placeholder="Enter your condition"></textarea>
                 </div>
               </div>
-              <button type="submit" class="btn">Submit</button>
+              <div class="pet-count-container">
+                <label>How many pets?</label>
+                <fieldset role="radiogroup" class="radio-group">
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="1" checked>
+                    <span class="radio-item">1</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="2">
+                    <span class="radio-item">2</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="3">
+                    <span class="radio-item">3+</span>
+                  </label>
+                </fieldset>
+              </div>
+              <div class="input-field">
+                <label for="dropInVisitAddress">Address</label>
+                <input type="text" id="dropInVisitAddress" placeholder="Enter your address">
+              </div>
+              <div class="how-often-container">
+                <label>How often do you need this service?</label>
+                <fieldset role="radiogroup" class="radio-group">
+                  <label>
+                    <input type="radio" role="radio" name="service-frequency" value="one-time" checked onchange="toggleVisibility()">
+                    <span class="radio-item"><i class="fa-regular fa-calendar"></i>One Time</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="service-frequency" value="repeat-weekly" onchange="toggleVisibility()">
+                    <span class="radio-item"><i class="fa-solid fa-calendar-week"></i>Repeat Weekly</span>
+                  </label>
+                </fieldset>
+              </div>
+              <div class="one-time-selected" style="margin-top: 10px;">
+                <div class="fields">
+                  <div class="input-field">
+                    <label for="from-date">From what date?</label>
+                    <input type="date" id="from-date">
+                  </div>
+                  <div class="input-field">
+                    <label for="to-date">To what date?</label>
+                    <input type="date" id="to-date">
+                  </div>
+                </div>
+              </div>
+              <div class="repeat-weekly-selected" style="display:none; margin-top: 10px;">
+                <label for="which-days">For which days?</label>
+                <div class="Popover">
+                  <div class="Wrapper">
+                    <fieldset class="Fieldset">
+                      <label class="Button">
+                        <input type="checkbox" id="sunday">
+                        <span>Sun</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="monday">
+                        <span>Mon</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="tuesday">
+                        <span>Tue</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="wednesday">
+                        <span>Wed</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="thursday">
+                        <span>Thu</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="friday">
+                        <span>Fri</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="saturday">
+                        <span>Sat</span>
+                      </label>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="input-field">
+                  <label for="start-date">Start Date</label>
+                  <input type="date" id="start-date">
+                </div>
+              </div>
+              <div class="input-field">
+                <label for="dropInVisitCondition">Condition (optional)</label>
+                <textarea class="textarea" id="dropInVisitCondition" placeholder="Enter your condition"></textarea>
+              </div>
             </div>
-
-          </form>
-        </div>
-
-      </section>
+            <button type="submit" class="btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
       <!-- 
         - #SERVICE
@@ -938,6 +924,55 @@
       } catch (error) {
           alert('Booking failed: ' + error.message);
       }
+  });
+</script>
+<script>
+  document.getElementById('dropInForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const userId = localStorage.getItem('userId'); // Get userId from localStorage
+    const petType = Array.from(document.querySelectorAll('input[name="pet-type"]:checked')).map(el => el.value);
+    const spacesRequired = document.querySelector('input[name="spaces-required"]:checked').value;
+    const dropInVisitAddress = document.getElementById('dropInVisitAddress').value;
+    const serviceFrequency = document.querySelector('input[name="service-frequency"]:checked').value;
+    const fromDate = document.getElementById('from-date').value;
+    const toDate = document.getElementById('to-date').value;
+    const startDate = document.getElementById('start-date').value;
+    const days = Array.from(document.querySelectorAll('.repeat-weekly-selected input[type="checkbox"]:checked')).map(el => el.id);
+    const dropInVisitCondition = document.getElementById('dropInVisitCondition').value;
+
+    const data = {
+      userId,
+      petType,
+      spacesRequired,
+      dropInVisitAddress,
+      serviceFrequency,
+      fromDate,
+      toDate,
+      startDate,
+      days,
+      dropInVisitCondition
+    };
+
+    try {
+      const response = await fetch('/api/drop-in-visits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert('Booking successful');
+        window.location.href = '/ViewBookingService/DropInVisits.html'; // Redirect to DropInVisits.html
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to book: ${errorData.message}`);
+      }
+    } catch (error) {
+      alert(`Failed to book: ${error.message}`);
+    }
   });
 </script>
 </body>
