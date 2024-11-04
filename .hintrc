@@ -24,7 +24,9 @@
           "backdrop-filter",
           "zoom",
           "text-wrap",
-          "text-wrap: nowrap"
+          "text-wrap: nowrap",
+          "scrollbar-width",
+          "scrollbar-width: none"
         ]
       }
     ],

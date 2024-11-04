@@ -35,16 +35,6 @@
                     <span>Service Request Post</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                        fill="#e8eaed">
-                        <path
-                            d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
-                    </svg>
-                    <span>History</span>
-                </a>
-            </li>
         </ul>
     </nav>
 
@@ -151,9 +141,12 @@
                                         <button class="btn contact-btn" onclick="showModal('${item.userId}')">
                                             <i class="fa-solid fa-user"></i> View Profile
                                         </button>
-                                        <button class="btn green-bg" onclick="toggleButtonRequest(this)">
-                                            <i class="fa-solid fa-file-alt"></i> Request Apply
-                                        </button>
+<button class="btn green-bg" id="apply-btn-${item._id}" onclick="applyForRequest('${item._id}')">
+    <i class="fa-solid fa-file-alt"></i> Request Apply
+</button>
+<button class="btn red-bg" id="cancel-btn-${item._id}" style="display: none;" onclick="cancelRequest('${item._id}')">
+    <i class="fa-solid fa-times"></i> Cancel Apply
+</button>
                                     </div>
                                 </div>
                             `;
@@ -188,47 +181,50 @@
 
                             const detailDiv = document.createElement('div');
                             detailDiv.innerHTML = `
-                                <div class="container">
-                                    <h2 style="line-height: 1.5;">
-                                        🏠 House Sitting – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
-                                    </h2>
-                                    <div style="margin: 3em 0;"> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Condition / Description:</strong> 
-                                        </p> 
-                                        ${item.condition || 'None'}
-                                    </div>
-                                    <div class="button-container">
-                                        <button class="btn contact-btn" onclick="showModal('${item.userId}')">
-                                            <i class="fa-solid fa-user"></i> View Profile
-                                        </button>
-                                        <button class="btn green-bg" onclick="toggleButtonRequest(this)">
-                                            <i class="fa-solid fa-file-alt"></i> Request Apply
-                                        </button>
-                                    </div>
-                                </div>
-                            `;
+                        <div class="container">
+                            <h2 style="line-height: 1.5;">
+                                🏠 House Sitting – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
+                            </h2>
+                            <div style="margin: 3em 0;"> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}
+                                </p> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}
+                                </p> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}
+                                </p> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}
+                                </p> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}
+                                </p> 
+                                <p style="line-height: 1.5; display: flex; align-items: center;">
+                                    <i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                    <strong style="margin-right: 0.5em;">Condition / Description:</strong> 
+                                </p> 
+                                ${item.condition || 'None'}
+                            </div>
+                            <div class="button-container">
+                                <button class="btn contact-btn" onclick="showModal('${item.userId}')">
+                                    <i class="fa-solid fa-user"></i> View Profile
+                                </button>
+                                <button class="btn green-bg" id="apply-btn-${item._id}" onclick="applyForHouseSitting('${item._id}')">
+                                    <i class="fa-solid fa-file-alt"></i> Request Apply
+                                </button>
+                                <button class="btn red-bg" id="cancel-btn-${item._id}" style="display: none;" onclick="cancelHouseSittingRequest('${item._id}')">
+                                    <i class="fa-solid fa-times"></i> Cancel Apply
+                                </button>
+                            </div>
+                        </div>
+                    `;
                             detailsContainer.appendChild(detailDiv);
                         });
                     }
@@ -241,23 +237,23 @@
         }
 
         async function fetchDropInVisitData() {
-        try {
-            const response = await fetch('/api/drop-in-visits');
-            const data = await response.json();
-            console.log('Fetched drop-in visit data:', data);
+            try {
+                const response = await fetch('/api/drop-in-visits');
+                const data = await response.json();
+                console.log('Fetched drop-in visit data:', data);
 
-            const detailsContainer = document.getElementById('dropInVisitDetails');
-            detailsContainer.innerHTML = '';
+                const detailsContainer = document.getElementById('dropInVisitDetails');
+                detailsContainer.innerHTML = '';
 
-            if (response.ok) {
-                if (data.length === 0) {
-                    detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No drop-in visit forms have been created</p>';
-                } else {
-                    data.forEach(visit => {
-                        const createdAt = new Date(visit.createdAt);
+                if (response.ok) {
+                    if (data.length === 0) {
+                        detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No drop-in visit forms have been created</p>';
+                    } else {
+                        data.forEach(visit => {
+                            const createdAt = new Date(visit.createdAt);
 
-                        const detailDiv = document.createElement('div');
-                        detailDiv.innerHTML = `
+                            const detailDiv = document.createElement('div');
+                            detailDiv.innerHTML = `
                             <div class="container">
                                 <h2 style="line-height: 1.5;">
                                     🦴 Drop-In Visits – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
@@ -314,16 +310,16 @@
                                 </div>
                             </div>
                         `;
-                        detailsContainer.appendChild(detailDiv);
-                    });
+                            detailsContainer.appendChild(detailDiv);
+                        });
+                    }
+                } else {
+                    alert('Failed to load drop-in visit details: ' + data.message);
                 }
-            } else {
-                alert('Failed to load drop-in visit details: ' + data.message);
+            } catch (error) {
+                alert('Failed to load drop-in visit details: ' + error.message);
             }
-        } catch (error) {
-            alert('Failed to load drop-in visit details: ' + error.message);
         }
-    }
 
         async function fetchUserDetails(userId) {
             console.log('Fetching details for userId:', userId); // Debugging
@@ -407,6 +403,118 @@
         }
 
         document.addEventListener('DOMContentLoaded', checkPetSitterAuth);
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const petSitterId = localStorage.getItem('userId');
+            fetchAppliedRequests(petSitterId);
+        });
+
+        async function fetchAppliedRequests(petSitterId) {
+            try {
+                const response = await fetch(`/pet-sitter-requests/sitter/${petSitterId}`);
+                const requests = await response.json();
+                requests.forEach(request => {
+                    if (request.status === 'pending') {
+                        document.getElementById(`apply-btn-${request.petBoardingId}`).style.display = 'none';
+                        document.getElementById(`cancel-btn-${request.petBoardingId}`).style.display = 'inline-block';
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to fetch applied requests:', error);
+            }
+        }
+
+        async function applyForRequest(petBoardingId) {
+            const petSitterId = localStorage.getItem('userId');
+            try {
+                const response = await fetch('/pet-sitter-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ petBoardingId, petSitterId })
+                });
+                const result = await response.json();
+                alert(result.message);
+                document.getElementById(`apply-btn-${petBoardingId}`).style.display = 'none';
+                document.getElementById(`cancel-btn-${petBoardingId}`).style.display = 'inline-block';
+            } catch (error) {
+                alert('Failed to apply for request: ' + error.message);
+            }
+        }
+
+        async function cancelRequest(petBoardingId) {
+            const petSitterId = localStorage.getItem('userId');
+            try {
+                const response = await fetch(`/pet-sitter-request/cancel`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ petBoardingId, petSitterId })
+                });
+                const result = await response.json();
+                alert(result.message);
+                document.getElementById(`apply-btn-${petBoardingId}`).style.display = 'inline-block';
+                document.getElementById(`cancel-btn-${petBoardingId}`).style.display = 'none';
+            } catch (error) {
+                alert('Failed to cancel request: ' + error.message);
+            }
+        }
+    </script>
+
+    <script>
+        async function applyForHouseSitting(houseSittingId) {
+            const petSitterId = localStorage.getItem('userId');
+            try {
+                const response = await fetch('/house-sitting-request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ houseSittingId, petSitterId })
+                });
+                const result = await response.json();
+                alert(result.message);
+                document.getElementById(`apply-btn-${houseSittingId}`).style.display = 'none';
+                document.getElementById(`cancel-btn-${houseSittingId}`).style.display = 'inline-block';
+            } catch (error) {
+                alert('Failed to apply for request: ' + error.message);
+            }
+        }
+
+        async function cancelHouseSittingRequest(houseSittingId) {
+            const petSitterId = localStorage.getItem('userId');
+            try {
+                const response = await fetch(`/house-sitting-request/cancel`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ houseSittingId, petSitterId })
+                });
+                const result = await response.json();
+                alert(result.message);
+                document.getElementById(`apply-btn-${houseSittingId}`).style.display = 'inline-block';
+                document.getElementById(`cancel-btn-${houseSittingId}`).style.display = 'none';
+            } catch (error) {
+                alert('Failed to cancel request: ' + error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const petSitterId = localStorage.getItem('userId');
+            fetchAppliedHouseSittingRequests(petSitterId);
+        });
+
+        async function fetchAppliedHouseSittingRequests(petSitterId) {
+            try {
+                const response = await fetch(`/house-sitting-requests/sitter/${petSitterId}`);
+                const requests = await response.json();
+                requests.forEach(request => {
+                    if (request.status === 'pending') {
+                        document.getElementById(`apply-btn-${request.houseSittingId}`).style.display = 'none';
+                        document.getElementById(`cancel-btn-${request.houseSittingId}`).style.display = 'inline-block';
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to fetch applied requests:', error);
+            }
+        }
     </script>
 
 </body>

@@ -86,11 +86,28 @@ const dropInVisitSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+const petSitterRequestSchema = new mongoose.Schema({
+    petBoardingId: { type: mongoose.Schema.Types.ObjectId, ref: 'PetBoarding', required: true },
+    petSitterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    status: { type: String, enum: ['pending', 'accepted', 'approved', 'disapproved'], default: 'pending' },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const houseSittingRequestSchema = new mongoose.Schema({
+    houseSittingId: { type: mongoose.Schema.Types.ObjectId, ref: 'HouseSitting', required: true },
+    petSitterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    status: { type: String, enum: ['pending', 'accepted', 'approved', 'disapproved'], default: 'pending' },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const HouseSittingRequest = mongoose.model('HouseSittingRequest', houseSittingRequestSchema);
+
 const User = mongoose.model('User', userSchema);
 const Pet = mongoose.model('Pet', petSchema);
 const PetBoarding = mongoose.model('PetBoarding', petBoardingSchema);
 const HouseSitting = mongoose.model('HouseSitting', houseSittingSchema);
 const DropInVisit = mongoose.model('DropInVisit', dropInVisitSchema);
+const PetSitterRequest = mongoose.model('PetSitterRequest', petSitterRequestSchema);
 
 // Set up storage for uploaded images using multer
 const storage = multer.diskStorage({
@@ -585,6 +602,134 @@ app.get('/api/drop-in-visits/:userId', async (req, res) => {
     try {
         const dropInVisitDetails = await DropInVisit.find({ userId }).sort({ createdAt: -1 });
         res.status(200).json(dropInVisitDetails);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to create a pet sitter request
+app.post('/pet-sitter-request', async (req, res) => {
+    const { petBoardingId, petSitterId } = req.body;
+    try {
+        const newRequest = new PetSitterRequest({ petBoardingId, petSitterId });
+        await newRequest.save();
+        res.status(201).json({ message: 'Request submitted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get pet sitter requests for a specific pet boarding
+app.get('/pet-sitter-requests/:petBoardingId', async (req, res) => {
+    const { petBoardingId } = req.params;
+    try {
+        const requests = await PetSitterRequest.find({ petBoardingId }).populate('petSitterId');
+        res.status(200).json(requests);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to update the status of a pet sitter request
+app.put('/pet-sitter-request/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const request = await PetSitterRequest.findByIdAndUpdate(id, { status }, { new: true });
+        if (status === 'accepted') {
+            await PetSitterRequest.updateMany({ petBoardingId: request.petBoardingId, _id: { $ne: id } }, { status: 'disapproved' });
+        }
+        res.status(200).json({ message: 'Request status updated successfully', request });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to cancel a pet sitter request
+app.post('/pet-sitter-request/cancel', async (req, res) => {
+    const { petBoardingId, petSitterId } = req.body;
+    try {
+        const result = await PetSitterRequest.deleteOne({ petBoardingId, petSitterId });
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: 'Request canceled successfully' });
+        } else {
+            res.status(404).json({ message: 'Request not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get pet sitter requests for a specific pet sitter
+app.get('/pet-sitter-requests/sitter/:petSitterId', async (req, res) => {
+    const { petSitterId } = req.params;
+    try {
+        const requests = await PetSitterRequest.find({ petSitterId, status: 'pending' });
+        res.status(200).json(requests);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to create a house sitting request
+app.post('/house-sitting-request', async (req, res) => {
+    const { houseSittingId, petSitterId } = req.body;
+    try {
+        const newRequest = new HouseSittingRequest({ houseSittingId, petSitterId });
+        await newRequest.save();
+        res.status(201).json({ message: 'Request submitted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get house sitting requests for a specific house sitting
+app.get('/house-sitting-requests/:houseSittingId', async (req, res) => {
+    const { houseSittingId } = req.params;
+    try {
+        const requests = await HouseSittingRequest.find({ houseSittingId }).populate('petSitterId');
+        res.status(200).json(requests);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to update the status of a house sitting request
+app.put('/house-sitting-request/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const request = await HouseSittingRequest.findByIdAndUpdate(id, { status }, { new: true });
+        if (status === 'accepted') {
+            await HouseSittingRequest.updateMany({ houseSittingId: request.houseSittingId, _id: { $ne: id } }, { status: 'disapproved' });
+        }
+        res.status(200).json({ message: 'Request status updated successfully', request });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to cancel a house sitting request
+app.post('/house-sitting-request/cancel', async (req, res) => {
+    const { houseSittingId, petSitterId } = req.body;
+    try {
+        const result = await HouseSittingRequest.deleteOne({ houseSittingId, petSitterId });
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: 'Request canceled successfully' });
+        } else {
+            res.status(404).json({ message: 'Request not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get house sitting requests for a specific pet sitter
+app.get('/house-sitting-requests/sitter/:petSitterId', async (req, res) => {
+    const { petSitterId } = req.params;
+    try {
+        const requests = await HouseSittingRequest.find({ petSitterId, status: 'pending' });
+        res.status(200).json(requests);
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
     }

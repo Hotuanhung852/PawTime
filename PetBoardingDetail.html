@@ -75,91 +75,101 @@
         </a>
 
         <h1>Pet Boarding Details</h1>
-        <div class="card">
-            <div class="card-body">
-                <h3 class="h3 section-title" style="margin: 1em 0;">
-                    Pet Boarding Service Request Response
-                </h3>
-                <section style="display: flex; justify-content: center;">
-                    <div class="card__container">
-                        <div class="card__content">
-                            <div class="card__body">
-                                <h1>Bio:</h1>
-                                <p class="card__text">I'm really love cats. I have taken care of cats for 5 years. I willing to take full responsibility for your cat.</p>
-                            </div>
-                            <div class="card__footer">
-                                <div class="user">
-                                    <!-- Avatar here -->
-                                    <img src="./pawtime-backend/uploads/1729283217916-290936595_3300944553475463_3888120962970242640_n.jpg" alt="user__image" class="user__image">
-                                    <div class="user__info">
-                                        <h1>Ho Tuan Hung</h1>
-                                        <h3 style="margin-top: 1em; margin-left: 0.7em;"><i class="fa-solid fa-phone"></i> 0935115530</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="social-media-links">
-                                <a href="https://www.facebook.com/hung.hotuan.9/" target="_blank">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                                <a href="https://www.instagram.com/henryhung._.852/" target="_blank">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="https://www.tiktok.com/@henryhung852" target="_blank">
-                                    <i class="fa-brands fa-tiktok"></i>
-                                </a>
-                                <a href="https://x.com/HenryHung852" target="_blank">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
-                            </div>
-                            <div class="card__actions">
-                                <button class="btn accept-btn" id="accept-btn">
-                                    <i class="fa-solid fa-check"></i> Accept
-                                </button>
-                                <button class="btn approve-btn" id="approve-btn" style="display: none;">
-                                    <i class="fa-solid fa-thumbs-up"></i> Approve
-                                </button>
-                                <button class="btn disapprove-btn" id="disapprove-btn" style="display: none;">
-                                    <i class="fa-solid fa-thumbs-down"></i> Disapprove
-                                </button>
-                            </div>
-                            <div id="accept-message" style="display: none; color: green; margin-top: 10px;">
-                                Accept successfully!
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+        <div id="petSitterRequests"></div>
     </main>
 
     <script>
-        function redirectToPetTimer() {
-            setTimeout(function () {
-                window.location.href = 'PetTimer.html';
-            }, 1500);
+        document.addEventListener('DOMContentLoaded', function () {
+            const petBoardingId = new URLSearchParams(window.location.search).get('id');
+            fetchPetSitterRequests(petBoardingId);
+        });
+
+        async function fetchPetSitterRequests(petBoardingId) {
+            try {
+                const response = await fetch(`/pet-sitter-requests/${petBoardingId}`);
+                const requests = await response.json();
+                const container = document.getElementById('petSitterRequests');
+                container.innerHTML = '';
+
+                if (requests.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; margin-top: 2em;">No requests have been made</p>';
+                } else {
+                    requests.forEach(request => {
+                        const requestDiv = document.createElement('div');
+                        requestDiv.classList.add('card');
+                        requestDiv.innerHTML = `
+                            <div class="card-body">
+                                <h3 class="h3 section-title" style="margin: 1em 0;">
+                                    Pet Boarding Service Request Response
+                                </h3>
+                                <section style="display: flex; justify-content: center;">
+                                    <div class="card__container">
+                                        <div class="card__content">
+                                            <div class="card__body">
+                                                <h1>Bio:</h1>
+                                                <p class="card__text">${request.petSitterId.bio}</p>
+                                            </div>
+                                            <div class="card__footer">
+                                                <div class="user">
+                                                    <img src="${request.petSitterId.avatar}" alt="user__image" class="user__image">
+                                                    <div class="user__info">
+                                                        <h1>${request.petSitterId.fullname}</h1>
+                                                        <h3 style="margin-top: 1em; margin-left: 0.7em;"><i class="fa-solid fa-phone"></i> ${request.petSitterId.phoneNumber}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="social-media-links">
+                                                ${request.petSitterId.socialLinks.facebook ? `<a href="${request.petSitterId.socialLinks.facebook}" target="_blank"><i class="fa-brands fa-facebook"></i></a>` : ''}
+                                                ${request.petSitterId.socialLinks.instagram ? `<a href="${request.petSitterId.socialLinks.instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a>` : ''}
+                                                ${request.petSitterId.socialLinks.tiktok ? `<a href="${request.petSitterId.socialLinks.tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>` : ''}
+                                                ${request.petSitterId.socialLinks.twitter ? `<a href="${request.petSitterId.socialLinks.twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a>` : ''}
+                                            </div>
+                                            <div class="card__actions">
+                                                <button class="btn accept-btn" id="accept-btn-${request._id}" onclick="updateRequestStatus('${request._id}', 'accepted')">
+                                                    <i class="fa-solid fa-check"></i> Accept
+                                                </button>
+                                                <button class="btn approve-btn" id="approve-btn-${request._id}" style="display: none;" onclick="updateRequestStatus('${request._id}', 'approved')">
+                                                    <i class="fa-solid fa-thumbs-up"></i> Approve
+                                                </button>
+                                                <button class="btn disapprove-btn" id="disapprove-btn-${request._id}" style="display: none;" onclick="updateRequestStatus('${request._id}', 'disapproved')">
+                                                    <i class="fa-solid fa-thumbs-down"></i> Disapprove
+                                                </button>
+                                            </div>
+                                            <div id="accept-message-${request._id}" style="display: none; color: green; margin-top: 10px;">
+                                                Accept successfully!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        `;
+                        container.appendChild(requestDiv);
+                        if (request.status === 'accepted') {
+                            document.getElementById(`accept-btn-${request._id}`).style.display = 'none';
+                            document.getElementById(`approve-btn-${request._id}`).style.display = 'inline-block';
+                            document.getElementById(`disapprove-btn-${request._id}`).style.display = 'inline-block';
+                        }
+                    });
+                }
+            } catch (error) {
+                alert('Failed to load requests: ' + error.message);
+            }
         }
 
-        document.getElementById('accept-btn').addEventListener('click', function () {
-            const acceptBtn = document.getElementById('accept-btn');
-            acceptBtn.style.display = 'none';
-
-            const approveBtn = document.getElementById('approve-btn');
-            const disapproveBtn = document.getElementById('disapprove-btn');
-            approveBtn.style.display = 'inline-block';
-            disapproveBtn.style.display = 'inline-block';
-
-            approveBtn.addEventListener('click', function () {
-                document.getElementById('accept-message').innerText = 'Approved successfully!';
-                document.getElementById('accept-message').style.display = 'block';
-                redirectToPetTimer();
-            });
-
-            disapproveBtn.addEventListener('click', function () {
-                document.getElementById('accept-message').innerText = 'Disapproved successfully!';
-                document.getElementById('accept-message').style.display = 'block';
-                redirectToPetTimer();
-            });
-        });
+        async function updateRequestStatus(requestId, status) {
+            try {
+                const response = await fetch(`/pet-sitter-request/${requestId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                const result = await response.json();
+                alert(result.message);
+                location.reload();
+            } catch (error) {
+                alert('Failed to update request status: ' + error.message);
+            }
+        }
     </script>
 </body>
 

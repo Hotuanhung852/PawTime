@@ -75,91 +75,128 @@
         </a>
 
         <h1>House Sitting Details</h1>
-        <div class="card">
-            <div class="card-body">
-                <h3 class="h3 section-title" style="margin: 1em 0;">
-                    House Sitting Service Request Response
-                </h3>
-                <section style="display: flex; justify-content: center;">
-                    <div class="card__container">
-                        <div class="card__content">
-                            <div class="card__body">
-                                <h1>Bio:</h1>
-                                <p class="card__text">I'm really love cats. I have taken care of cats for 5 years. I willing to take full responsibility for your cat.</p>
-                            </div>
-                            <div class="card__footer">
-                                <div class="user">
-                                    <!-- Avatar here -->
-                                    <img src="./pawtime-backend/uploads/1729283217916-290936595_3300944553475463_3888120962970242640_n.jpg" alt="user__image" class="user__image">
-                                    <div class="user__info">
-                                        <h1>Ho Tuan Hung</h1>
-                                        <h3 style="margin-top: 1em; margin-left: 0.7em;"><i class="fa-solid fa-phone"></i> 0935115530</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="social-media-links">
-                                <a href="https://www.facebook.com/hung.hotuan.9/" target="_blank">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                                <a href="https://www.instagram.com/henryhung._.852/" target="_blank">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="https://www.tiktok.com/@henryhung852" target="_blank">
-                                    <i class="fa-brands fa-tiktok"></i>
-                                </a>
-                                <a href="https://x.com/HenryHung852" target="_blank">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
-                            </div>
-                            <div class="card__actions">
-                                <button class="btn accept-btn" id="accept-btn">
-                                    <i class="fa-solid fa-check"></i> Accept
-                                </button>
-                                <button class="btn approve-btn" id="approve-btn" style="display: none;">
-                                    <i class="fa-solid fa-thumbs-up"></i> Approve
-                                </button>
-                                <button class="btn disapprove-btn" id="disapprove-btn" style="display: none;">
-                                    <i class="fa-solid fa-thumbs-down"></i> Disapprove
-                                </button>
-                            </div>
-                            <div id="accept-message" style="display: none; color: green; margin-top: 10px;">
-                                Accept successfully!
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+        <div id="houseSittingDetails">
+            <!-- House sitting requests will be displayed here -->
         </div>
     </main>
 
     <script>
-        function redirectToPetTimer() {
-            setTimeout(function () {
-                window.location.href = 'PetTimer.html';
-            }, 1500);
+        document.addEventListener('DOMContentLoaded', async function () {
+            const userId = localStorage.getItem('userId'); // Retrieve the user ID from localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const houseSittingId = urlParams.get('id');
+
+            if (!userId) {
+                alert('User not logged in');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/house-sitting-requests/${houseSittingId}`);
+                const requests = await response.json();
+                console.log('Fetched requests:', requests); // Debugging: Log the fetched requests
+
+                if (response.ok) {
+                    const detailsContainer = document.getElementById('houseSittingDetails');
+                    detailsContainer.innerHTML = ''; // Clear the loading text
+
+                    if (requests.length === 0) {
+                        detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No requests have been made</p>';
+                    } else {
+                        requests.forEach(request => {
+                            const petSitter = request.petSitterId;
+                            const requestDiv = document.createElement('div');
+                            requestDiv.innerHTML = `
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="h3 section-title" style="margin: 1em 0;">
+                                            Pet Sitter Request
+                                        </h3>
+                                        <section style="display: flex; justify-content: center;">
+                                            <div class="card__container">
+                                                <div class="card__content">
+                                                    <div class="card__body">
+                                                        <h1>Bio:</h1>
+                                                        <p class="card__text">${petSitter.bio || 'No bio available'}</p>
+                                                    </div>
+                                                    <div class="card__footer">
+                                                        <div class="user">
+                                                            <img src="${petSitter.avatar || './default-avatar.png'}" alt="user__image" class="user__image">
+                                                            <div class="user__info">
+                                                                <h1>${petSitter.fullname}</h1>
+                                                                <h3 style="margin-top: 1em; margin-left: 0.7em;"><i class="fa-solid fa-phone"></i> ${petSitter.phoneNumber}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="social-media-links">
+                                                        ${petSitter.socialLinks.facebook ? `<a href="${petSitter.socialLinks.facebook}" target="_blank"><i class="fa-brands fa-facebook"></i></a>` : ''}
+                                                        ${petSitter.socialLinks.instagram ? `<a href="${petSitter.socialLinks.instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a>` : ''}
+                                                        ${petSitter.socialLinks.tiktok ? `<a href="${petSitter.socialLinks.tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>` : ''}
+                                                        ${petSitter.socialLinks.twitter ? `<a href="${petSitter.socialLinks.twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a>` : ''}
+                                                    </div>
+                                                    <div class="card__actions">
+                                                        ${request.status === 'pending' ? `
+                                                            <button class="btn accept-btn" onclick="acceptRequest('${request._id}')">
+                                                                <i class="fa-solid fa-check"></i> Accept
+                                                            </button>
+                                                        ` : `
+                                                            <button class="btn approve-btn" onclick="updateRequestStatus('${request._id}', 'approved')">
+                                                                <i class="fa-solid fa-thumbs-up"></i> Approve
+                                                            </button>
+                                                            <button class="btn disapprove-btn" onclick="updateRequestStatus('${request._id}', 'disapproved')">
+                                                                <i class="fa-solid fa-thumbs-down"></i> Disapprove
+                                                            </button>
+                                                        `}
+                                                    </div>
+                                                    <div id="accept-message-${request._id}" style="display: none; color: green; margin-top: 10px;">
+                                                        Accept successfully!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            `;
+                            detailsContainer.appendChild(requestDiv);
+                        });
+                    }
+                } else {
+                    alert('Failed to load requests: ' + requests.message);
+                }
+            } catch (error) {
+                alert('Failed to load requests: ' + error.message);
+            }
+        });
+
+        async function acceptRequest(requestId) {
+            try {
+                const response = await fetch(`/house-sitting-request/${requestId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'accepted' })
+                });
+                const result = await response.json();
+                alert(result.message);
+                location.reload(); // Reload the page to reflect the changes
+            } catch (error) {
+                alert('Failed to accept request: ' + error.message);
+            }
         }
 
-        document.getElementById('accept-btn').addEventListener('click', function () {
-            const acceptBtn = document.getElementById('accept-btn');
-            acceptBtn.style.display = 'none';
-
-            const approveBtn = document.getElementById('approve-btn');
-            const disapproveBtn = document.getElementById('disapprove-btn');
-            approveBtn.style.display = 'inline-block';
-            disapproveBtn.style.display = 'inline-block';
-
-            approveBtn.addEventListener('click', function () {
-                document.getElementById('accept-message').innerText = 'Approved successfully!';
-                document.getElementById('accept-message').style.display = 'block';
-                redirectToPetTimer();
-            });
-
-            disapproveBtn.addEventListener('click', function () {
-                document.getElementById('accept-message').innerText = 'Disapproved successfully!';
-                document.getElementById('accept-message').style.display = 'block';
-                redirectToPetTimer();
-            });
-        });
+        async function updateRequestStatus(requestId, status) {
+            try {
+                const response = await fetch(`/house-sitting-request/${requestId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                const result = await response.json();
+                alert(result.message);
+                location.reload(); // Reload the page to reflect the changes
+            } catch (error) {
+                alert('Failed to update request status: ' + error.message);
+            }
+        }
     </script>
 </body>
 

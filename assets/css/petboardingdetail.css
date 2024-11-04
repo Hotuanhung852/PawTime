@@ -1,46 +1,46 @@
 .btn {
-    padding: 15px 30px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.3s;
+  padding: 15px 30px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .green-bg {
-    background-color: green;
+  background-color: green;
 }
 
 .green-bg:hover {
-    background-color: darkgreen;
-    transform: scale(1.05);
+  background-color: darkgreen;
+  transform: scale(1.05);
 }
 
 .red-bg {
-    background-color: red;
+  background-color: red;
 }
 
 .red-bg:hover {
-    background-color: darkred;
-    transform: scale(1.05);
+  background-color: darkred;
+  transform: scale(1.05);
 }
 
 /* Approve button styles */
 .approve-btn {
-    background-color: #4CAF50; /* Green */
-    color: white;
+  background-color: #4caf50; /* Green */
+  color: white;
 }
 
 .approve-btn:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /* Disapprove button styles */
 .disapprove-btn {
-    background-color: #f44336; /* Red */
-    color: white;
+  background-color: #f44336; /* Red */
+  color: white;
 }
 
 .disapprove-btn:hover {
-    background-color: #da190b;
+  background-color: #da190b;
 }
