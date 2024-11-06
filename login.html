@@ -97,7 +97,7 @@
                     alert('Login successful!');
 
                     // Redirect based on role
-                    redirectUser(result.role);
+                    redirectUser(result.redirectUrl);
                 } else {
                     alert(result.message);
                 }
@@ -156,13 +156,8 @@
         });
 
         // Function to handle user redirection based on role
-        function redirectUser(role) {
-            switch (role) {
-                case 'guest':
-                default:
-                    window.location.href = 'index.html';
-                    break;
-            }
+        function redirectUser(redirectUrl) {
+            window.location.href = redirectUrl;
         }
 
         // Form toggle functionality

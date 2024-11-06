@@ -5,6 +5,94 @@
 /**
  * copyright 2022 codewithsadee
  */
+/*Modal CSS*/
+
+.modal-container {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background-color: #fffffff2;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  text-align: center;
+  width: 690px;
+  max-width: 100%;
+  transform: translateY(-200%);
+  transition: transform 0.3s ease;
+}
+
+.modal-container.show .modal {
+  transform: translateY(0);
+}
+
+.modal h1 {
+  margin: 0;
+}
+
+.modal p {
+  font-size: 21px;
+  opacity: 0.7;
+  padding: 1em 0;
+}
+
+.button-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%; /* Make sure it spans the modal's width */
+}
+
+.modal button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#close {
+  background-color: #f44336; /* Red color */
+  color: white;
+  margin-right: auto; /* Aligns to the left */
+  border-radius: 5px;
+}
+
+#close:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.modal button a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.modal button:last-child {
+  background-color: #4caf50; /* Green color */
+  color: white;
+  margin-left: auto; /* Aligns to the right */
+  border-radius: 5px;
+}
+
+.modal button:last-child:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
 
 /*-----------------------------------*\
   #CUSTOM PROPERTY
@@ -1297,37 +1385,48 @@ textarea.form-control {
 .button-group {
   margin-top: 20px;
   display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
   gap: 10px;
 }
 
-/* Style cho nút Edit */
+/* Style cho nút Edit và Delete */
+.btn-edit,
+.btn-detail,
+.btn-delete {
+  background-color: #383e39; /* Default background for all buttons */
+  color: white; /* Text color */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for the buttons */
+  cursor: pointer; /* Pointer on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  font-size: 16px; /* Font size */
+}
+
+/* Specific styles for Edit button */
 .btn-edit {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  background-color: #2a2828; /* Green background */
 }
 
 .btn-edit:hover {
-  background-color: #383e39;
+  background-color: #383e39; /* Change to dark on hover */
 }
 
-/* Style cho nút Delete */
+/* Specific styles for Delete button */
 .btn-delete {
-  background-color: #383e39;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  background-color: #2a2828;
+}
+.btn-delete:hover {
+  background-color: #383e39; /* Change to red on hover */
 }
 
-.btn-delete:hover {
-  background-color: #383e39;
+/* Specific styles for Detail button */
+.btn-detail {
+  background-color: #2a2828; /* Blue background */
+}
+
+.btn-detail:hover {
+  background-color: #383e39; /* Darker blue on hover */
 }
 
 /* Responsive styling */
@@ -1336,32 +1435,6 @@ textarea.form-control {
     width: 100%;
     height: auto;
   }
-}
-/* Button group trong phần chi tiết */
-.button-group {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  gap: 10px;
-}
-
-/* Style cho nút Edit và Delete */
-.btn-edit,
-.btn-delete {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: white;
-  transition: color 0.3s;
-}
-
-.btn-edit:hover {
-  color: #383e39;
-}
-
-.btn-delete:hover {
-  color: #383e39;
 }
 
 /* Responsive styling */
@@ -1383,91 +1456,45 @@ textarea.form-control {
   padding-bottom: 1px;
 }
 
-/*Modal CSS*/
-
-.modal-container {
-	position: fixed;
-	background-color: rgba(0, 0, 0, 0.3);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
-	transition: opacity 0.3s ease;
-	pointer-events: none;
+#success-notification {
+  position: fixed; /* Đặt nó ở vị trí cố định */
+  top: 20px; /* Cách cạnh trên 20px */
+  right: 20px; /* Cách cạnh phải 20px */
+  background-color: #4caf50; /* Màu nền xanh lá cây */
+  color: white; /* Màu chữ trắng */
+  padding: 15px; /* Khoảng cách bên trong */
+  border-radius: 5px; /* Bo góc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng cho hiệu ứng 3D */
+  z-index: 1000; /* Đảm bảo nó nằm trên các phần tử khác */
+  transition: opacity 0.5s ease; /* Hiệu ứng chuyển tiếp khi hiển thị */
+  opacity: 0; /* Bắt đầu với độ mờ */
 }
 
-.modal-container.show {
-	opacity: 1;
-	pointer-events: auto;
+#success-notification.show {
+  opacity: 1; /* Khi có lớp 'show', độ mờ là 1 */
+}
+.button-group {
+  position: relative; /* Để tooltip có thể được định vị tương đối */
 }
 
-.modal {
-	background-color: #fffffff2;
-	border-radius: 10px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	padding: 30px 50px;
-	text-align: center;
-	width: 690px;
-	max-width: 100%;
-	transform: translateY(-200%);
-	transition: transform 0.3s ease;
+.button-group button {
+  position: relative;
 }
 
-.modal-container.show .modal {
-	transform: translateY(0);
-}
-
-.modal h1 {
-	margin: 0;
-}
-
-.modal p {
-	font-size: 21px;
-	opacity: 0.7;
-  padding: 1em 0;
-}
-
-.button-container {
-  display: flex !important;
-  justify-content: space-between !important;
-  width: 100%; /* Make sure it spans the modal's width */
-}
-
-.modal button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#close {
-  background-color: #f44336; /* Red color */
+.tooltip {
+  display: none; /* Ẩn tooltip mặc định */
+  position: absolute;
+  bottom: 100%; /* Hiển thị trên nút */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  margin-right: auto; /* Aligns to the left */
+  padding: 5px;
   border-radius: 5px;
+  white-space: nowrap; /* Không cho phép ngắt dòng */
+  z-index: 10;
 }
 
-#close:hover {
-  background-color: #d32f2f; /* Darker red on hover */
-}
-
-.modal button a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.modal button:last-child {
-  background-color: #4CAF50; /* Green color */
-  color: white;
-  margin-left: auto; /* Aligns to the right */
-  border-radius: 5px;
-}
-
-.modal button:last-child:hover {
-  background-color: #388E3C; /* Darker green on hover */
+.button-group button:hover .tooltip {
+  display: block; /* Hiện tooltip khi hover */
 }

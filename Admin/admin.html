@@ -1,68 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- Boxicons -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
 	<!-- My CSS -->
-	<link rel="stylesheet" href="admin.css">
-    <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="admin.css" />
+	<link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml" />
 
 	<title>AdminHub</title>
 </head>
+
 <body>
-
-
 	<!-- SIDEBAR -->
 	<section id="sidebar">
 		<a href="#" class="brand">
-			<i class='bx bxs-bar-chart-square' style="margin-top: 3px;"></i>
+			<i class="bx bxs-bar-chart-square" style="margin-top: 3px"></i>
 			<span class="text">AdminHub</span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
 				<a href="admin.html">
-					<i class='bx bxs-dashboard' ></i>
+					<i class="bx bxs-dashboard"></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="#">
-					<i class='bx bxs-group' ></i>
+				<a href="users.html">
+					<i class="bx bxs-group"></i>
 					<span class="text">Users</span>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<i class='bx bxs-binoculars'></i>
+					<i class="bx bxs-binoculars"></i>
 					<span class="text">Pet Sitters</span>
-				</a>
-			</li>
-            <li>
-				<a href="#">
-					<i class='bx bxs-briefcase-alt-2' ></i>
-					<span class="text">Pet Boarding</span>
-				</a>
-			</li>
-            <li>
-				<a href="#">
-					<i class='bx bx-home' ></i>
-					<span class="text">House Sitting</span>
-				</a>
-			</li>
-            <li>
-				<a href="#">
-					<i class='bx bxs-calendar-week'></i>
-					<span class="text">Drop-In Visits</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="#" class="logout">
-					<i style="margin-top: 2.9px;" class='bx bx-log-out'></i>
+				<a href="#" id="logout-button" class="logout">
+					<i style="margin-top: 2.9px" class="bx bx-log-out"></i>
 					<span class="text">Logout</span>
 				</a>
 			</li>
@@ -70,22 +52,22 @@
 	</section>
 	<!-- SIDEBAR -->
 
-
-
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
 		<nav>
-			<i class='bx bx-menu' ></i>
+			<i class="bx bx-menu"></i>
 			<form action="#">
-				<div class="form-input" style="display: none;">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				<div class="form-input" style="display: none">
+					<button type="submit" class="search-btn">
+						<i class="bx bx-search"></i>
+					</button>
 				</div>
 			</form>
-			<input type="checkbox" id="switch-mode" hidden>
+			<input type="checkbox" id="switch-mode" hidden />
 			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
-				<img src="img/people.png">
+				<img src="img/people.png" />
 			</a>
 		</nav>
 		<!-- NAVBAR -->
@@ -100,137 +82,118 @@
 
 			<ul class="box-info">
 				<li>
-					<i class='bx bxs-group' ></i>
+					<i class="bx bxs-group"></i>
 					<span class="text">
-						<h3>2834</h3>
+						<h3 id="guest-count">0</h3>
 						<p>Users</p>
 					</span>
 				</li>
-
+				
 				<li>
-					<i class='bx bxs-binoculars'></i>
+					<i class="bx bxs-binoculars"></i>
 					<span class="text">
-						<h3>1020</h3>
+						<h3 id="pet-sitter-count">0</h3>
 						<p>Pet Sitters</p>
 					</span>
 				</li>
 
 				<li>
-					<i class='bx bxs-bone'></i>
+					<i class="bx bxs-bone"></i>
 					<span class="text">
-						<h3>20</h3>
+						<h3 id="pet-count"></h3>
 						<p>Pets</p>
 					</span>
 				</li>
-				
+
 				<li>
-					<i class='bx bxs-dollar-circle' ></i>
+					<i class="bx bxs-dollar-circle"></i>
 					<span class="text">
-						<h3>$2543</h3>
+						<h3>$313</h3>
 						<p>Total Sales</p>
 					</span>
 				</li>
 			</ul>
 
-
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
 						<h3>Recent Transaction</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
+						<i class="bx bx-search"></i>
+						<i class="bx bx-filter"></i>
 					</div>
 					<table>
 						<thead>
 							<tr>
 								<th>User</th>
 								<th>Date Transaction</th>
-                                <th>Amount</th>
-                                <th>Transaction ID</th>
+								<th>Amount</th>
+								<th>Transaction ID</th>
 								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>
-									<img src="img/people.png">
+									<img src="img/people.png" />
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2021</td>
-                                <td>$24</td>
-                                <td>61D4F5V1245X7490</td>
-								<td><span class="status completed">Completed</span></td>    
+								<td>$24</td>
+								<td>61D4F5V1245X7490</td>
+								<td><span class="status completed">Completed</span></td>
 							</tr>
 							<tr>
 								<td>
-									<img src="img/people.png">
+									<img src="img/people.png" />
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2021</td>
-                                <td>$120</td>
-                                <td>61D4F5V1245X7490</td>
+								<td>$120</td>
+								<td>61D4F5V1245X7490</td>
 								<td><span class="status pending">Pending</span></td>
 							</tr>
 							<tr>
 								<td>
-									<img src="img/people.png">
+									<img src="img/people.png" />
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2021</td>
-                                <td>$0</td>
-                                <td>61D4F5V1245X7490</td>
+								<td>$0</td>
+								<td>61D4F5V1245X7490</td>
 								<td><span class="status trial">Trial</span></td>
 							</tr>
 							<tr>
 								<td>
-									<img src="img/people.png">
+									<img src="img/people.png" />
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2021</td>
-                                <td>$145</td>
-                                <td>61D4F5V1245X7490</td>
+								<td>$145</td>
+								<td>61D4F5V1245X7490</td>
 								<td><span class="status failed">Failed</span></td>
 							</tr>
 							<tr>
 								<td>
-									<img src="img/people.png">
+									<img src="img/people.png" />
 									<p>John Doe</p>
 								</td>
 								<td>01-10-2021</td>
-                                <td>$24</td>
-                                <td>61D4F5V1245X7490</td>
+								<td>$24</td>
+								<td>61D4F5V1245X7490</td>
 								<td><span class="status completed">Completed</span></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+
 				<div class="todo">
 					<div class="head">
 						<h3>Pets</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
+						<!-- <i class="bx bx-search"></i>
+              <i class="bx bx-filter"></i> -->
 					</div>
-					<ul class="todo-list">
-						<li class="not-completed">
-							<p>Mike</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Muop</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Kurl</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Kiki</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>V</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
+					<ul class="todo-list" id="pet-list">
+						<!-- Pet items will be populated here by JavaScript -->
 					</ul>
 				</div>
 			</div>
@@ -238,8 +201,65 @@
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
-	
 
 	<script src="admin.js"></script>
+	<script>
+		async function fetchPetData() {
+			try {
+				const response = await fetch("http://localhost:3000/pets");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const pets = await response.json();
+
+				// Display the total number of pets
+				document.getElementById("pet-count").textContent = pets.length;
+			} catch (error) {
+				console.error("Fetch error:", error);
+				document.getElementById("pet-count").textContent = "Error";
+			}
+		}
+
+		fetchPetData();
+	</script>
+
+	<script>
+		async function fetchPets() {
+			try {
+				const response = await fetch("http://localhost:3000/pets");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const pets = await response.json();
+
+				// Get the list element
+				const petList = document.getElementById("pet-list");
+				petList.innerHTML = ""; // Clear existing content
+
+				// Loop through each pet and create a list item
+				pets.forEach((pet) => {
+					const listItem = document.createElement("li");
+					listItem.classList.add("not-completed");
+
+					const petName = document.createElement("p");
+					petName.textContent = pet.name;
+
+					const optionsIcon = document.createElement("i");
+					optionsIcon.classList.add("bx", "bx-dots-vertical-rounded");
+
+					listItem.appendChild(petName);
+					listItem.appendChild(optionsIcon);
+					petList.appendChild(listItem);
+				});
+			} catch (error) {
+				console.error("Fetch error:", error);
+				document.getElementById("pet-list").innerHTML =
+					"<li>Error loading pets</li>";
+			}
+		}
+
+		fetchPets();
+	</script>
 </body>
+
 </html>

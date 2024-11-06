@@ -74,3 +74,28 @@ switchMode.addEventListener('change', function () {
 		document.body.classList.remove('dark');
 	}
 })
+
+async function fetchUserCounts() {
+    try {
+        const response = await fetch("http://localhost:3000/user-counts");
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const { guestCount, petSitterCount } = await response.json();
+
+        // Display the counts
+        document.getElementById("guest-count").textContent = guestCount;
+        document.getElementById("pet-sitter-count").textContent = petSitterCount;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        document.getElementById("guest-count").textContent = "Error";
+        document.getElementById("pet-sitter-count").textContent = "Error";
+    }
+}
+
+fetchUserCounts();
+
+document.getElementById('logout-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    window.location.href = 'http://localhost:3000/login.html';
+});

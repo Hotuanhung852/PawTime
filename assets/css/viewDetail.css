@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box; /* Đảm bảo padding và border được bao gồm trong tổng chiều rộng và chiều cao */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-image: url("https://img.freepik.com/free-vector/frame-with-dogs-vector-white-background_53876-127700.jpg"); /* Hình nền */
+  background-size: cover; /* Kích thước hình nền */
+  background-position: center; /* Căn giữa hình nền */
+  background-repeat: no-repeat; /* Không lặp lại hình nền */
+  margin: 0;
+  padding: 20px;
+  height: 100vh; /* Chiều cao toàn bộ viewport */
+}
+
+h1 {
+  text-align: center;
+  color: #353738; /* Màu chữ tiêu đề */
+}
+
+#pet-details {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pet-table {
+  width: 100%; /* Đặt chiều rộng của bảng */
+  border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+  max-width: 600px; /* Độ rộng tối đa cho bảng */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pet-table td {
+  padding: 15px; /* Khoảng cách giữa nội dung và biên bảng */
+}
+
+.pet-image {
+  width: 200px; /* Kích thước hình ảnh nhỏ hơn */
+  height: auto; /* Giữ tỉ lệ hình ảnh */
+  object-fit: cover; /* Giữ tỉ lệ hình ảnh */
+  border-radius: 5px; /* Bo góc cho hình ảnh */
+}
+
+.pet-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pet-info h2 {
+  margin: 0 0 10px 0;
+  color: #333; /* Thay đổi màu chữ cho tên thú cưng */
+}
+
+#back-button {
+  margin-bottom: 20px; /* Khoảng cách phía dưới nút */
+  padding: 10px 15px; /* Khoảng cách bên trong nút */
+  font-size: 16px; /* Kích thước chữ */
+  background-color: #353738; /* Màu nền nút */
+  color: white; /* Màu chữ */
+  border: none; /* Không viền */
+  border-radius: 5px; /* Bo góc nút */
+  cursor: pointer; /* Hiệu ứng con trỏ */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu và phóng to */
+}
+
+#back-button:hover {
+  background-color: #0056b3; /* Màu nền khi di chuột lên nút */
+  transform: scale(1.05); /* Phóng to nút khi di chuột lên */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
+}
+
+#back-button:active {
+  transform: scale(0.95); /* Giảm kích thước khi nhấn nút */
+}

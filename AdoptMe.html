@@ -179,23 +179,23 @@
 
 
 
-      <section class="section petboarding-form" aria-label="form" id="petboarding-form">      
-      
+      <section class="section petboarding-form" aria-label="form" id="petboarding-form">
         <div class="icon-wrapper">
             <i class="fas fa-paw"></i>
         </div>
+    
         <h3>Add New Pet</h3>
+    
+    
         <form action="" class="form-add-pet" id="form">
             <div class="form-add-pet-group">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="name" id="name" placeholder="Enter pet name" class="form-control">
             </div>
-            <!-- weight this pet -->  
             <div class="form-add-pet-group">
                 <label for="weight" class="form-label">Weight</label>
                 <input type="number" name="weight" id="weight" placeholder="Enter pet weight" class="form-control">
             </div>
-            <!-- gender this pet -->
             <div class="form-add-pet-group">
                 <label for="gender" class="form-label">Gender</label>
                 <select name="gender" id="gender" class="form-control">
@@ -212,24 +212,22 @@
                 <input type="date" name="date" id="date" class="form-control">
             </div>
             <div class="form-add-pet-group">
-              <!-- INPUT IMAGE URL -->
-              <label for="imageURL" class="form-label">Image URL</label>    
-              <input type="url" name="imageURL" id="imageURL" placeholder="Enter image URL" class="form-control">
-          </div>
-          
-            <!-- details this pet -->
-            <div class="form-add-pet-group">          
+                <label for="imageURL" class="form-label">Image URL</label>
+                <input type="url" name="imageURL" id="imageURL" placeholder="Enter image URL" class="form-control">
+            </div>
+            <div class="form-add-pet-group">
                 <label for="details" class="form-label">Details</label>
                 <textarea name="details" id="details" cols="30" rows="10" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn-add-pet">Submit</button>
         </form>
+        <div id="success-notification" style="display:none;">Pet added successfully!... Wait for seconds to reload the page ..</div>
+    </section>
+    
+    <script>
+      document.getElementById('form').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-        <script>
-         document.getElementById('form').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Ngăn chặn hành vi mặc định của form
-
-    // Lấy dữ liệu từ form
     const petData = {
         name: document.getElementById('name').value,
         weight: document.getElementById('weight').value,
@@ -241,40 +239,47 @@
     };
 
     try {
-        // Gửi dữ liệu đến API
         const response = await fetch("http://localhost:3000/pets", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(petData),
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (response.ok) {
+            const notification = document.getElementById('success-notification');
+            notification.style.display = 'block'; // Hiển thị thông báo
+            notification.classList.add('show'); // Thêm lớp 'show' để hiển thị
 
-        // Xử lý phản hồi từ API (nếu cần)
-        const result = await response.json();
-        console.log('Pet added successfully:', result);
-        // Có thể thêm thông báo thành công hoặc điều hướng đến trang khác ở đây
+            setTimeout(() => {
+                notification.classList.remove('show'); // Xóa lớp 'show' sau 3 giây
+                notification.style.display = 'none'; // Ẩn thông báo
+                document.getElementById('form').reset(); // Reset form
+                location.reload(); // Tải lại trang
+            }, 1000);
+        } else {
+            alert(`Failed to add pet. Status code: ${response.status}`);
+        }
     } catch (error) {
-        console.error('Error adding pet:', error);
-        // Hiển thị thông báo lỗi cho người dùng nếu cần
+        console.error('Network error:', error);
+        alert('Could not connect to the API! Please check your server.');
     }
 });
-
-
-          </script>
+    </script>
+    
     </section>
 
     <section class="section product" id="shop" aria-label="product">
       <div class="container">
         <h2 class="h2 section-title"><span class="span">Second-hand</span> pet supplies.</h2>
         <!-- Product List -->
-        <ul class="grid-list"></ul>
+        <ul class="grid-list" id="product-list">
+          <!-- Product items will be appended here by JavaScript -->
+        </ul>
       </div>
     </section>
+    
+  
+    </script>
 
 
       <!-- 
@@ -521,11 +526,23 @@
                                     <p><strong>Weight:</strong> ${pet.weight}</p>
                                     <p><strong>Gender:</strong> ${pet.gender}</p>
                                     <p><strong>Phone:</strong> ${pet.phone}</p>
-                                    <p><strong>Details:</strong> ${pet.details}</p>
+                                    
+                                <p><strong>Details:</strong> ${pet.details.length > 50 ? pet.details.substring(0, 50) + '...' : pet.details}</p>
                                     <div class="button-group">
-                                        <button class="btn-edit" onclick="editPet('${pet.id}')"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-delete" onclick="deletePet('${pet.id}')"><i class="fas fa-trash"></i></button>
-                                    </div>
+    <button class="btn-detail" onclick="window.location.href='viewPetDetails.html?id=${pet.id}'">
+        <i class="fas fa-info-circle"></i>
+        <span class="tooltip">View</span>
+    </button>
+    <button class="btn-edit" onclick="editPet('${pet.id}')">
+        <i class="fas fa-edit"></i>
+        <span class="tooltip">Edit</span>
+    </button>
+    <button class="btn-delete" onclick="deletePet('${pet.id}')">
+        <i class="fas fa-trash"></i>
+        <span class="tooltip">Delete</span>
+    </button>
+</div>
+
                                 </div>
                             </div>
                         </a>
@@ -538,6 +555,7 @@
                 productContainer.innerHTML = '<p>Error loading pets. Please try again later.</p>';
             });
     });
+    
 
     function editPet(petId) {
         window.location.href = `editPet.html?id=${petId}`;
@@ -557,7 +575,18 @@
             if (petElement) {
                 productContainer.removeChild(petElement);
             }
-            alert('Pet deleted successfully!');
+
+            // Hiển thị thông báo xóa thành công
+            const notification = document.getElementById('success-notification');
+            notification.textContent = 'Pet deleted successfully!... Wait for seconds to reload the page ...'; // Thay đổi nội dung thông báo
+            notification.style.display = 'block'; // Hiển thị thông báo
+            notification.classList.add('show'); // Thêm lớp 'show' để hiển thị
+
+            setTimeout(() => {
+                notification.classList.remove('show'); // Xóa lớp 'show' sau 3 giây
+                notification.style.display = 'none'; // Ẩn thông báo
+                location.reload(); // Tải lại trang
+            }, 1000);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -568,8 +597,40 @@
 
 
 
-
 </script>
+<!-- <script>
+  // Hàm để tải dữ liệu từ API và hiển thị trên trang
+  async function fetchPetSupplies() {
+    try {
+      const response = await fetch('http://localhost:3000/petsupplies');
+      
+      const petSupplies = await response.json();
+
+      const productList = document.getElementById('product-list');
+      petSupplies.forEach(item => {
+        const productItem = document.createElement('li');
+        productItem.classList.add('product-item-secondhand');
+        productItem.innerHTML = `
+          <article class="product-card-secondhand">
+            <figure class="product-banner-secondhand">
+              <img src="${item.imagePath}" alt="${item.name}" class="product-img">
+            </figure>
+            <h3 class="h3 product-title-secondhand">${item.name}</h3>
+            <p class="product-phone-secondhand">Liên hệ: ${item.phone}</p>
+            <p class="product-details-secondhand">${item.details}</p>
+          </article>
+        `;
+        productList.appendChild(productItem);
+      });
+    } catch (error) {
+      console.error('Lỗi khi tải dữ liệu:', error);
+    }
+  }
+
+  // Gọi hàm fetchPetSupplies khi tải trang
+  document.addEventListener('DOMContentLoaded', fetchPetSupplies);
+</script> -->
+
 
 <script src="./assets/js/script.js" defer></script>
 

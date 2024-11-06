@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../'))); // Serve static files from the root directory
+app.use('/Admin', express.static(path.join(__dirname, 'Admin')));
 
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/PawTime');
@@ -132,7 +133,8 @@ app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ username, password });
         if (user) {
-            res.status(200).json({ message: 'Login successful', role: user.role, userId: user._id });
+            const redirectUrl = user.role === 'admin' ? '/Admin/admin.html' : '/index.html'; // Adjust the URL as needed
+            res.status(200).json({ message: 'Login successful', role: user.role, userId: user._id, redirectUrl });
         } else {
             res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -730,6 +732,52 @@ app.get('/house-sitting-requests/sitter/:petSitterId', async (req, res) => {
     try {
         const requests = await HouseSittingRequest.find({ petSitterId, status: 'pending' });
         res.status(200).json(requests);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get user counts by role
+app.get('/user-counts', async (req, res) => {
+    try {
+        const guestCount = await User.countDocuments({ role: 'guest' });
+        const petSitterCount = await User.countDocuments({ role: 'pet_sitter' });
+        res.status(200).json({ guestCount, petSitterCount });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all users with role "guest"
+app.get('/users/guests', async (req, res) => {
+    try {
+        const users = await User.find({ role: 'guest' }, 'username fullname phoneNumber createdAt status avatar');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to delete a user by ID
+app.delete('/users/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await User.findByIdAndDelete(id);
+        if (result) {
+            res.status(200).json({ message: 'User deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+// Route to get all users with role "pet_sitter"
+app.get('/users/petsitters', async (req, res) => {
+    try {
+        const users = await User.find({ role: 'pet_sitter' }, 'username fullname phoneNumber createdAt avatar');
+        res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
     }

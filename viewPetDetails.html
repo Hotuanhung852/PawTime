@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Details</title>
+    <link rel="stylesheet" href="./assets/css/viewDetail.css" />
+  </head>
+  <body>
+    <h1>Pet Details</h1>
+    <button id="back-button" onclick="goBack()">Back</button>
+    <div id="pet-details"></div>
+
+    <script>
+      function goBack() {
+        window.history.back(); // Quay lại trang trước đó
+      }
+
+      // Lấy query parameter từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const petId = urlParams.get("id");
+
+      // Hàm fetch thông tin thú cưng
+      async function fetchPetDetails(id) {
+        try {
+          const response = await fetch(`http://localhost:3000/pet/${id}`);
+          if (response.status === 404) {
+            document.getElementById("pet-details").innerHTML =
+              "<p>Pet not found.</p>";
+            return;
+          }
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const petData = await response.json();
+          displayPetDetails(petData);
+        } catch (error) {
+          console.error(
+            "There has been a problem with your fetch operation:",
+            error
+          );
+          document.getElementById("pet-details").innerHTML =
+            "<p>Error loading pet details. Please try again later.</p>";
+        }
+      }
+
+      // Hàm hiển thị thông tin thú cưng lên trang
+      function displayPetDetails(pet) {
+        const petDetailsDiv = document.getElementById("pet-details");
+        petDetailsDiv.innerHTML = `
+                <table class="pet-table">
+                    <tr>
+                        <td>
+                            <img src="${pet.imageURL}" alt="${
+          pet.name
+        }" class="pet-image">
+                        </td>
+                        <td class="pet-info">
+                            <h2>${pet.name}</h2>
+                            <p><strong>Weight:</strong> ${pet.weight}</p>
+                            <p><strong>Gender:</strong> ${pet.gender}</p>
+                            <p><strong>Phone:</strong> ${pet.phone}</p>
+                            <p><strong>Date:</strong> ${new Date(
+                              pet.date
+                            ).toLocaleDateString()}</p>
+                            <p><strong>Details:</strong> ${pet.details}</p>
+                        </td>
+                    </tr>
+                </table>
+            `;
+      }
+
+      // Fetch thông tin thú cưng khi tải trang
+      if (petId) {
+        fetchPetDetails(petId);
+      } else {
+        document.getElementById("pet-details").innerHTML =
+          "<p>No pet selected.</p>";
+      }
+    </script>
+  </body>
+</html>
