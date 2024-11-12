@@ -108,26 +108,6 @@
                 <a href="login.html" class="navbar-action-btn">Log In</a>
             </nav>
 
-            <!-- Modal -->
-            <div class="modal-container" id="modal_container">
-                <div class="modal">
-                    <h1>🐕 Become a Pet Sitter 🐈</h1>
-                    <p>🐾 Are you interested in becoming a pet sitter? 🐾 Sign up now and start earning money by taking
-                        care of
-                        adorable pets! 🐶🐱</p>
-                    <div class="button-container">
-                        <button id="close">
-                            Close
-                        </button>
-                        <button>
-                            <a href="Price.html">Get Started</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!------------------->
-
-
             <div class="header-actions">
 
                 <!-- <button class="action-btn" aria-label="Search">
@@ -184,102 +164,109 @@
                 </h3>
             </div>
             <section class="price-comparison">
+
                 <div class="price-column">
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            24
-                            <div class="per-month">/month</div>
+                    <form action="/create-payment-link" method="POST">
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                24
+                                <div class="per-month">/month</div>
+                            </div>
+                            <div class="plan-name">Basic</div>
                         </div>
-                        <div class="plan-name">Basic</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Adopt Me
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Adopt Me
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
                 <div class="price-column popular">
-                    <div class="most-popular">Most Popular</div>
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            120
-                            <div class="per-month">/6 months</div>
+                    <form action="/create-payment-link2" method="POST">
+                        <div class="most-popular">Most Popular</div>
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                120
+                                <div class="per-month">/6 months</div>
+                            </div>
+                            <div class="plan-name">Standard</div>
                         </div>
-                        <div class="plan-name">Standard</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Adopt Me
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Adopt Me
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
                 <div class="price-column">
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            145
-                            <div class="per-month">/year</div>
+                    <form action="/create-payment-link3" method="POST">
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                145
+                                <div class="per-month">/year</div>
+                            </div>
+                            <div class="plan-name">Premium</div>
                         </div>
-                        <div class="plan-name">Premium</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Groom Tracker
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Groom Tracker
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
             </section>
             <!-- 
@@ -526,100 +513,6 @@
         });
 
     </script>
-    <script>
-        const open = document.getElementById('open');
-        const close = document.getElementById('close');
-        const modal = document.getElementById('modal_container');
-
-        open.addEventListener('click', () => {
-            modal.classList.add('show');
-        });
-
-        close.addEventListener('click', () => {
-            modal.classList.remove('show');
-        });
-    </script>
-
-    <script>
-        // Function to handle Pet Sitter link behavior based on user role
-        function handlePetSitterAccess() {
-            // Get the stored user role from localStorage
-            const userRole = localStorage.getItem('userRole');
-
-            // Get the Pet Sitter link and modal elements
-            const petSitterLink = document.getElementById('open');
-            const modal = document.getElementById('modal_container');
-            const closeBtn = document.getElementById('close');
-
-            if (userRole === 'pet_sitter') {
-                // If user is a pet sitter, redirect directly to the PetSitter page
-                petSitterLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    window.location.href = 'PetSitter.html';
-                });
-                // Hide the modal
-                modal.style.display = 'none';
-            } else {
-                // For non-pet sitters, set up the modal open/close functionality
-                petSitterLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    modal.classList.add('show');
-                });
-
-                closeBtn.addEventListener('click', () => {
-                    modal.classList.remove('show');
-                });
-            }
-        }
-
-        // Run the handler when the page loads
-        document.addEventListener('DOMContentLoaded', handlePetSitterAccess);
-    </script>
-
-    <!-- Modal Structure -->
-<div id="modall" class="modall">
-    <span class="closee">&times;</span>
-    <img class="modall-content" id="modall-image">
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('modall');
-  const modalImg = document.getElementById('modall-image');
-  const closeBtn = document.getElementsByClassName('closee')[0];
-
-  const buttons = document.querySelectorAll('.cta');
-  buttons.forEach((button, index) => {
-    button.addEventListener('click', function() {
-      let imgSrc;
-      switch(index) {
-        case 0:
-          imgSrc = './assets/images/PawTime Basic.png';
-          break;
-        case 1:
-          imgSrc = './assets/images/PawTime Standard.png';
-          break;
-        case 2:
-          imgSrc = './assets/images/PawTime Premium.png';
-          break;
-      }
-      modal.style.display = 'block';
-      modalImg.src = imgSrc;
-    });
-  });
-
-  closeBtn.onclick = function() {
-    modal.style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-  }
-});
-  </script>
-
 </body>
 
 </html>

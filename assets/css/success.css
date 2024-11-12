@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #222533;
+  --text-clr: #e6e6ef;
+  --accent-clr: #5e63ff;
+  --secondary-text-clr: #b0b3c1;
+  --portland-orange: hsl(15, 84%, 57%);
+}
+
+body {
+    text-align: center;
+    padding: 40px 0;
+    background: url('../images/success.jpg') no-repeat center center fixed;
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+}
+
+.back-button {
+  background-color: black; /* Black background color */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 20px; /* Spacing inside the button */
+  display: inline-flex; /* Align items horizontally */
+  align-items: center; /* Center items vertically */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+  margin-bottom: 2em;
+  color: white; /* Text color */
+}
+
+.back-button a {
+  text-decoration: none; /* Remove underline from link */
+  color: #e8eaed; /* Text color */
+  display: flex; /* Align SVG and text inline */
+  align-items: center; /* Center items vertically */
+}
+
+.back-button svg {
+  margin-right: 8px; /* Space between SVG and text */
+}
+
+.back-button:hover {
+  background-color: var(--portland-orange); /* Darken the button on hover */
+}
+
+.back-button span {
+  font-size: 16px; /* Font size for the text */
+  font-weight: bold; /* Make text bold */
+}

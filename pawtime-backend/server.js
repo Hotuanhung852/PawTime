@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
+const PayOS = require('@payos/node');
+const payos = new PayOS('d8fbeec4-8d3a-4a7c-b177-0a46e5fa0896', 'a09098fb-48b0-4d15-b074-d3800c8d2130', '7b5f734b79d1afeaee6d138c1f67dcca92443080cd56c23778f44f835faa1c50');
+const YOUR_DOMAIN = 'http://localhost:3000';
 
 const app = express();
 const port = 3000;
@@ -783,7 +786,59 @@ app.get('/users/petsitters', async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+app.post('/create-payment-link', async (req, res) => {
+    const order = {
+        amount: 600000,
+        description: 'PawTime Basic Plan',
+        orderCode: Date.now(), // Use a timestamp to ensure uniqueness
+        returnUrl: `${YOUR_DOMAIN}/success.html`,
+        cancelUrl: `${YOUR_DOMAIN}/index.html`
+    };
+
+    try {
+        const paymentLink = await payos.createPaymentLink(order);
+        res.redirect(303, paymentLink.checkoutUrl);
+    } catch (error) {
+        console.error('Error creating payment link:', error);
+        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
 });
+
+app.post('/create-payment-link2', async (req, res) => {
+    const order = {
+        amount: 3000000,
+        description: 'PawTime Standard Plan',
+        orderCode: Date.now(), // Use a timestamp to ensure uniqueness
+        returnUrl: `${YOUR_DOMAIN}/success.html`,
+        cancelUrl: `${YOUR_DOMAIN}/index.html`
+    };
+
+    try {
+        const paymentLink = await payos.createPaymentLink(order);
+        res.redirect(303, paymentLink.checkoutUrl);
+    } catch (error) {
+        console.error('Error creating payment link:', error);
+        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
+});
+
+app.post('/create-payment-link3', async (req, res) => {
+    const order = {
+        amount: 3600000,
+        description: 'PawTime Premium Plan',
+        orderCode: Date.now(), // Use a timestamp to ensure uniqueness
+        returnUrl: `${YOUR_DOMAIN}/success.html`,
+        cancelUrl: `${YOUR_DOMAIN}/index.html`
+    };
+
+    try {
+        const paymentLink = await payos.createPaymentLink(order);
+        res.redirect(303, paymentLink.checkoutUrl);
+    } catch (error) {
+        console.error('Error creating payment link:', error);
+        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
+});
+
+// Start the server
+app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
