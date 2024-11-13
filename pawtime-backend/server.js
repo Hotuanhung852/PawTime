@@ -104,7 +104,17 @@ const houseSittingRequestSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-const HouseSittingRequest = mongoose.model('HouseSittingRequest', houseSittingRequestSchema);
+const transactionSchema = new mongoose.Schema({
+    image: String,
+    product: String,
+    price: String,
+    creation_date: String,
+    description: String,
+    account_number: String,
+    account_name: String,
+    order_code: String,
+    status: String
+});
 
 const User = mongoose.model('User', userSchema);
 const Pet = mongoose.model('Pet', petSchema);
@@ -112,6 +122,8 @@ const PetBoarding = mongoose.model('PetBoarding', petBoardingSchema);
 const HouseSitting = mongoose.model('HouseSitting', houseSittingSchema);
 const DropInVisit = mongoose.model('DropInVisit', dropInVisitSchema);
 const PetSitterRequest = mongoose.model('PetSitterRequest', petSitterRequestSchema);
+const HouseSittingRequest = mongoose.model('HouseSittingRequest', houseSittingRequestSchema);
+const Transaction = mongoose.model('Transaction', transactionSchema);
 
 // Set up storage for uploaded images using multer
 const storage = multer.diskStorage({
@@ -786,6 +798,24 @@ app.get('/users/petsitters', async (req, res) => {
     }
 });
 
+app.post('/create-payment-link0', async (req, res) => {
+    const order = {
+        amount: 10000,
+        description: 'PawTime 1 Month Try Out',
+        orderCode: Date.now(), // Use a timestamp to ensure uniqueness
+        returnUrl: `${YOUR_DOMAIN}/success.html`,
+        cancelUrl: `${YOUR_DOMAIN}/index.html`
+    };
+
+    try {
+        const paymentLink = await payos.createPaymentLink(order);
+        res.redirect(303, paymentLink.checkoutUrl);
+    } catch (error) {
+        console.error('Error creating payment link:', error);
+        res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
+});
+
 app.post('/create-payment-link', async (req, res) => {
     const order = {
         amount: 600000,
@@ -837,6 +867,26 @@ app.post('/create-payment-link3', async (req, res) => {
     } catch (error) {
         console.error('Error creating payment link:', error);
         res.status(500).json({ message: 'Something went wrong', error: error.message });
+    }
+});
+
+app.post('/add-transactions', async (req, res) => {
+    const transactions = req.body; // Assuming the JSON data is sent in the request body
+
+    try {
+        await Transaction.insertMany(transactions);
+        res.status(201).json({ message: 'Transactions added successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
+    }
+});
+
+app.get('/transactions', async (req, res) => {
+    try {
+        const transactions = await Transaction.find();
+        res.status(200).json(transactions);
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong', error });
     }
 });
 
