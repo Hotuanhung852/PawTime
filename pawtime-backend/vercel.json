@@ -1,19 +1,23 @@
 {
-    "version": 2,
-    "builds": [
+  "version": 2,
+  "builds": [
       {
-        "src": "pawtime-backend/server.js",
-        "use": "@vercel/node"
+          "src": "pawtime-backend/server.js",
+          "use": "@vercel/node"
       },
       {
-        "src": "PawTime/**/*",
-        "use": "@vercel/static"
+          "src": "PawTime/**/*",
+          "use": "@vercel/static"
       }
-    ],
-    "routes": [
+  ],
+  "routes": [
       {
-        "src": "/(.*)",
-        "dest": "pawtime-backend/server.js"
+          "src": "/api/(.*)",
+          "dest": "pawtime-backend/server.js"
+      },
+      {
+          "src": "/(.*)",
+          "dest": "/index.html"
       }
-    ]
-  }
+  ]
+}

@@ -290,8 +290,10 @@ app.get('/pet-boarding/:userId', async (req, res) => {
 app.get('/pet-boarding', async (req, res) => {
     try {
         const petBoardingDetails = await PetBoarding.find().sort({ createdAt: -1 });
+        console.log('Pet Boarding Details:', petBoardingDetails); // Log the details for debugging
         res.status(200).json(petBoardingDetails);
     } catch (error) {
+        console.error('Error fetching pet boarding details:', error); // Log the error for debugging
         res.status(500).json({ message: 'Something went wrong', error });
     }
 });
