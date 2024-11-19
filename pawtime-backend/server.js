@@ -7,9 +7,38 @@ const multer = require('multer');
 const PayOS = require('@payos/node');
 const payos = new PayOS('d8fbeec4-8d3a-4a7c-b177-0a46e5fa0896', 'a09098fb-48b0-4d15-b074-d3800c8d2130', '7b5f734b79d1afeaee6d138c1f67dcca92443080cd56c23778f44f835faa1c50');
 const YOUR_DOMAIN = 'http://localhost:3000';
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
 const port = 3000;
+
+// MongoDB connection URI
+const uri = "mongodb+srv://hotuan850:Pe0tmjthGOrOtOjZ@mypawtimemongodb.zlbun.mongodb.net/?retryWrites=true&w=majority&appName=myPawTimemongodb";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
+// Call the run function to connect to MongoDB
+run().catch(console.dir);
 
 // Middleware
 app.use(bodyParser.json());
