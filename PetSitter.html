@@ -87,79 +87,79 @@
         }
 
         async function fetchPetBoardingData() {
-            try {
-                const response = await fetch('/all-pet-boarding');
-                const data = await response.json();
-                console.log('Fetched pet boarding data:', data);
-
-                const detailsContainer = document.getElementById('petBoardingDetails');
-                detailsContainer.innerHTML = '';
-
-                if (response.ok) {
-                    if (data.length === 0) {
-                        detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No pet boarding forms have been created</p>';
-                    } else {
-                        data.forEach(item => {
-                            const createdAt = new Date(item.createdAt);
-                            const dropOffDate = new Date(item.dropOffDate);
-                            const pickUpDate = new Date(item.pickUpDate);
-
-                            const detailDiv = document.createElement('div');
-                            detailDiv.innerHTML = `
-                                <div class="container">
-                                    <h2 style="line-height: 1.5;">
-                                        🧳 Pet Boarding – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
-                                    </h2>
-                                    <div style="margin: 3em 0;"> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}
-                                        </p> 
-                                        <p style="line-height: 1.5; display: flex; align-items: center;">
-                                            <i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i>
-                                            <strong style="margin-right: 0.5em;">Condition / Description:</strong>
-                                        </p> 
-                                        ${item.condition || 'None'} 
-                                    </div>
-                                    <div class="button-container">
-                                        <button class="btn contact-btn" onclick="showModal('${item.userId}')">
-                                            <i class="fa-solid fa-user"></i> View Profile
-                                        </button>
-<button class="btn green-bg" id="apply-btn-${item._id}" onclick="applyForRequest('${item._id}')">
-    <i class="fa-solid fa-file-alt"></i> Request Apply
-</button>
-<button class="btn red-bg" id="cancel-btn-${item._id}" style="display: none;" onclick="cancelRequest('${item._id}')">
-    <i class="fa-solid fa-times"></i> Cancel Apply
-</button>
-                                    </div>
-                                </div>
-                            `;
-                            detailsContainer.appendChild(detailDiv);
-                        });
-                    }
-                } else {
-                    alert('Failed to load pet boarding details: ' + data.message);
-                }
-            } catch (error) {
-                alert('Failed to load pet boarding details: ' + error.message);
-            }
+    try {
+        const response = await fetch('/all-pet-boarding');
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
+        const data = await response.json();
+        console.log('Fetched pet boarding data:', data);
+
+        const detailsContainer = document.getElementById('petBoardingDetails');
+        detailsContainer.innerHTML = '';
+
+        if (data.length === 0) {
+            detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No pet boarding forms have been created</p>';
+        } else {
+            data.forEach(item => {
+                const createdAt = new Date(item.createdAt);
+                const dropOffDate = new Date(item.dropOffDate);
+                const pickUpDate = new Date(item.pickUpDate);
+
+                const detailDiv = document.createElement('div');
+                detailDiv.innerHTML = `
+                    <div class="container">
+                        <h2 style="line-height: 1.5;">
+                            🧳 Pet Boarding – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
+                        </h2>
+                        <div style="margin: 3em 0;"> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-paw" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Pet Type:</strong> ${item.petType || 'N/A'}
+                            </p> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-users" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Number of pets:</strong> ${item.petCount || 'N/A'}
+                            </p> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-map-marker" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Address:</strong> ${item.address || 'N/A'}
+                            </p> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-sign-in-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Drop off:</strong> ${isNaN(dropOffDate) ? 'N/A' : dropOffDate.toLocaleDateString()}
+                            </p> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-sign-out-alt" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Pick up:</strong> ${isNaN(pickUpDate) ? 'N/A' : pickUpDate.toLocaleDateString()}
+                            </p> 
+                            <p style="line-height: 1.5; display: flex; align-items: center;">
+                                <i class="fa fa-info-circle" style="width: 1.5em; margin-right: 0.5em;"></i>
+                                <strong style="margin-right: 0.5em;">Condition / Description:</strong>
+                            </p> 
+                            ${item.condition || 'None'} 
+                        </div>
+                        <div class="button-container">
+                            <button class="btn contact-btn" onclick="showModal('${item.userId}')">
+                                <i class="fa-solid fa-user"></i> View Profile
+                            </button>
+                            <button class="btn green-bg" id="apply-btn-${item._id}" onclick="applyForRequest('${item._id}')">
+                                <i class="fa-solid fa-file-alt"></i> Request Apply
+                            </button>
+                            <button class="btn red-bg" id="cancel-btn-${item._id}" style="display: none;" onclick="cancelRequest('${item._id}')">
+                                <i class="fa-solid fa-times"></i> Cancel Apply
+                            </button>
+                        </div>
+                    </div>
+                `;
+                detailsContainer.appendChild(detailDiv);
+            });
+        }
+    } catch (error) {
+        alert('Failed to load pet boarding details: ' + error.message);
+    }
+}
 
         async function fetchHouseSittingData() {
             try {
