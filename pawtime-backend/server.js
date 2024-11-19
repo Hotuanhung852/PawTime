@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
 const petSchema = new mongoose.Schema({
     id: String,
     name: String, // Tên thú cưng
-    isCat : Boolean, // Kiểu thú cưng (true là mèo, false là chó)
+    isCat: Boolean, // Kiểu thú cưng (true là mèo, false là chó)
     weight: String, // Cân nặng thú cưng
     gender: String, // Giới tính thú cưng
     phone: String, // Số điện thoại liên lạc

@@ -2,18 +2,18 @@
     "version": 2,
     "builds": [
       {
-        "src": "server.js",
+        "src": "pawtime-backend/server.js",
         "use": "@vercel/node"
       },
       {
-        "src": "public/**/*",
+        "src": "PawTime/**/*",
         "use": "@vercel/static"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/server.js"
+        "dest": "pawtime-backend/server.js"
       }
     ]
   }
