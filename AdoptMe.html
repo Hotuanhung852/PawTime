@@ -169,63 +169,145 @@
 
       <section class="section product" id="shop" aria-label="product">
         <div class="container">
-          <h2 class="h2 section-title"><span class="span">Little</span> angels</h2>
-          <!-- Product List -->
-          <ul class="grid-list"></ul>
+            <h2 class="h2 section-title"><span class="span">Little</span> angels</h2>
+            <!-- Product List -->
+            <div class="grid-list-pets">
+                <!-- Cột cho Mèo -->
+                <div class="column cat-column">
+                    <h3>Cats</h3>
+                    <ul class="pet-list" id="cat-list"></ul>
+                </div>
+                <hr class="divider">
+                <!-- Cột cho Chó -->
+                <div class="column dog-column">
+                    <h3>Dogs</h3>
+                    <ul class="pet-list" id="dog-list"></ul>
+                </div>
+            </div>
         </div>
-      </section>
-
-
-
-
-
-      <section class="section petboarding-form" aria-label="form" id="petboarding-form">
-        <div class="icon-wrapper">
-            <i class="fas fa-paw"></i>
-        </div>
-    
-        <h3>Add New Pet</h3>
-    
-    
-        <form action="" class="form-add-pet" id="form">
-            <div class="form-add-pet-group">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" id="name" placeholder="Enter pet name" class="form-control">
-            </div>
-            <div class="form-add-pet-group">
-                <label for="weight" class="form-label">Weight</label>
-                <input type="number" name="weight" id="weight" placeholder="Enter pet weight" class="form-control">
-            </div>
-            <div class="form-add-pet-group">
-                <label for="gender" class="form-label">Gender</label>
-                <select name="gender" id="gender" class="form-control">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="form-add-pet-group">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="tel" name="phone" id="phone" placeholder="Enter owner phone number" class="form-control">
-            </div>
-            <div class="form-add-pet-group">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" name="date" id="date" class="form-control">
-            </div>
-            <div class="form-add-pet-group">
-                <label for="imageURL" class="form-label">Image URL</label>
-                <input type="url" name="imageURL" id="imageURL" placeholder="Enter image URL" class="form-control">
-            </div>
-            <div class="form-add-pet-group">
-                <label for="details" class="form-label">Details</label>
-                <textarea name="details" id="details" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn-add-pet">Submit</button>
-        </form>
-        <div id="success-notification" style="display:none;">Pet added successfully!... Wait for seconds to reload the page ..</div>
     </section>
     
+    <div id="role-check">
+      <!-- Phần này luôn hiển thị form Add New Pet -->
+      <section class="section petboarding-form" aria-label="form" id="petboarding-form">
+          <div class="icon-wrapper">
+              <i class="fas fa-paw"></i>
+          </div>
+          <h3>Add New Pet</h3>
+          <form action="" class="form-add-pet" id="form">
+              <div class="form-add-pet-group">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" name="name" id="name" placeholder="Enter pet name" class="form-control">
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="weight" class="form-label">Weight</label>
+                  <input type="number" name="weight" id="weight" placeholder="Enter pet weight" class="form-control">
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select name="gender" id="gender" class="form-control">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                  </select>
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="isCat" class="form-label">Pet Type</label>
+                  <select name="isCat" id="isCat" class="form-control" required>
+                      <option value="true">Cat</option>
+                      <option value="false">Dog</option>
+                  </select>
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" name="phone" id="phone" placeholder="Enter owner phone number" class="form-control">
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" name="date" id="date" class="form-control">
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="imageURL" class="form-label">Image URL</label>
+                  <input type="url" name="imageURL" id="imageURL" placeholder="Enter image URL" class="form-control">
+              </div>
+              <div class="form-add-pet-group">
+                  <label for="details" class="form-label">Details</label>
+                  <textarea name="details" id="details" cols="30" rows="10" class="form-control"></textarea>
+              </div>
+              <button type="submit" class="btn-add-pet">Submit</button>
+          </form>
+          <div id="success-notification" style="display:none;">Pet added successfully!... Wait for seconds to reload the page ..</div>
+      </section>
+  </div>
+  
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Không cần kiểm tra username hay vai trò người dùng
+          document.getElementById('petboarding-form').style.display = "block";
+      });
+  </script>
+  
+  
+  
     <script>
-      document.getElementById('form').addEventListener('submit', async (event) => {
+    document.addEventListener('DOMContentLoaded', async () => {
+    // Fetch existing pets and populate the lists
+    try {
+        const response = await fetch("http://localhost:3000/pets");
+        if (response.ok) {
+            const pets = await response.json();
+
+            const catList = document.getElementById('cat-list');
+            const dogList = document.getElementById('dog-list');
+
+            pets.forEach(pet => {
+                const petItem = document.createElement('li');
+                petItem.classList.add('product-card'); // Adding class to match card style
+
+                petItem.innerHTML = `
+                    <div class="card-banner img-holder">
+                        <img src="${pet.imageURL}" loading="lazy" alt="${pet.name}" class="img-cover default">
+                    </div>
+                    <div class="card-content">
+                        <div class="pet-details">
+                            <p><strong>Name:</strong> ${pet.name}</p>
+                            <p><strong>Weight:</strong> ${pet.weight}kg</p>
+                            <p><strong>Gender:</strong> ${pet.gender}</p>
+                            <p><strong>Phone:</strong> ${pet.phone}</p>
+                            <p><strong>Details:</strong> ${pet.details.length > 50 ? pet.details.substring(0, 50) + '...' : pet.details}</p>
+                            <div class="button-group">
+                                <button class="btn-detail" onclick="window.location.href='viewPetDetails.html?id=${pet.id}'">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span class="tooltip">View</span>
+                                </button>
+                                <button class="btn-edit" onclick="editPet('${pet.id}')">
+                                    <i class="fas fa-edit"></i>
+                                    <span class="tooltip">Edit</span>
+                                </button>
+                                <button class="btn-delete" onclick="deletePet('${pet.id}')">
+                                    <i class="fas fa-trash"></i>
+                                    <span class="tooltip">Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Add the pet item to the correct list
+                if (pet.isCat) {
+                    catList.appendChild(petItem); // Add to Cats list
+                } else {
+                    dogList.appendChild(petItem); // Add to Dogs list
+                }
+            });
+        } else {
+            console.error('Failed to fetch pets');
+        }
+    } catch (error) {
+        console.error('Error fetching pets:', error);
+    }
+});
+
+document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const petData = {
@@ -236,6 +318,7 @@
         date: document.getElementById('date').value,
         imageURL: document.getElementById('imageURL').value,
         details: document.getElementById('details').value,
+        isCat: document.getElementById('isCat').value === "true", // Convert "true" to true
     };
 
     try {
@@ -247,15 +330,52 @@
 
         if (response.ok) {
             const notification = document.getElementById('success-notification');
-            notification.style.display = 'block'; // Hiển thị thông báo
-            notification.classList.add('show'); // Thêm lớp 'show' để hiển thị
+            notification.style.display = 'block'; // Show notification
+            notification.classList.add('show'); // Add show class to display it
 
             setTimeout(() => {
-                notification.classList.remove('show'); // Xóa lớp 'show' sau 3 giây
-                notification.style.display = 'none'; // Ẩn thông báo
+                notification.classList.remove('show'); // Remove show class after 3 seconds
+                notification.style.display = 'none'; // Hide notification
                 document.getElementById('form').reset(); // Reset form
-                location.reload(); // Tải lại trang
-            }, 1000);
+                location.reload(); // Reload the page to show new data
+            }, 3000);
+
+            // Dynamically add the pet to the appropriate list
+            const petList = petData.isCat ? document.getElementById('cat-list') : document.getElementById('dog-list');
+            const petItem = document.createElement('li');
+            petItem.classList.add('product-card'); // Adding class to match card style
+
+            petItem.innerHTML = `
+                <div class="card-banner img-holder">
+                    <img src="${petData.imageURL}" alt="${petData.name}" class="img-cover default">
+                </div>
+                <div class="card-content">
+                    <div class="pet-details">
+                        <p><strong>Name:</strong> ${petData.name}</p>
+                        <p><strong>Weight:</strong> ${petData.weight}kg</p>
+                        <p><strong>Gender:</strong> ${petData.gender}</p>
+                        <p><strong>Phone:</strong> ${petData.phone}</p>
+                        <p><strong>Details:</strong> ${petData.details.length > 50 ? petData.details.substring(0, 50) + '...' : petData.details}</p>
+                        <div class="button-group">
+                            <button class="btn-detail" onclick="window.location.href='viewPetDetails.html?id=${petData.id}'">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip">View</span>
+                            </button>
+                            <button class="btn-edit" onclick="editPet('${petData.id}')">
+                                <i class="fas fa-edit"></i>
+                                <span class="tooltip">Edit</span>
+                            </button>
+                            <button class="btn-delete" onclick="deletePet('${petData.id}')">
+                                <i class="fas fa-trash"></i>
+                                <span class="tooltip">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Append the new pet item to the appropriate list
+            petList.appendChild(petItem);
         } else {
             alert(`Failed to add pet. Status code: ${response.status}`);
         }
@@ -504,57 +624,57 @@
     - custom js link
   -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('http://localhost:3000/pets')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(pets => {
-                const productContainer = document.querySelector('.grid-list');
-                productContainer.innerHTML = pets.map(pet => `
-                    <li>
-                        <a class="product-card">
-                            <div class="card-banner img-holder" style="--width: 360; --height: 360;">
-                                <img src="${pet.imageURL}" width="360" height="360" loading="lazy" alt="${pet.name}" class="img-cover default">
-                            </div>
-                            <div class="card-content">
-                                <div class="pet-details">
-                                    <p><strong>Name:</strong> ${pet.name}</p>
-                                    <p><strong>Weight:</strong> ${pet.weight}</p>
-                                    <p><strong>Gender:</strong> ${pet.gender}</p>
-                                    <p><strong>Phone:</strong> ${pet.phone}</p>
+//     document.addEventListener('DOMContentLoaded', () => {
+//         fetch('http://localhost:3000/pets')
+//             .then(response => {
+//                 if (!response.ok) {
+//                     throw new Error('Network response was not ok');
+//                 }
+//                 return response.json();
+//             })
+//             .then(pets => {
+//                 const productContainer = document.querySelector('.grid-list');
+//                 productContainer.innerHTML = pets.map(pet => `
+//                     <li>
+//                         <a class="product-card">
+//                             <div class="card-banner img-holder" style="--width: 360; --height: 360;">
+//                                 <img src="${pet.imageURL}" width="360" height="360" loading="lazy" alt="${pet.name}" class="img-cover default">
+//                             </div>
+//                             <div class="card-content">
+//                                 <div class="pet-details">
+//                                     <p><strong>Name:</strong> ${pet.name}</p>
+//                                     <p><strong>Weight:</strong> ${pet.weight}</p>
+//                                     <p><strong>Gender:</strong> ${pet.gender}</p>
+//                                     <p><strong>Phone:</strong> ${pet.phone}</p>
                                     
-                                <p><strong>Details:</strong> ${pet.details.length > 50 ? pet.details.substring(0, 50) + '...' : pet.details}</p>
-                                    <div class="button-group">
-    <button class="btn-detail" onclick="window.location.href='viewPetDetails.html?id=${pet.id}'">
-        <i class="fas fa-info-circle"></i>
-        <span class="tooltip">View</span>
-    </button>
-    <button class="btn-edit" onclick="editPet('${pet.id}')">
-        <i class="fas fa-edit"></i>
-        <span class="tooltip">Edit</span>
-    </button>
-    <button class="btn-delete" onclick="deletePet('${pet.id}')">
-        <i class="fas fa-trash"></i>
-        <span class="tooltip">Delete</span>
-    </button>
-</div>
+//                                 <p><strong>Details:</strong> ${pet.details.length > 50 ? pet.details.substring(0, 50) + '...' : pet.details}</p>
+//                                     <div class="button-group">
+//     <button class="btn-detail" onclick="window.location.href='viewPetDetails.html?id=${pet.id}'">
+//         <i class="fas fa-info-circle"></i>
+//         <span class="tooltip">View</span>
+//     </button>
+//     <button class="btn-edit" onclick="editPet('${pet.id}')">
+//         <i class="fas fa-edit"></i>
+//         <span class="tooltip">Edit</span>
+//     </button>
+//     <button class="btn-delete" onclick="deletePet('${pet.id}')">
+//         <i class="fas fa-trash"></i>
+//         <span class="tooltip">Delete</span>
+//     </button>
+// </div>
 
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                `).join('');
-            })
-            .catch(error => {
-                console.error('Error fetching pets:', error);
-                const productContainer = document.querySelector('.grid-list');
-                productContainer.innerHTML = '<p>Error loading pets. Please try again later.</p>';
-            });
-    });
+//                                 </div>
+//                             </div>
+//                         </a>
+//                     </li>
+//                 `).join('');
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching pets:', error);
+//                 const productContainer = document.querySelector('.grid-list');
+//                 productContainer.innerHTML = '<p>Error loading pets. Please try again later.</p>';
+//             });
+//     });
     
 
     function editPet(petId) {

@@ -314,17 +314,97 @@ body {
   display: inline;
   color: var(--portland-orange);
 }
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  gap: 20px; /* Space between the cards */
+  list-style-type: none; /* Remove list bullets */
+  padding: 0; /* Remove default padding */
+}
+
+.product-card {
+  background: #fff; /* Add a background color for the card */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow for the card */
+  border-radius: 8px; /* Rounded corners for the card */
+  overflow: hidden;
+  transition: transform 0.3s ease; /* Smooth hover effect */
+}
+.card-content {
+  padding: 15px;
+}
+.pet-details p {
+  margin: 5px 0;
+}
+
+.card-banner {
+  position: relative;
+  width: 100%; /* Ensure the card container takes the full width */
+  height: 0;
+  padding-bottom: 100%; /* Aspect ratio: 1:1 (square) */
+}
+.card-banner .img-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This makes sure the image covers the entire area */
+}
+
+/* Các cột chứa các pet */
+.column {
+  margin-bottom: 20px;
+  padding: 0; /* Đảm bảo không có padding thừa trong các cột */
+}
+
+/* Tiêu đề mỗi cột */
+.column h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Danh sách các pet items trong mỗi cột (sử dụng Flexbox) */
+.pet-list {
+  display: flex; /* Dùng Flexbox để sắp xếp các card theo chiều ngang */
+  flex-wrap: wrap; /* Cho phép các card xuống hàng khi hết không gian */
+  justify-content: flex-start; /* Canh chỉnh các card về phía trái */
+  gap: 20px; /* Khoảng cách giữa các card */
+  padding: 0;
+  margin: 0; /* Đảm bảo không có margin bên ngoài .pet-list */
+  list-style-type: none;
+}
+
+/* Mỗi item trong pet-list (card) */
+.pet-list li {
+  width: 100%; /* Mỗi item chiếm toàn bộ chiều rộng của cột */
+  max-width: calc(50% - 10px); /* Tối đa là 50% chiều rộng của cột */
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; /* Khoảng cách dưới mỗi item */
+}
+
+/* Hover effect cho card */
+.pet-list li:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+
+
 
 .img-holder {
-  aspect-ratio: var(--width) / var(--height);
-  background-color: var(--light-gray);
-  overflow: hidden;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của thẻ */
+  height: 100%; /* Chiếm toàn bộ chiều cao của thẻ */
+  position: relative;
 }
 
 .img-cover {
+  object-fit: cover; /* Đảm bảo ảnh không bị méo mà sẽ lấp đầy không gian */
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-position: center; /* Căn giữa ảnh */
 }
 
 .has-scrollbar {
@@ -1357,6 +1437,7 @@ textarea.form-control {
 .product-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* Scale the card slightly on hover */
 }
 
 /* Đặt vị trí và ẩn chi tiết thú cưng mặc định */
@@ -1497,4 +1578,59 @@ textarea.form-control {
 
 .button-group button:hover .tooltip {
   display: block; /* Hiện tooltip khi hover */
+}
+
+.pet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.pet-table th,
+.pet-table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.pet-table th {
+  background-color: #f4f4f4;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.pet-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pet-list li {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.pet-list li img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.grid-list-pets {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  width: 48%; /* Giảm chiều rộng của mỗi cột để có không gian giữa */
+}
+
+.pet-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pet-list li {
+  margin-bottom: 10px;
 }

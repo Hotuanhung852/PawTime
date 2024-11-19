@@ -46,6 +46,7 @@ const userSchema = new mongoose.Schema({
 const petSchema = new mongoose.Schema({
     id: String,
     name: String, // Tên thú cưng
+    isCat : Boolean, // Kiểu thú cưng (true là mèo, false là chó)
     weight: String, // Cân nặng thú cưng
     gender: String, // Giới tính thú cưng
     phone: String, // Số điện thoại liên lạc
@@ -465,6 +466,7 @@ app.post("/pets", async (req, res) => {
         const petData = {
             id: newId.toString(), // Đảm bảo id là chuỗi
             name: req.body.name,
+            isCat: req.body.isCat,
             weight: req.body.weight,
             gender: req.body.gender,
             phone: req.body.phone,
@@ -801,7 +803,7 @@ app.get('/users/petsitters', async (req, res) => {
 app.post('/create-payment-link0', async (req, res) => {
     const order = {
         amount: 10000,
-        description: 'PawTime 1 Month Try Out',
+        description: 'PawTime 1 Week Try Out',
         orderCode: Date.now(), // Use a timestamp to ensure uniqueness
         returnUrl: `${YOUR_DOMAIN}/success.html`,
         cancelUrl: `${YOUR_DOMAIN}/index.html`
