@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawTime</title>
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./assets/css/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <nav class="profile-navbar">
+        <a class="navbar-brand" href="index.html">
+            <button type="button" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </a>
+    </nav>
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem('loggedIn')) {
+            window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+    </script>
+
+    <main>
+        <article>
+            <div class="info-card-container">
+                <div class="container light-style flex-grow-1 container-p-y">
+                    <h4 class="font-weight-bold py-3 mb-4">Account settings</h4>
+                    <div class="info-card overflow-hidden">
+                        <div class="row no-gutters row-bordered row-border-light">
+                            <div class="col-md-3 pt-0">
+                                <div class="list-group list-group-flush account-settings-links">
+                                    <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                        href="#account-general">General</a>
+                                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                                        href="#account-info">Info</a>
+                                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                                        href="#account-social-links">Social links</a>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show" id="account-general">
+                                        <div class="user-profilesinglepage" id="avatar-header">
+                                            <div class="avatar-wrapper">
+                                                <img class="profile-pic" src="" id="avatar" alt="User Avatar" />
+                                                <div class="upload-button">
+                                                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                                </div>
+                                                <input class="file-upload" type="file" accept="image/*" style="display: none;"/>
+                                            </div>
+                                        </div>
+                                        <hr class="border-light m-0">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="form-label">Username</label>
+                                                <input type="text" class="form-control mb-1" id="username" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" class="form-control" id="fullname">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Phone number</label>
+                                                <input type="text" class="form-control" id="phoneNumberGeneral">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Plan</label>
+                                                <input type="text" class="form-control mb-1" id="plan" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="account-info">
+                                        <div class="card-body pb-2">
+                                            <div class="form-group">
+                                                <label class="form-label">Bio</label>
+                                                <textarea class="form-control" rows="5" id="bio"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Birthday</label>
+                                                <input type="date" class="form-control" id="birthday">
+                                            </div>
+                                        </div>
+                                        <hr class="border-light m-0">
+                                        <div class="card-body pb-2">
+                                            <h6 class="mb-4">Contacts</h6>
+                                            <div class="form-group">
+                                                <label class="form-label">Phone</label>
+                                                <input type="text" class="form-control" id="phoneNumberInfo">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Email</label>
+                                                <input type="text" class="form-control" id="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="account-social-links">
+                                        <div class="card-body pb-2">
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fab fa-facebook"></i> Facebook
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="facebook">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="openLink('facebook')">Go</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fab fa-instagram"></i> Instagram
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="instagram">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="openLink('instagram')">Go</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fab fa-tiktok"></i> TikTok
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="tiktok">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="openLink('tiktok')">Go</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fab fa-twitter"></i> Twitter
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="twitter">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                            onclick="openLink('twitter')">Go</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right mt-3">
+                        <button type="button" class="btn btn-primary" id="saveChangesButton">
+                            <i class="fas fa-save"></i> Save changes
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary" id="logoutButton">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage after login
+
+            // Fetch user profile data
+            fetch(`http://localhost:3000/profile/${userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById('username').value = user.username;
+                    document.getElementById('fullname').value = user.fullname;
+                    document.getElementById('phoneNumberGeneral').value = user.phoneNumber;
+                    document.getElementById('phoneNumberInfo').value = user.phoneNumber;
+                    document.getElementById('plan').value = user.plan;
+
+                    // Ensure the avatar URL is correctly prefixed with the server address
+                    const avatarUrl = user.avatar ? `http://localhost:3000${user.avatar}` : 'default-avatar.png';
+                    document.getElementById('avatar').src = avatarUrl; // Set to default avatar if user doesn't have one
+
+                    document.getElementById('bio').value = user.bio;
+                    document.getElementById('birthday').value = user.birthday ? new Date(user.birthday).toISOString().split('T')[0] : '';
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('facebook').value = user.socialLinks.facebook;
+                    document.getElementById('instagram').value = user.socialLinks.instagram;
+                    document.getElementById('tiktok').value = user.socialLinks.tiktok;
+                    document.getElementById('twitter').value = user.socialLinks.twitter;
+                });
+
+            // Handle avatar upload
+            $(".file-upload").on('change', function () {
+                const file = this.files[0];
+                const formData = new FormData();
+                formData.append('avatar', file);
+
+                fetch(`http://localhost:3000/upload-avatar/${userId}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.avatarUrl) {
+                            document.getElementById('avatar').src = data.avatarUrl;
+                            alert('Avatar uploaded successfully');
+                        } else {
+                            alert('Failed to upload avatar');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Something went wrong while uploading the avatar');
+                    });
+            });
+
+            $(".upload-button").on('click', function () {
+                $(".file-upload").click();
+            });
+
+            // Update user profile data
+            document.getElementById('saveChangesButton').addEventListener('click', () => {
+                const fullname = document.getElementById('fullname').value;
+                const phoneNumber = document.getElementById('phoneNumberGeneral').value;
+                const bio = document.getElementById('bio').value;
+                const birthday = document.getElementById('birthday').value;
+                const email = document.getElementById('email').value;
+                const socialLinks = {
+                    facebook: document.getElementById('facebook').value,
+                    instagram: document.getElementById('instagram').value,
+                    tiktok: document.getElementById('tiktok').value,
+                    twitter: document.getElementById('twitter').value
+                };
+
+                fetch(`http://localhost:3000/profile/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fullname, phoneNumber, bio, birthday, email, socialLinks }) // Removed avatar
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Profile updated successfully') {
+                            alert('Profile updated successfully');
+                        } else {
+                            alert('Failed to update profile');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Something went wrong while updating the profile');
+                    });
+            });
+
+        });
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            // Clear the login flag from localStorage
+            localStorage.removeItem('loggedIn');
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+    </script>
+
+    <script>
+        function openLink(platform) {
+            const url = document.getElementById(platform).value;
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert('Please enter a URL');
+            }
+        }
+    </script>
+</body>
+
+</html>

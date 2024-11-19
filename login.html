@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawTime</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="container">
+        <div class="Form login-form">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-box">
+                    <i class='bx bxs-user'></i>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter Your Username*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-lock'></i>
+                    <input type="password" id="password" placeholder="Enter Your Password*" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Or Sign up using</p>
+            <p class="RegisteBtn RegiBtn"><a href="#">Register Now</a></p>
+        </div>
+        <div class="Form Register-form">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="input-box">
+                    <i class='bx bxs-user'></i>
+                    <label for="newUsername">Username</label>
+                    <input type="text" id="newUsername" placeholder="Enter Your Username*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-user-detail'></i>
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter Your Full Name*" required>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-phone'></i>
+                    <input type="number" id="phoneNumber" placeholder="Enter Your Phone Number*" required pattern="\d*">
+                    <label for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-lock'></i>
+                    <input type="password" id="newPassword" placeholder="Enter Your Password*" required>
+                    <label for="newPassword">Password</label>
+                </div>
+                <div class="input-box">
+                    <i class='bx bxs-lock'></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Your Password*" required>
+                    <label for="confirmPassword">Confirm Password</label>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <p class="LoginBtn"><a href="#">Login Now</a></p>
+        </div>
+    </div>
+    <script>
+        const apiEndpoint = 'http://localhost:3000';
+
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${apiEndpoint}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Store all necessary user information in localStorage
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('userId', result.userId);
+                    localStorage.setItem('userRole', result.role);
+                    localStorage.setItem('username', result.username);
+
+                    // Show success message
+                    alert('Login successful!');
+
+                    // Redirect based on role
+                    redirectUser(result.redirectUrl);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong during login');
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const newUsername = document.getElementById('newUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            const newUser = {
+                username: newUsername,
+                password: newPassword,
+                fullname: fullName,
+                phoneNumber: phoneNumber
+            };
+
+            try {
+                const response = await fetch(`${apiEndpoint}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Registration successful! Please login to continue.');
+                    // Switch back to login form
+                    registerForm.classList.remove('active');
+                    loginForm.classList.remove('active');
+                    // Clear registration form
+                    document.getElementById('registerForm').reset();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong during registration');
+            }
+        });
+
+        // Function to handle user redirection based on role
+        function redirectUser(redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+
+        // Form toggle functionality
+        const RegiBtn = document.querySelector('.RegiBtn');
+        const LoginBtn = document.querySelector('.LoginBtn');
+        const loginForm = document.querySelector('.login-form');
+        const registerForm = document.querySelector('.Register-form');
+
+        RegiBtn.addEventListener('click', () => {
+            registerForm.classList.add('active');
+            loginForm.classList.add('active');
+        });
+
+        LoginBtn.addEventListener('click', () => {
+            registerForm.classList.remove('active');
+            loginForm.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>

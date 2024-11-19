@@ -44,13 +44,19 @@
     <!-- Custom CSS File -->
     <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
 
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem('loggedIn')) {
+            window.location.href = 'login.html'; // Redirect to login page if not logged in
+        }
+    </script>
 </head>
 
 <body id="top">
 
     <!-- 
-    - #HEADER
-  -->
+        - #HEADER
+      -->
 
     <header class="header" data-header>
         <div class="container">
@@ -74,37 +80,52 @@
                     </li>
 
                     <li class="navbar-item"></li>
-                    <a href="#" class="navbar-link" data-nav-link>Price</a>
+                    <a href="Price.html" class="navbar-link" data-nav-link>Price</a>
                     </li>
 
                     <li class="navbar-item">
                         <a href="PetTimer.html" class="navbar-link" data-nav-link>Pet Service</a>
                     </li>
 
+                    <!-- <li class="navbar-item">
+                <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
+              </li> -->
+
                     <li class="navbar-item">
-                        <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
+                        <a href="AdoptMe.html" class="navbar-link" data-nav-link>Adopt Me</a>
+                    </li>
+
+
+                    <li class="navbar-item">
+                        <a href="#" class="navbar-link" id="open" data-nav-link>
+                            Pet Sitter
+                            <ion-icon name="heart" aria-hidden="true"></ion-icon>
+                        </a>
                     </li>
 
                 </ul>
 
-                <a href="#" class="navbar-action-btn">Log In</a>
+                <a href="login.html" class="navbar-action-btn">Log In</a>
             </nav>
 
             <div class="header-actions">
 
                 <!-- <button class="action-btn" aria-label="Search">
-          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-        </button> -->
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+            </button> -->
 
-                <button class="action-btn user" aria-label="User">
+                <button onclick="location.href='profile.html'" class="action-btn profile" aria-label="Profile">
                     <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                </button>
+
+                <button class="action-btn logout" aria-label="Logout" id="logoutButton">
+                    <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
                 </button>
 
             </div>
 
         </div>
     </header>
-
 
 
 
@@ -120,21 +141,21 @@
             <section class="section hero has-bg-image" id="home" aria-label="home"
                 style="background-image: url('./assets/images/hero-banner5.jpg')">
                 <div class="container">
+                    <form action="/create-payment-link0" method="POST">
+                        <h1 class="h1 hero-title">
+                            <span class="span">Become a Pet Sitter for 1 Week For Only $1!</span>
+                        </h1>
 
-                    <h1 class="h1 hero-title">
-                        <span class="span">1-month free trial</span>
-                    </h1>
+                        <p class="hero-text">
+                            We provide opportunities for your companion to be happy and adventurous
+                        </p>
 
-                    <p class="hero-text">
-                        We provide opportunities for your companion to be happy and adventurous
-                    </p>
-
-                    <a href="#" class="btn">Try Now</a>
-
+                        <button href="#price" class="btn">Try Now ($1)</button>
+                    </form>
                 </div>
             </section>
 
-            <div style="padding: 20px;">
+            <div style="padding: 20px;" id="price">
                 <h2 class="h2 section-title" style="font-size: 30px;">
                     Price <span class="span">Planning</span>
                 </h2>
@@ -143,102 +164,109 @@
                 </h3>
             </div>
             <section class="price-comparison">
+
                 <div class="price-column">
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            24
-                            <div class="per-month">/month</div>
+                    <form action="/create-payment-link" method="POST">
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                24
+                                <div class="per-month">/month</div>
+                            </div>
+                            <div class="plan-name">Basic</div>
                         </div>
-                        <div class="plan-name">Basic</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Groom Tracker
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Adopt Me
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
                 <div class="price-column popular">
-                    <div class="most-popular">Most Popular</div>
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            120
-                            <div class="per-month">/6 months</div>
+                    <form action="/create-payment-link2" method="POST">
+                        <div class="most-popular">Most Popular</div>
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                120
+                                <div class="per-month">/6 months</div>
+                            </div>
+                            <div class="plan-name">Standard</div>
                         </div>
-                        <div class="plan-name">Standard</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Groom Tracker
-                    </div>
-                    <div class="feature inactive">
-                        <img src="./assets/images/x-square.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Adopt Me
+                        </div>
+                        <div class="feature inactive">
+                            <img src="./assets/images/x-square.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
                 <div class="price-column">
-                    <div class="price-header">
-                        <div class="price">
-                            <div class="dollar-sign">$</div>
-                            145
-                            <div class="per-month">/year</div>
+                    <form action="/create-payment-link3" method="POST">
+                        <div class="price-header">
+                            <div class="price">
+                                <div class="dollar-sign">$</div>
+                                145
+                                <div class="per-month">/year</div>
+                            </div>
+                            <div class="plan-name">Premium</div>
                         </div>
-                        <div class="plan-name">Premium</div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Pet Boarding
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        House Sitting
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Drop-In Visits
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Groom Tracker
-                    </div>
-                    <div class="feature">
-                        <img src="./assets/images/check-circle.svg">
-                        Veteran Badge
-                    </div>
-                    <button class="cta">Start Today</button>
+                        <div class="divider"></div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Pet Boarding
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            House Sitting
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Drop-In Visits
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Groom Tracker
+                        </div>
+                        <div class="feature">
+                            <img src="./assets/images/check-circle.svg">
+                            Veteran Badge
+                        </div>
+                        <button class="cta">Start Today</button>
+                    </form>
                 </div>
             </section>
             <!-- 
@@ -473,7 +501,18 @@
   -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        // Add this script to your existing script or a new script file linked in your HTML file
 
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            // Clear the login flag from localStorage
+            localStorage.removeItem('loggedIn');
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+
+    </script>
 </body>
 
 </html>

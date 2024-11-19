@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Boxicons -->
+	<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+	<!-- My CSS -->
+	<link rel="stylesheet" href="admin.css" />
+	<link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml" />
+
+	<title>AdminHub</title>
+</head>
+
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="bx bxs-bar-chart-square" style="margin-top: 3px"></i>
+			<span class="text">AdminHub</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="admin.html">
+					<i class="bx bxs-dashboard"></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="users.html">
+					<i class="bx bxs-group"></i>
+					<span class="text">Users</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class="bx bxs-binoculars"></i>
+					<span class="text">Pet Sitters</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="#" id="logout-button" class="logout">
+					<i style="margin-top: 2.9px" class="bx bx-log-out"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class="bx bx-menu"></i>
+			<form action="#">
+				<div class="form-input" style="display: none">
+					<button type="submit" class="search-btn">
+						<i class="bx bx-search"></i>
+					</button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden />
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="img/pawtime.jpg" />
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class="bx bxs-group"></i>
+					<span class="text">
+						<h3 id="guest-count">0</h3>
+						<p>Users</p>
+					</span>
+				</li>
+
+				<li>
+					<i class="bx bxs-binoculars"></i>
+					<span class="text">
+						<h3 id="pet-sitter-count">0</h3>
+						<p>Pet Sitters</p>
+					</span>
+				</li>
+
+				<li>
+					<i class="bx bxs-bone"></i>
+					<span class="text">
+						<h3 id="pet-count"></h3>
+						<p>Pets</p>
+					</span>
+				</li>
+
+				<li>
+					<i class="bx bxs-dollar-circle"></i>
+					<span class="text">
+						<h3>$1</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Recent Transaction</h3>
+						<i class="bx bx-search"></i>
+						<i class="bx bx-filter"></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Payment Channel</th>
+								<th>Order Amount</th>
+								<th>Creation Date</th>
+								<th>Description</th>
+								<th>Account Number</th>
+								<th>Account Name</th>
+								<th>Order Code</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Transaction rows will be populated here by JavaScript -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="todo">
+					<div class="head">
+						<h3>Pets</h3>
+						<!-- <i class="bx bx-search"></i>
+              <i class="bx bx-filter"></i> -->
+					</div>
+					<ul class="todo-list" id="pet-list">
+						<!-- Pet items will be populated here by JavaScript -->
+					</ul>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+	<script src="admin.js"></script>
+	<script>
+		async function fetchPetData() {
+			try {
+				const response = await fetch("http://localhost:3000/pets");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const pets = await response.json();
+
+				// Display the total number of pets
+				document.getElementById("pet-count").textContent = pets.length;
+			} catch (error) {
+				console.error("Fetch error:", error);
+				document.getElementById("pet-count").textContent = "Error";
+			}
+		}
+
+		fetchPetData();
+	</script>
+
+	<script>
+		async function fetchPets() {
+			try {
+				const response = await fetch("http://localhost:3000/pets");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const pets = await response.json();
+
+				// Get the list element
+				const petList = document.getElementById("pet-list");
+				petList.innerHTML = ""; // Clear existing content
+
+				// Loop through each pet and create a list item
+				pets.forEach((pet) => {
+					const listItem = document.createElement("li");
+					listItem.classList.add("not-completed");
+
+					const petName = document.createElement("p");
+					petName.textContent = pet.name;
+
+					const optionsIcon = document.createElement("i");
+					optionsIcon.classList.add("bx", "bx-dots-vertical-rounded");
+
+					listItem.appendChild(petName);
+					listItem.appendChild(optionsIcon);
+					petList.appendChild(listItem);
+				});
+			} catch (error) {
+				console.error("Fetch error:", error);
+				document.getElementById("pet-list").innerHTML =
+					"<li>Error loading pets</li>";
+			}
+		}
+
+		fetchPets();
+	</script>
+
+	<script>
+		async function fetchTransactions() {
+			try {
+				const response = await fetch("http://localhost:3000/transactions");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const transactions = await response.json();
+
+				// Get the table body element
+				const tableBody = document.querySelector(".order tbody");
+				tableBody.innerHTML = ""; // Clear existing content
+
+				// Loop through each transaction and create a table row
+				transactions.forEach((transaction) => {
+					const row = document.createElement("tr");
+
+					const paymentChannelCell = document.createElement("td");
+					const img = document.createElement("img");
+					img.src = transaction.image;
+					const p = document.createElement("p");
+					p.textContent = transaction.product;
+					paymentChannelCell.appendChild(img);
+					paymentChannelCell.appendChild(p);
+
+					const orderAmountCell = document.createElement("td");
+					orderAmountCell.textContent = transaction.price;
+
+					const creationDateCell = document.createElement("td");
+					creationDateCell.textContent = transaction.creation_date;
+
+					const descriptionCell = document.createElement("td");
+					descriptionCell.textContent = transaction.description;
+
+					const accountNumberCell = document.createElement("td");
+					accountNumberCell.textContent = transaction.account_number;
+
+					const accountNameCell = document.createElement("td");
+					accountNameCell.textContent = transaction.account_name;
+
+					const orderCodeCell = document.createElement("td");
+					orderCodeCell.textContent = transaction.order_code;
+
+					const statusCell = document.createElement("td");
+					const statusSpan = document.createElement("span");
+					statusSpan.classList.add("status", transaction.status.toLowerCase());
+					statusSpan.textContent = transaction.status;
+					statusCell.appendChild(statusSpan);
+
+					row.appendChild(paymentChannelCell);
+					row.appendChild(orderAmountCell);
+					row.appendChild(creationDateCell);
+					row.appendChild(descriptionCell);
+					row.appendChild(accountNumberCell);
+					row.appendChild(accountNameCell);
+					row.appendChild(orderCodeCell);
+					row.appendChild(statusCell);
+
+					tableBody.appendChild(row);
+				});
+			} catch (error) {
+				console.error("Fetch error:", error);
+			}
+		}
+
+		fetchTransactions();
+	</script>
+</body>
+
+</html>

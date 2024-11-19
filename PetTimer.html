@@ -41,7 +41,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-
+  <script>
+    // Check if the user is logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html'; // Redirect to login page if not logged in
+    }
+  </script>
 </head>
 
 <body id="top">
@@ -80,13 +85,38 @@
           </li>
 
           <li class="navbar-item">
-            <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
+            <a href="AdoptMe.html" class="navbar-link" data-nav-link>Adopt Me</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" id="open" data-nav-link>
+              Pet Sitter
+              <ion-icon name="heart" aria-hidden="true"></ion-icon>
+            </a>
           </li>
 
         </ul>
 
-        <a href="#" class="navbar-action-btn">Log In</a>
+        <a href="login.html" class="navbar-action-btn">Log In</a>
       </nav>
+
+      <!-- Modal -->
+      <div class="modal-container" id="modal_container">
+        <div class="modal">
+          <h1>🐕 Become a Pet Sitter 🐈</h1>
+          <p>🐾 Are you interested in becoming a pet sitter? 🐾 Sign up now and start earning money by taking care of
+            adorable pets! 🐶🐱</p>
+          <div class="button-container">
+            <button id="close">
+              Close
+            </button>
+            <button>
+              <a href="Price.html">Get Started</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!------------------->
 
       <div class="header-actions">
 
@@ -94,8 +124,12 @@
           <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
         </button> -->
 
-        <button class="action-btn user" aria-label="User">
+        <button onclick="location.href='profile.html'" class="action-btn profile" aria-label="Profile">
           <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <button class="action-btn logout" aria-label="Logout" id="logoutButton">
+          <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
         </button>
 
       </div>
@@ -121,7 +155,10 @@
           <h1 class="h1 hero-title" style="margin-bottom: 0.5em;">
             <span class="span">Services for every</span> cat and dog
           </h1>
-          <a href="#service" class="btn">Read More</a>
+          <a href="#service" style="margin-top: 2em; padding: 1em 2em;" class="btn">Read More</a>
+          <a href="./ViewBookingService/PetBoarding.html" class="btn" style="margin-top: 2em; padding: 1em 2em;">
+            <i class="fas fa-calendar-alt"></i> View Your Booking Service
+          </a>          
         </div>
       </section>
 
@@ -137,7 +174,7 @@
           <h3 class="h3 section-title">
             Choose the service that's your <span class="span">pet needs</span>
           </h3>
-          <div class="row">
+          <div class="row" style="margin-bottom: 8em;">
             <div class="column">
               <a href="#petboarding-form" class="card">
                 <div class="icon-wrapper">
@@ -179,13 +216,13 @@
       </section>
 
       <!-- 
-        - #PET SITTERS
+        - #PET SITTERS AFTER PAYMENT AND SETUP ACCOUNT
       -->
       <h2 class="h2 section-title">
         Become a<span class="span"> Pet Sitter</span>
       </h2>
       <section class="section pet-sitters" aria-label="pet sitters" id="pet-sitters">
-        
+
         <div class="pet-sttiers-container">
 
           <div class="pet-sitters-content">
@@ -201,7 +238,7 @@
           </div>
           <div class="pet-sitters-image">
             <img src="./assets/images/pet-sitter2.jpg" alt="pet sitters" class="pet-sitters-imgtag">
-        </div>
+          </div>
 
         </div>
       </section>
@@ -211,7 +248,6 @@
       -->
 
       <section class="section petboarding-form" aria-label="form" id="petboarding-form">
-
         <h2 class="h2 section-title">
           Book your service now <span class="span">for when you're away</span>
         </h2>
@@ -220,289 +256,254 @@
         </div>
         <h3>Pet Boarding</h3>
         <div class="form-container">
-
           <header>Pet Boarding</header>
-          <form action="#">
+          <form id="petBoardingForm">
             <div class="form first">
               <div class="information">
                 <span class="title">Pet Boarding Information</span>
                 <div class="pet-type-container">
                   <label for="pet-type">Pet Type</label>
-
                   <div class="checkbox-container">
                     <div class="checkbox-item">
-                      <input type="checkbox" id="cat" name="pet-type" value="cat">
+                      <input type="checkbox" id="cat" name="petType" value="Cat">
                       <label for="cat">Cat</label>
                     </div>
                     <div class="checkbox-item">
-                      <input type="checkbox" id="dog" name="pet-type" value="dog">
+                      <input type="checkbox" id="dog" name="petType" value="Dog">
                       <label for="dog">Dog</label>
                     </div>
                   </div>
                 </div>
-
                 <div class="pet-count-container">
                   <label>How many pets?</label>
                   <fieldset role="radiogroup" class="radio-group">
                     <label>
-                      <input type="radio" role="radio" name="spaces-required" value="1" checked>
+                      <input type="radio" role="radio" name="petCount" value="1" checked>
                       <span class="radio-item">1</span>
                     </label>
                     <label>
-                      <input type="radio" role="radio" name="spaces-required" value="2">
+                      <input type="radio" role="radio" name="petCount" value="2">
                       <span class="radio-item">2</span>
                     </label>
                     <label>
-                      <input type="radio" role="radio" name="spaces-required" value="3">
+                      <input type="radio" role="radio" name="petCount" value="3">
                       <span class="radio-item">3+</span>
                     </label>
                   </fieldset>
                 </div>
-
                 <div class="input-field">
                   <label for="address">Address</label>
-                  <input type="text" placeholder="Enter your address">
+                  <input type="text" id="address" name="address" placeholder="Enter your address">
                 </div>
-
                 <div class="fields">
-
                   <div class="input-field">
-                    <label for="city">Drop off</label>
-                    <input type="date" placeholder="Drop off">
+                    <label for="dropOffDate">Drop off</label>
+                    <input type="date" id="dropOffDate" name="dropOffDate">
                   </div>
-
                   <div class="input-field">
-                    <label for="state">Pick up</label>
-                    <input type="date" placeholder="Pick up">
+                    <label for="pickUpDate">Pick up</label>
+                    <input type="date" id="pickUpDate" name="pickUpDate">
                   </div>
-
                 </div>
-
                 <div class="input-field">
-                  <label for="condition">Condition (optional)</label>
-                  <textarea class="textarea" placeholder="Enter your condition"></textarea>
+                  <label for="condition">Condition / Description (optional)</label>
+                  <textarea class="textarea" id="condition" name="condition"
+                    placeholder="Enter your condition"></textarea>
                 </div>
               </div>
               <button type="submit" class="btn">Submit</button>
             </div>
-
           </form>
         </div>
-
       </section>
 
       <section class="section housesitting-form" aria-label="form" id="housesitting-form">
-
         <div class="icon-wrapper">
-          <i class="fa-solid fa-house-chimney"></i>
+            <i class="fa-solid fa-house-chimney"></i>
         </div>
         <h3>House Sitting</h3>
         <div class="form-container">
+            <header>House Sitting</header>
+            <form id="houseSittingForm">
+                <div class="form first">
+                    <div class="information">
+                        <span class="title">House Sitting Information</span>
+                        <div class="pet-type-container">
+                            <label for="house-pet-type">Pet Type</label>
+                            <div class="checkbox-container">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="house-cat" name="housePetType" value="Cat">
+                                    <label for="house-cat">Cat</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="house-dog" name="housePetType" value="Dog">
+                                    <label for="house-dog">Dog</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pet-count-container">
+                            <label>How many pets?</label>
+                            <fieldset role="radiogroup" class="radio-group">
+                                <label>
+                                    <input type="radio" role="radio" name="housePetCount" value="1" checked>
+                                    <span class="radio-item">1</span>
+                                </label>
+                                <label>
+                                    <input type="radio" role="radio" name="housePetCount" value="2">
+                                    <span class="radio-item">2</span>
+                                </label>
+                                <label>
+                                    <input type="radio" role="radio" name="housePetCount" value="3">
+                                    <span class="radio-item">3+</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                        <div class="input-field">
+                            <label for="house-address">Address</label>
+                            <input type="text" id="house-address" name="houseAddress" placeholder="Enter your address" required>
+                        </div>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label for="house-dropOffDate">Drop off</label>
+                                <input type="date" id="house-dropOffDate" name="houseDropOffDate" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="house-pickUpDate">Pick up</label>
+                                <input type="date" id="house-pickUpDate" name="housePickUpDate" required>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <label for="house-condition">Condition (optional)</label>
+                            <textarea class="textarea" id="house-condition" name="houseCondition" placeholder="Enter your condition"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-          <header>House Sitting</header>
-          <form action="#">
-            <div class="form first">
-              <div class="information">
-                <span class="title">House Sitting Information</span>
-                <div class="pet-type-container">
-                  <label for="pet-type">Pet Type</label>
-                  <div class="checkbox-container">
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="cat" name="pet-type" value="cat">
-                      <label for="cat">Cat</label>
-                    </div>
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="dog" name="pet-type" value="dog">
-                      <label for="dog">Dog</label>
-                    </div>
+    <section class="section drop-in-visits-form" aria-label="form" id="drop-in-visits-form">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-bone"></i>
+      </div>
+      <h3>Drop-In Visits</h3>
+      <div class="form-container">
+        <header>Drop-In Visits</header>
+        <form id="dropInForm">
+          <div class="form first">
+            <div class="information">
+              <span class="title">Drop-In Visits Information</span>
+              <div class="pet-type-container">
+                <label for="pet-type">Pet Type</label>
+                <div class="checkbox-container">
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="cat" name="pet-type" value="cat">
+                    <label for="cat">Cat</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="dog" name="pet-type" value="dog">
+                    <label for="dog">Dog</label>
                   </div>
                 </div>
-
-                <div class="pet-count-container">
-                  <label>How many pets?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="1" checked>
-                      <span class="radio-item">1</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="2">
-                      <span class="radio-item">2</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="3">
-                      <span class="radio-item">3+</span>
-                    </label>
-                  </fieldset>
-                </div>
-
-                <div class="input-field">
-                  <label for="address">Address</label>
-                  <input type="text" placeholder="Enter your address">
-                </div>
-
+              </div>
+              <div class="pet-count-container">
+                <label>How many pets?</label>
+                <fieldset role="radiogroup" class="radio-group">
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="1" checked>
+                    <span class="radio-item">1</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="2">
+                    <span class="radio-item">2</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="spaces-required" value="3">
+                    <span class="radio-item">3+</span>
+                  </label>
+                </fieldset>
+              </div>
+              <div class="input-field">
+                <label for="dropInVisitAddress">Address</label>
+                <input type="text" id="dropInVisitAddress" placeholder="Enter your address">
+              </div>
+              <div class="how-often-container">
+                <label>How often do you need this service?</label>
+                <fieldset role="radiogroup" class="radio-group">
+                  <label>
+                    <input type="radio" role="radio" name="service-frequency" value="one-time" checked onchange="toggleVisibility()">
+                    <span class="radio-item"><i class="fa-regular fa-calendar"></i>One Time</span>
+                  </label>
+                  <label>
+                    <input type="radio" role="radio" name="service-frequency" value="repeat-weekly" onchange="toggleVisibility()">
+                    <span class="radio-item"><i class="fa-solid fa-calendar-week"></i>Repeat Weekly</span>
+                  </label>
+                </fieldset>
+              </div>
+              <div class="one-time-selected" style="margin-top: 10px;">
                 <div class="fields">
-
                   <div class="input-field">
-                    <label for="city">Drop off</label>
-                    <input type="date" placeholder="Drop off">
+                    <label for="from-date">From what date?</label>
+                    <input type="date" id="from-date">
                   </div>
-
                   <div class="input-field">
-                    <label for="state">Pick up</label>
-                    <input type="date" placeholder="Pick up">
+                    <label for="to-date">To what date?</label>
+                    <input type="date" id="to-date">
                   </div>
-
-                </div>
-
-                <div class="input-field">
-                  <label for="condition">Condition (optional)</label>
-                  <textarea class="textarea" placeholder="Enter your condition"></textarea>
                 </div>
               </div>
-              <button type="submit" class="btn">Submit</button>
-            </div>
-
-          </form>
-        </div>
-
-      </section>
-
-      <section class="section drop-in-visits-form" aria-label="form" id="drop-in-visits-form">
-
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-bone"></i>
-        </div>
-        <h3>Drop-In Visits</h3>
-        <div class="form-container">
-
-          <header>Drop-In Visits</header>
-          <form action="#">
-            <div class="form first">
-              <div class="information">
-                <span class="title">Drop-In Visits Information</span>
-                <div class="pet-type-container">
-                  <label for="pet-type">Pet Type</label>
-                  <div class="checkbox-container">
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="cat" name="pet-type" value="cat">
-                      <label for="cat">Cat</label>
-                    </div>
-                    <div class="checkbox-item">
-                      <input type="checkbox" id="dog" name="pet-type" value="dog">
-                      <label for="dog">Dog</label>
-                    </div>
+              <div class="repeat-weekly-selected" style="display:none; margin-top: 10px;">
+                <label for="which-days">For which days?</label>
+                <div class="Popover">
+                  <div class="Wrapper">
+                    <fieldset class="Fieldset">
+                      <label class="Button">
+                        <input type="checkbox" id="sunday">
+                        <span>Sun</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="monday">
+                        <span>Mon</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="tuesday">
+                        <span>Tue</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="wednesday">
+                        <span>Wed</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="thursday">
+                        <span>Thu</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="friday">
+                        <span>Fri</span>
+                      </label>
+                      <label class="Button">
+                        <input type="checkbox" id="saturday">
+                        <span>Sat</span>
+                      </label>
+                    </fieldset>
                   </div>
                 </div>
-
-                <div class="pet-count-container">
-                  <label>How many pets?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="1" checked>
-                      <span class="radio-item">1</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="2">
-                      <span class="radio-item">2</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="spaces-required" value="3">
-                      <span class="radio-item">3+</span>
-                    </label>
-                  </fieldset>
-                </div>
-
                 <div class="input-field">
-                  <label for="address">Address</label>
-                  <input type="text" placeholder="Enter your address">
-                </div>
-
-                <div class="how-often-container">
-                  <label>How often do you need this service?</label>
-                  <fieldset role="radiogroup" class="radio-group">
-                    <label>
-                      <input type="radio" role="radio" name="service-frequency" value="one-time" checked
-                        onchange="toggleVisibility()">
-                      <span class="radio-item"><i class="fa-regular fa-calendar"></i>One Time</span>
-                    </label>
-                    <label>
-                      <input type="radio" role="radio" name="service-frequency" value="repeat-weekly"
-                        onchange="toggleVisibility()">
-                      <span class="radio-item"><i class="fa-solid fa-calendar-week"></i>Repeat Weekly</span>
-                    </label>
-                  </fieldset>
-                </div>
-
-                <div class="one-time-selected" style="margin-top: 10px;">
-                  <div class="fields">
-                    <div class="input-field">
-                      <label for="from-date">From what date?</label>
-                      <input type="date">
-                    </div>
-                    <div class="input-field">
-                      <label for="to-date">To what date?</label>
-                      <input type="date">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="repeat-weekly-selected" style="display:none; margin-top: 10px;">
-                  <label for="which-days">For which days?</label>
-                  <div class="Popover">
-                    <div class="Wrapper">
-                      <fieldset class="Fieldset">
-                        <label class="Button">
-                          <input type="checkbox" id="sunday">
-                          <span>Sun</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="monday">
-                          <span>Mon</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="tuesday">
-                          <span>Tue</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="wednesday">
-                          <span>Wed</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="thursday">
-                          <span>Thu</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="friday">
-                          <span>Fri</span>
-                        </label>
-                        <label class="Button">
-                          <input type="checkbox" id="saturday">
-                          <span>Sat</span>
-                        </label>
-                      </fieldset>
-                    </div>
-                  </div>
-                  <div class="input-field">
-                    <label for="start-date">Start Date</label>
-                    <input type="date">
-                  </div>
-                </div>
-
-
-
-                <div class="input-field">
-                  <label for="condition">Condition (optional)</label>
-                  <textarea class="textarea" placeholder="Enter your condition"></textarea>
+                  <label for="start-date">Start Date</label>
+                  <input type="date" id="start-date">
                 </div>
               </div>
-              <button type="submit" class="btn">Submit</button>
+              <div class="input-field">
+                <label for="dropInVisitCondition">Condition (optional)</label>
+                <textarea class="textarea" id="dropInVisitCondition" placeholder="Enter your condition"></textarea>
+              </div>
             </div>
-
-          </form>
-        </div>
-
-      </section>
+            <button type="submit" class="btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
       <!-- 
         - #SERVICE
@@ -734,7 +735,247 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // Add this script to your existing script or a new script file linked in your HTML file
 
+    document.getElementById('logoutButton').addEventListener('click', function () {
+      // Clear the login flag from localStorage
+      localStorage.removeItem('loggedIn');
+
+      // Redirect to login page
+      window.location.href = 'login.html';
+    });
+
+  </script>
+
+  <script>
+    document.getElementById('petBoardingForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      // Form validation
+      const petTypeElements = document.querySelectorAll('input[name="petType"]:checked');
+      const petTypes = Array.from(petTypeElements).map(el => el.value).join(' and ');
+      const petCount = document.querySelector('input[name="petCount"]:checked');
+      const address = document.getElementById('address').value.trim();
+      const dropOffDate = document.getElementById('dropOffDate').value;
+      const pickUpDate = document.getElementById('pickUpDate').value;
+
+      if (petTypes.length === 0) {
+        alert('Please select a pet type.');
+        return;
+      }
+
+      if (!petCount) {
+        alert('Please select the number of pets.');
+        return;
+      }
+
+      if (!address) {
+        alert('Please enter your address.');
+        return;
+      }
+
+      if (!dropOffDate) {
+        alert('Please select a drop-off date.');
+        return;
+      }
+
+      if (!pickUpDate) {
+        alert('Please select a pick-up date.');
+        return;
+      }
+
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+      data.petType = petTypes;
+      data.userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage
+
+      try {
+        const response = await fetch('/pet-boarding', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert('Booking successful');
+          window.location.href = '/ViewBookingService/PetBoarding.html';
+        } else {
+          alert('Booking failed: ' + result.message);
+        }
+      } catch (error) {
+        alert('Booking failed: ' + error.message);
+      }
+    });
+  </script>
+  <script>
+    const open = document.getElementById('open');
+    const close = document.getElementById('close');
+    const modal = document.getElementById('modal_container');
+
+    open.addEventListener('click', () => {
+      modal.classList.add('show');
+    });
+
+    close.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+  </script>
+
+  <script>
+    // Function to handle Pet Sitter link behavior based on user role
+    function handlePetSitterAccess() {
+      // Get the stored user role from localStorage
+      const userRole = localStorage.getItem('userRole');
+
+      // Get the Pet Sitter link and modal elements
+      const petSitterLink = document.getElementById('open');
+      const modal = document.getElementById('modal_container');
+      const closeBtn = document.getElementById('close');
+
+      if (userRole === 'pet_sitter') {
+        // If user is a pet sitter, redirect directly to the PetSitter page
+        petSitterLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = 'PetSitter.html';
+        });
+        // Hide the modal
+        modal.style.display = 'none';
+      } else {
+        // For non-pet sitters, set up the modal open/close functionality
+        petSitterLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+          modal.classList.remove('show');
+        });
+      }
+    }
+
+    // Run the handler when the page loads
+    document.addEventListener('DOMContentLoaded', handlePetSitterAccess);
+  </script>
+<script>
+  document.getElementById('houseSittingForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      // Form validation
+      const petTypeElements = document.querySelectorAll('input[name="housePetType"]:checked');
+      const petTypes = Array.from(petTypeElements).map(el => el.value).join(' and ');
+      const petCount = document.querySelector('input[name="housePetCount"]:checked').value;
+      const address = document.getElementById('house-address').value.trim();
+      const dropOffDate = document.getElementById('house-dropOffDate').value;
+      const pickUpDate = document.getElementById('house-pickUpDate').value;
+      const condition = document.getElementById('house-condition').value.trim();
+
+      if (petTypes.length === 0) {
+          alert('Please select a pet type.');
+          return;
+      }
+
+      if (!petCount) {
+          alert('Please select the number of pets.');
+          return;
+      }
+
+      if (!address) {
+          alert('Please enter your address.');
+          return;
+      }
+
+      if (!dropOffDate) {
+          alert('Please select a drop-off date.');
+          return;
+      }
+
+      if (!pickUpDate) {
+          alert('Please select a pick-up date.');
+          return;
+      }
+
+      const data = {
+          petType: petTypes,
+          petCount: petCount,
+          address: address,
+          dropOffDate: dropOffDate,
+          pickUpDate: pickUpDate,
+          condition: condition,
+          userId: localStorage.getItem('userId') // Assuming userId is stored in localStorage
+      };
+
+      try {
+          const response = await fetch('/house-sitting', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          });
+          const result = await response.json();
+          if (response.ok) {
+              alert('Booking successful');
+              window.location.href = '/ViewBookingService/HouseSitting.html';
+          } else {
+              alert('Booking failed: ' + result.message);
+          }
+      } catch (error) {
+          alert('Booking failed: ' + error.message);
+      }
+  });
+</script>
+<script>
+  document.getElementById('dropInForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const userId = localStorage.getItem('userId'); // Get userId from localStorage
+    const petType = Array.from(document.querySelectorAll('input[name="pet-type"]:checked')).map(el => el.value);
+    const spacesRequired = document.querySelector('input[name="spaces-required"]:checked').value;
+    const dropInVisitAddress = document.getElementById('dropInVisitAddress').value;
+    const serviceFrequency = document.querySelector('input[name="service-frequency"]:checked').value;
+    const fromDate = document.getElementById('from-date').value;
+    const toDate = document.getElementById('to-date').value;
+    const startDate = document.getElementById('start-date').value;
+    const days = Array.from(document.querySelectorAll('.repeat-weekly-selected input[type="checkbox"]:checked')).map(el => el.id);
+    const dropInVisitCondition = document.getElementById('dropInVisitCondition').value;
+
+    const data = {
+      userId,
+      petType,
+      spacesRequired,
+      dropInVisitAddress,
+      serviceFrequency,
+      fromDate,
+      toDate,
+      startDate,
+      days,
+      dropInVisitCondition
+    };
+
+    try {
+      const response = await fetch('/api/drop-in-visits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert('Booking successful');
+        window.location.href = '/ViewBookingService/DropInVisits.html'; // Redirect to DropInVisits.html
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to book: ${errorData.message}`);
+      }
+    } catch (error) {
+      alert(`Failed to book: ${error.message}`);
+    }
+  });
+</script>
 </body>
 
 </html>

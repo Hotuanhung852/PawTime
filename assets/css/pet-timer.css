@@ -1094,7 +1094,7 @@ p {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.textarea{
+.textarea {
   width: 500px;
   height: 300px;
 }
@@ -1111,11 +1111,10 @@ p {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .textarea{
+  .textarea {
     width: 225px;
     height: 300px;
   }
-  
 }
 
 .form-container header {
@@ -1182,9 +1181,10 @@ p {
 }
 
 .checkbox-item input[type="checkbox"]:checked {
-  accent-color: var(--portland-orange); /* This will change the checkbox itself */
+  accent-color: var(
+    --portland-orange
+  ); /* This will change the checkbox itself */
 }
-
 
 /* 
 RADIO 
@@ -1268,7 +1268,6 @@ input[type="radio"]:checked + span.radio-item {
 .how-often-container .radio-item:hover {
   background-color: #f0f0f0;
 }
-
 
 .form-container form .fields {
   display: flex;
@@ -1469,4 +1468,104 @@ Days of the week
 
 .pet-sitters-content .btn:is(:hover, :focus) {
   background-color: var(--portland-orange);
+}
+
+/* Pet sitter nav and icon */
+.navbar-link {
+  display: flex;
+  align-items: center;
+}
+.navbar-link ion-icon {
+  margin-left: 8px; /* Adjust the spacing as needed */
+  font-size: 20px;
+  padding-bottom: 1px;
+}
+
+/*Modal CSS*/
+
+.modal-container {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modal-container.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background-color: #fffffff2;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 30px 50px;
+  text-align: center;
+  width: 690px;
+  max-width: 100%;
+  transform: translateY(-200%);
+  transition: transform 0.3s ease;
+}
+
+.modal-container.show .modal {
+  transform: translateY(0);
+}
+
+.modal h1 {
+  margin: 0;
+}
+
+.modal p {
+  font-size: 21px;
+  opacity: 0.7;
+  padding: 1em 0;
+}
+
+.button-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%; /* Make sure it spans the modal's width */
+}
+
+.modal button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#close {
+  background-color: #f44336; /* Red color */
+  color: white;
+  margin-right: auto; /* Aligns to the left */
+  border-radius: 5px;
+}
+
+#close:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.modal button a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.modal button:last-child {
+  background-color: #4caf50; /* Green color */
+  color: white;
+  margin-left: auto; /* Aligns to the right */
+  border-radius: 5px;
+}
+
+.modal button:last-child:hover {
+  background-color: #388e3c; /* Darker green on hover */
 }

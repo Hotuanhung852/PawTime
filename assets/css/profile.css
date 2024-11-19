@@ -1,0 +1,408 @@
+:root {
+    --portland-orange: hsl(15, 84%, 57%);
+}
+
+body {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.ui-w-80 {
+    width : 80px !important;
+    height: auto;
+}
+
+.btn-default {
+    border-color: rgba(24, 28, 33, 0.1);
+    background  : rgba(0, 0, 0, 0);
+    color       : #4E5155;
+}
+
+label.btn {
+    margin-bottom: 0;
+}
+
+.btn-outline-primary {
+    border-color: #26B4FF;
+    background  : transparent;
+    color       : #26B4FF;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.text-light {
+    color: #babbbc !important;
+}
+
+.btn-facebook {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #3B5998;
+    color       : #fff;
+}
+
+.btn-instagram {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #000;
+    color       : #fff;
+}
+
+.info-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh; /* Full viewport height */
+}
+
+.info-card {
+    background-clip: padding-box;
+    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.row-bordered {
+    overflow: hidden;
+}
+
+.account-settings-fileinput {
+    position  : absolute;
+    visibility: hidden;
+    width     : 1px;
+    height    : 1px;
+    opacity   : 0;
+}
+
+.account-settings-links .list-group-item.active {
+    font-weight: bold !important;
+}
+
+html:not(.dark-style) .account-settings-links .list-group-item.active {
+    background: transparent !important;
+}
+
+.account-settings-multiselect~.select2-container {
+    width: 100% !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.material-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.material-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.dark-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark-style .account-settings-links .list-group-item.active {
+    color: #fff !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4E5155 !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+body > main > article > div > div{
+    background-color: #f8f9fa8c;
+    border-radius: 10px;
+    padding: 20px !important;
+}
+
+body > main > article > div > div > div.info-card.overflow-hidden > div > div.col-md-3.pt-0 > div{
+    border-radius: 10px;
+}
+
+body > main > article > div > div > div.info-card.overflow-hidden > div > div.col-md-3.pt-0 > div > a.list-group-item.list-group-item-action.active {
+    background-color: white !important;  
+}
+
+body > main > article > div > div > div.info-card.overflow-hidden > div > div.col-md-3.pt-0 > div > a.list-group-item.list-group-item-action {
+    background-color: #f8f9fa8c !important;  
+}
+
+.profile-navbar {
+    background-color: #f8f9fa8c !important;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .profile-navbar {
+        padding: 5px;
+    }
+
+    .profile-navbar .navbar-brand {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-navbar .btn {
+        width: 100%;
+    }
+
+    .info-card-container {
+        height: auto; /* Adjust height for smaller screens */
+        padding: 10px;
+    }
+
+    .info-card {
+        padding: 10px;
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .info-card .row {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .info-card .col-md-3,
+    .info-card .col-md-9 {
+        width: 100%; /* Full width for each column */
+    }
+}
+
+@media (max-width: 480px) {
+    .info-card-container {
+        padding: 5px;
+    }
+
+    .info-card {
+        padding: 5px;
+    }
+}
+
+body > nav > a > button {
+    background-color: black !important;
+    border-color: black !important;
+    border-radius: 7px !important;
+    padding: 10px 25px !important;
+}
+
+body > nav > a > button:hover {
+    background-color: var(--portland-orange) !important;
+    border-color: var(--portland-orange) !important;
+}
+
+#saveChangesButton {
+    background-color: black;
+    border-color: black;
+    border-radius: 7px;
+    border-radius: 7px !important;
+    padding: 10px 25px !important;
+}
+
+#saveChangesButton:hover {
+    background-color: var(--portland-orange);
+    border-color: var(--portland-orange);
+}
+
+body > main > article > div > div > div.text-right.mt-3 > button:nth-child(2) {
+    background-color: red;
+    border-color: red;
+    border-radius: 7px;
+    padding: 10px 25px !important;
+}
+
+body > main > article > div > div > div.text-right.mt-3 > button:nth-child(2):hover {
+    background-color: rgb(211, 0, 0);
+    border-color: rgb(211, 0, 0);
+}
+
+
+
+
+
+
+
+
+
+
+.avatar-wrapper {
+    position: relative;
+    width: 100%; /* Make width responsive */
+    max-width: 200px; /* Set max width for larger screens */
+    aspect-ratio: 1 / 1; /* Maintain a 1:1 aspect ratio for a perfect circle */
+    margin: -50px auto 20px auto; /* Center the avatar */
+    border-radius: 50%; /* Ensure the wrapper is circular */
+    overflow: hidden; /* Hide overflow to keep it circular */
+    box-shadow: none;
+    transition: all .3s ease;
+}
+
+.profile-pic {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Ensure the image covers the wrapper */
+    transition: all .3s ease;
+}
+
+@media (max-width: 768px) {
+    .avatar-wrapper {
+        margin-top: -30px; /* Adjust margin for smaller screens */
+        max-width: 150px; /* Reduce max width for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar-wrapper {
+        max-width: 120px; /* Further reduce max width for mobile */
+    }
+
+    .avatar-wrapper .profile-pic:after {
+        font-size: 120px; /* Adjust font size for smaller screens */
+    }
+}
+
+
+.avatar-wrapper:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.avatar-wrapper:hover .profile-pic {
+    opacity: .5;
+}
+
+.avatar-wrapper .profile-pic {
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease;
+}
+
+.avatar-wrapper .profile-pic:after {
+    font-family: FontAwesome;
+    content: "\f007";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+}
+
+.avatar-wrapper .upload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.avatar-wrapper .upload-button .fa-arrow-circle-up {
+    position: absolute;
+    font-size: 243px;
+    top: -16px;
+    left: -5px;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s ease;
+    color: #e4eae7;
+}
+
+.avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
+    opacity: .9;
+}
+
+#avatar-header {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 15%;
+}
+
+.avatar-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.nametitle {
+    color: #fff !important;
+}
+
+.nametitle h3 {
+    font-weight: 700 !important;
+}
+
+.avatar-tab li {
+    width: 50%;
+}
+
+.avatar-tab li i {
+    margin-bottom: 0px !important;
+}
+
+#account-social-links > div > div > div > div > button {
+    background-color: black;
+    border-color: black;
+    border-radius: 7px;
+    color: white;
+    padding: 0px 25px;
+}
+
+#account-social-links > div > div > div > div > button:hover {
+    background-color: var(--portland-orange);
+    border-color: var(--portland-orange);
+}
+
+/* Responsive styling for screens around 793px width */
+@media (min-width: 793px) {
+    .info-card-container {
+        padding: 15px;
+        height: auto; /* Adjust height for smaller screens */
+    }
+
+    .info-card {
+        padding: 15px;
+        width: 100%; /* Make the card take up most of the screen width */
+        margin: 0 auto; /* Center the card */
+    }
+
+    .avatar-wrapper {
+        height: 120px; /* Adjust avatar size for smaller screens */
+        width: 120px;
+        margin: -60px auto 10px auto;
+    }
+
+
+    .info-card .col-md-3,
+    .info-card .col-md-9 {
+        width: 100%; /* Full width for each column */
+    }
+
+    .avatar-wrapper .upload-button .fa-arrow-circle-up {
+        position: absolute;
+        font-size: 143px;
+        top: -11px;
+        left: -1px;
+        text-align: center;
+    }
+
+    .avatar-wrapper .profile-pic:after {
+        font-size: 110px; /* Adjust font size for smaller screens */
+    }
+}

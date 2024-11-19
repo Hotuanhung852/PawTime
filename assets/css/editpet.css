@@ -1,0 +1,161 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-image: url("https://img.freepik.com/free-vector/frame-with-dogs-vector-white-background_53876-127700.jpg"); /* Đường dẫn đến hình nền */
+  background-size: cover; /* Để hình nền phủ đầy */
+  background-position: center; /* Căn giữa hình nền */
+  background-repeat: no-repeat; /* Không lặp lại hình nền */
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+/* Styling for the form */
+#editPetForm {
+  max-width: 600px; /* Limit form width */
+  margin: 0 auto; /* Center the form */
+  padding: 20px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Sử dụng màu nền trắng với độ trong suốt */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Form shadow */
+}
+
+/* Styling for form labels */
+label {
+  display: block; /* Each label on a new line */
+  margin-bottom: 5px;
+  color: #555; /* Label color */
+}
+
+/* Styling for form inputs and textarea */
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%; /* Full width */
+  padding: 10px;
+  margin-bottom: 15px; /* Space below each input */
+  border: 1px solid #ccc; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  box-sizing: border-box; /* Padding does not increase width */
+}
+
+/* Styling for buttons */
+button {
+  padding: 10px 15px; /* Button padding */
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50; /* Button color */
+  color: white;
+  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Responsive styling for mobile devices */
+@media (max-width: 600px) {
+  #editPetForm {
+    padding: 15px; /* Reduce padding for mobile */
+  }
+
+  button {
+    width: 100%; /* Full width button on mobile */
+    margin-bottom: 10px; /* Space below button */
+  }
+}
+
+/* Style for displaying pet image */
+.pet-image {
+  max-width: 200px; /* Giới hạn chiều rộng tối đa của ảnh */
+  height: auto; /* Giữ tỷ lệ khung hình */
+  border-radius: 8px; /* Bo tròn góc cho ảnh */
+  margin-bottom: 15px; /* Khoảng cách dưới ảnh */
+}
+
+/* Back button styles */
+.back-button {
+  display: inline-flex; /* Để căn giữa biểu tượng và văn bản */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  text-decoration: none; /* Bỏ gạch dưới */
+  padding: 10px 15px; /* Khoảng cách bên trong */
+  background-color: #4caf50; /* Màu nền */
+  color: white; /* Màu chữ */
+  border-radius: 5px; /* Bo tròn góc */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.back-button:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+}
+
+.back-button i {
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
+/* Update button styles */
+.update-button {
+  display: inline-flex; /* Để căn giữa biểu tượng và văn bản */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  padding: 10px 15px; /* Khoảng cách bên trong */
+  background-color: #45a049; /* Màu nền */
+  color: white; /* Màu chữ */
+  border: none; /* Bỏ viền */
+  border-radius: 5px; /* Bo tròn góc */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.update-button:hover {
+  background-color: #ce9015; /* Màu nền khi hover */
+  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+}
+
+.update-button i {
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
+/* Cancel button styles */
+.cancel-button {
+  display: inline-flex; /* Để căn giữa biểu tượng và văn bản */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  padding: 10px 15px; /* Khoảng cách bên trong */
+  background-color: #dc3545; /* Màu nền đỏ */
+  color: white; /* Màu chữ */
+  border: none; /* Bỏ viền */
+  border-radius: 5px; /* Bo tròn góc */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+  transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.cancel-button:hover {
+  background-color: #c82333; /* Màu nền khi hover */
+  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+}
+
+.cancel-button i {
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
+/* Button text styling */
+.button-text {
+  display: none; /* Ẩn chữ mặc định */
+}
+
+.update-button:hover .button-text,
+.cancel-button:hover .button-text,
+.back-button:hover .button-text {
+  display: inline; /* Hiện chữ khi hover */
+}

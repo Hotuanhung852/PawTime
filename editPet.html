@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Pet</title>
+    <link rel="stylesheet" href="./assets/css/editPet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <a href="Adoptme.html" class="back-button">
+      <i class="fas fa-arrow-left"></i><span class="button-text">Back</span>
+    </a>
+    <h2>Edit Pet Information</h2>
+    <form id="editPetForm">
+      <div>
+        <img id="petImage" class="pet-image" src="" alt="Pet Image" />
+      </div>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div>
+        <label for="weight">Weight</label>
+        <input type="number" id="weight" required />
+      </div>
+      <div>
+        <label for="gender">Gender</label>
+        <select id="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div>
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" required />
+      </div>
+      <div>
+        <label for="details">Details</label>
+        <textarea id="details" required></textarea>
+      </div>
+      <button type="submit" class="update-button">
+        <i class="fas fa-paw"></i>
+        <span class="button-text">Save</span>
+      </button>
+
+      <button type="button" class="cancel-button">
+        <i class="fas fa-ban"></i>
+        <span class="button-text">Close</span>
+      </button>
+    </form>
+
+    <script>
+      // Lấy petId từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const petId = urlParams.get("id");
+
+      // Hàm để lấy thông tin pet
+      async function fetchPetDetails(id) {
+        try {
+          const response = await fetch(`http://localhost:3000/pet/${id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch pet details");
+          }
+          const pet = await response.json();
+          document.getElementById("name").value = pet.name;
+          document.getElementById("weight").value = pet.weight;
+          document.getElementById("gender").value = pet.gender;
+          document.getElementById("phone").value = pet.phone;
+          document.getElementById("details").value = pet.details;
+          document.getElementById("petImage").src = pet.imageURL; // Set the pet image URL
+        } catch (error) {
+          console.error(error);
+          alert("Error fetching pet details: " + error.message);
+        }
+      }
+
+      // Gọi hàm để lấy thông tin pet khi trang được tải
+      fetchPetDetails(petId);
+
+      // Xử lý form submit để cập nhật thông tin pet
+      document
+        .getElementById("editPetForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const updatedPet = {
+            name: document.getElementById("name").value,
+            weight: document.getElementById("weight").value,
+            gender: document.getElementById("gender").value,
+            phone: document.getElementById("phone").value,
+            details: document.getElementById("details").value,
+          };
+
+          // In ra dữ liệu để kiểm tra trước khi gửi
+          console.log("Updated pet data:", updatedPet);
+
+          // Cập nhật thông tin pet qua API
+          try {
+            const response = await fetch(`http://localhost:3000/pet/${petId}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedPet),
+            });
+
+            if (!response.ok) {
+              throw new Error("Failed to update pet information");
+            }
+
+            alert("Pet information updated successfully!");
+            window.location.href = "Adoptme.html"; // Chuyển hướng về trang chính sau khi cập nhật
+          } catch (error) {
+            console.error(error);
+            alert("Error updating pet information: " + error.message);
+          }
+        });
+    </script>
+  </body>
+</html>
