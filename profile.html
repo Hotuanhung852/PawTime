@@ -188,7 +188,7 @@
                     document.getElementById('plan').value = user.plan;
 
                     // Ensure the avatar URL is correctly prefixed with the server address
-                    const avatarUrl = user.avatar ? `http://localhost:3000${user.avatar}` : 'default-avatar.png';
+                    const avatarUrl = user.avatar ? `https://pawtime-service.onrender.com/${user.avatar}` : 'default-avatar.png';
                     document.getElementById('avatar').src = avatarUrl; // Set to default avatar if user doesn't have one
 
                     document.getElementById('bio').value = user.bio;
@@ -206,7 +206,7 @@
                 const formData = new FormData();
                 formData.append('avatar', file);
 
-                fetch(`http://localhost:3000/upload-avatar/${userId}`, {
+                fetch(`https://pawtime-service.onrender.com//upload-avatar/${userId}`, {
                     method: 'POST',
                     body: formData
                 })
