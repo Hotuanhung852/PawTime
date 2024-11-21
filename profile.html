@@ -206,7 +206,7 @@
                 const formData = new FormData();
                 formData.append('avatar', file);
 
-                fetch(`https://pawtime-service.onrender.com//upload-avatar/${userId}`, {
+                fetch(`https://pawtime-service.onrender.com/upload-avatar/${userId}`, {
                     method: 'POST',
                     body: formData
                 })
