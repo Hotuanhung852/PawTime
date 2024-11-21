@@ -264,7 +264,7 @@ app.post('/upload-avatar/:userId', upload.single('avatar'), async (req, res) => 
     }
 
     try {
-        const avatarUrl = `/uploads/${req.file.filename}`;
+        const avatarUrl = `uploads/${req.file.filename}`;
         const user = await User.findByIdAndUpdate(userId, { avatar: avatarUrl }, { new: true });
         if (user) {
             res.status(200).json({ message: 'Avatar uploaded successfully', avatarUrl });
