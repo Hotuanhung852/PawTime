@@ -31,7 +31,7 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../'))); // Serve static files from the root directory
 app.use('/Admin', express.static(path.join(__dirname, 'Admin')));
 
