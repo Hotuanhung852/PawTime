@@ -178,7 +178,7 @@
             const userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage after login
 
             // Fetch user profile data
-            fetch(`http://localhost:3000/profile/${userId}`)
+            fetch(`https://pawtime-service.onrender.com/profile/${userId}`)
                 .then(response => response.json())
                 .then(user => {
                     document.getElementById('username').value = user.username;
@@ -243,7 +243,7 @@
                     twitter: document.getElementById('twitter').value
                 };
 
-                fetch(`http://localhost:3000/profile/${userId}`, {
+                fetch(`https://pawtime-service.onrender.com/profile/${userId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
