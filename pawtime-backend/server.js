@@ -221,6 +221,10 @@ app.get('/pets', async (req, res) => {
     }
 });
 
+app.get('/profile.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+});
+
 // Route to get user profile
 app.get('/profile/:userId', async (req, res) => {
     const { userId } = req.params;
