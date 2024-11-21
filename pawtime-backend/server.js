@@ -7,38 +7,22 @@ const multer = require('multer');
 const PayOS = require('@payos/node');
 const payos = new PayOS('d8fbeec4-8d3a-4a7c-b177-0a46e5fa0896', 'a09098fb-48b0-4d15-b074-d3800c8d2130', '7b5f734b79d1afeaee6d138c1f67dcca92443080cd56c23778f44f835faa1c50');
 const YOUR_DOMAIN = 'http://localhost:3000';
-const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
-// MongoDB connection URI
-const uri = "mongodb+srv://hotuan850:Pe0tmjthGOrOtOjZ@mypawtimemongodb.zlbun.mongodb.net/?retryWrites=true&w=majority&appName=myPawTimemongodb";
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-async function run() {
-  try {
-    // Connect the client to the server (optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_CONNECT_URI)
+        console.log('Connected to MongoDB successfully')
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error)
+    }
 }
 
-// Call the run function to connect to MongoDB
-run().catch(console.dir);
+connectDB();
+
 
 // Middleware
 app.use(bodyParser.json());
@@ -48,7 +32,7 @@ app.use(express.static(path.join(__dirname, '../'))); // Serve static files from
 app.use('/Admin', express.static(path.join(__dirname, 'Admin')));
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/PawTime');
+// mongoose.connect('mongodb://localhost:27017/PawTime');
 
 // Define Schemas and Models
 const userSchema = new mongoose.Schema({
@@ -361,27 +345,6 @@ app.post('/upgrade-to-pet-sitter/:userId', async (req, res) => {
     }
 });
 
-// Modify your login route to include more user information
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await User.findOne({ username, password });
-        if (user) {
-            // Store more user information in the response
-            res.status(200).json({
-                message: 'Login successful',
-                userId: user._id,
-                role: user.role,
-                username: user.username
-            });
-        } else {
-            res.status(401).json({ message: 'Invalid credentials' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Something went wrong', error });
-    }
-});
-
 // Route to get all pet boarding details
 app.get('/all-pet-boarding', async (req, res) => {
     try {
@@ -402,26 +365,6 @@ app.get('/user/:userId', async (req, res) => {
         } else {
             res.status(404).json({ message: 'User not found' });
         }
-    } catch (error) {
-        res.status(500).json({ message: 'Something went wrong', error });
-    }
-});
-
-// Route to handle pet boarding form submission
-app.post('/pet-boarding', async (req, res) => {
-    const { userId, petType, petCount, address, dropOffDate, pickUpDate, condition } = req.body;
-    try {
-        const newPetBoarding = new PetBoarding({
-            userId,
-            petType,
-            petCount,
-            address,
-            dropOffDate,
-            pickUpDate,
-            condition
-        });
-        await newPetBoarding.save();
-        res.status(201).json({ message: 'Booking successful' });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });
     }
@@ -925,3 +868,4 @@ app.get('/transactions', async (req, res) => {
 
 // Start the server
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+module.exports = connectDB;
