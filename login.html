@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PawTime</title>
     <link rel="stylesheet" href="./assets/css/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- 
-    - favicon
-  -->
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 </head>
-
 <body>
     <div class="container">
         <div class="Form login-form">
@@ -67,7 +62,7 @@
         </div>
     </div>
     <script>
-        const apiEndpoint = 'http://localhost:3000';
+        const apiEndpoint = window.location.origin;
 
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
             event.preventDefault();
@@ -87,16 +82,12 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Store all necessary user information in localStorage
                     localStorage.setItem('loggedIn', 'true');
                     localStorage.setItem('userId', result.userId);
                     localStorage.setItem('userRole', result.role);
                     localStorage.setItem('username', result.username);
 
-                    // Show success message
                     alert('Login successful!');
-
-                    // Redirect based on role
                     redirectUser(result.redirectUrl);
                 } else {
                     alert(result.message);
@@ -141,10 +132,8 @@
 
                 if (response.ok) {
                     alert('Registration successful! Please login to continue.');
-                    // Switch back to login form
                     registerForm.classList.remove('active');
                     loginForm.classList.remove('active');
-                    // Clear registration form
                     document.getElementById('registerForm').reset();
                 } else {
                     alert(result.message);
@@ -155,12 +144,10 @@
             }
         });
 
-        // Function to handle user redirection based on role
         function redirectUser(redirectUrl) {
             window.location.href = redirectUrl;
         }
 
-        // Form toggle functionality
         const RegiBtn = document.querySelector('.RegiBtn');
         const LoginBtn = document.querySelector('.LoginBtn');
         const loginForm = document.querySelector('.login-form');
@@ -177,5 +164,4 @@
         });
     </script>
 </body>
-
 </html>

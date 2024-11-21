@@ -14,12 +14,16 @@ const port = 3000;
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_CONNECT_URI)
-        console.log('Connected to MongoDB successfully')
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error)
+        await mongoose.connect(process.env.MONGO_CONNECT_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to MongoDB successfully');
+    } catch (err) {
+        console.error('Error connecting to MongoDB:', err);
     }
-}
+};
+
 
 connectDB();
 
@@ -154,6 +158,10 @@ const upload = multer({ storage: storage });
 // Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html')); // Serve index.html for the root route
+});
+
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // Login route
