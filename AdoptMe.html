@@ -252,7 +252,7 @@
     document.addEventListener('DOMContentLoaded', async () => {
     // Fetch existing pets and populate the lists
     try {
-        const response = await fetch("http://localhost:3000/pets");
+        const response = await fetch("https://pawtime-service.onrender.com/pets");
         if (response.ok) {
             const pets = await response.json();
 
@@ -322,7 +322,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     };
 
     try {
-        const response = await fetch("http://localhost:3000/pets", {
+        const response = await fetch("https://pawtime-service.onrender.com/pets", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(petData),
@@ -682,7 +682,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     }
     function deletePet(petId) {
     if (confirm('Are you sure you want to delete this pet?')) {
-        fetch(`http://localhost:3000/pets/${petId}`, {
+        fetch(`https://pawtime-service.onrender.com/pets/${petId}`, {
             method: 'DELETE',
         })
         .then(response => {
