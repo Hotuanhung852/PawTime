@@ -77,7 +77,7 @@ switchMode.addEventListener('change', function () {
 
 async function fetchUserCounts() {
     try {
-        const response = await fetch("http://localhost:3000/user-counts");
+        const response = await fetch("https://pawtime-service.onrender.com/user-counts");
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -97,5 +97,5 @@ fetchUserCounts();
 
 document.getElementById('logout-button').addEventListener('click', function(event) {
     event.preventDefault();
-    window.location.href = 'http://localhost:3000/login.html';
+    window.location.href = 'https://pawtime-service.onrender.com/login.html';
 });
