@@ -188,7 +188,7 @@
                     document.getElementById('plan').value = user.plan;
 
                     // Ensure the avatar URL is correctly prefixed with the server address
-                    const avatarUrl = user.avatar ? `https://pawtime-service.onrender.com/${user.avatar}` : 'default-avatar.png';
+                    const avatarUrl = user.avatar ? `https://pawtime-service.onrender.com${user.avatar}` : 'default-avatar.png';
                     document.getElementById('avatar').src = avatarUrl; // Set to default avatar if user doesn't have one
 
                     document.getElementById('bio').value = user.bio;
