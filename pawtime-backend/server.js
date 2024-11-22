@@ -784,7 +784,7 @@ app.get('/users/petsitters', async (req, res) => {
 
 app.post('/create-payment-link0', async (req, res) => {
     const order = {
-        amount: 10000,
+        amount: 25000,
         description: 'PawTime 1 Week Try Out',
         orderCode: Date.now(), // Use a timestamp to ensure uniqueness
         returnUrl: `https://pawtime-service.onrender.com/success.html`,
