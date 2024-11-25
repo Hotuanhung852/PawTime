@@ -118,9 +118,10 @@
     
                 users.forEach(user => {
                     const userRow = document.createElement('tr');
+                    const avatar = user.avatar ? user.avatar : 'img/user.png';
                     userRow.innerHTML = `
                         <td>
-                            <img src="${user.avatar}" />
+                            <img src="${avatar}" />
                             <p>${user.username}</p>
                         </td>
                         <td>${user.fullname}</td>

@@ -115,12 +115,13 @@
                 const response = await fetch('/users/petsitters');
                 const users = await response.json();
                 const userTableBody = document.getElementById('user-table-body');
-
+    
                 users.forEach(user => {
                     const userRow = document.createElement('tr');
+                    const avatar = user.avatar ? user.avatar : 'img/user.png';
                     userRow.innerHTML = `
                         <td>
-                            <img src="${user.avatar}" />
+                            <img src="${avatar}" />
                             <p>${user.username}</p>
                         </td>
                         <td>${user.fullname}</td>
@@ -134,7 +135,7 @@
                     `;
                     userTableBody.appendChild(userRow);
                 });
-
+    
                 // Add event listener for delete buttons
                 document.querySelectorAll('.delete-btn').forEach(button => {
                     button.addEventListener('click', async (event) => {
