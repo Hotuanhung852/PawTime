@@ -23,7 +23,7 @@
       // Hàm fetch thông tin thú cưng
       async function fetchPetDetails(id) {
         try {
-          const response = await fetch(`http://localhost:3000/pet/${id}`);
+          const response = await fetch(`https://pawtime-service.onrender.com/pet/${id}`);
           if (response.status === 404) {
             document.getElementById("pet-details").innerHTML =
               "<p>Pet not found.</p>";

@@ -61,7 +61,7 @@
       // Hàm để lấy thông tin pet
       async function fetchPetDetails(id) {
         try {
-          const response = await fetch(`http://localhost:3000/pet/${id}`);
+          const response = await fetch(`https://pawtime-service.onrender.com/pet/${id}`);
           if (!response.ok) {
             throw new Error("Failed to fetch pet details");
           }
@@ -99,7 +99,7 @@
 
           // Cập nhật thông tin pet qua API
           try {
-            const response = await fetch(`http://localhost:3000/pet/${petId}`, {
+            const response = await fetch(`https://pawtime-service.onrender.com/pet/${petId}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -112,7 +112,7 @@
             }
 
             alert("Pet information updated successfully!");
-            window.location.href = "Adoptme.html"; // Chuyển hướng về trang chính sau khi cập nhật
+            window.location.href = "UpdateAdoptMe.html"; // Chuyển hướng về trang chính sau khi cập nhật
           } catch (error) {
             console.error(error);
             alert("Error updating pet information: " + error.message);

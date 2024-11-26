@@ -35,6 +35,16 @@
                     <span>Service Request Post</span>
                 </a>
             </li>
+            <li>
+                <a href="UpdateAdoptMe.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z" />
+                    </svg>
+                    <span>Adopt Me Post</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -87,28 +97,28 @@
         }
 
         async function fetchPetBoardingData() {
-    try {
-        const response = await fetch('/all-pet-boarding');
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
-        }
-        const data = await response.json();
-        console.log('Fetched pet boarding data:', data);
+            try {
+                const response = await fetch('/all-pet-boarding');
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+                const data = await response.json();
+                console.log('Fetched pet boarding data:', data);
 
-        const detailsContainer = document.getElementById('petBoardingDetails');
-        detailsContainer.innerHTML = '';
+                const detailsContainer = document.getElementById('petBoardingDetails');
+                detailsContainer.innerHTML = '';
 
-        if (data.length === 0) {
-            detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No pet boarding forms have been created</p>';
-        } else {
-            data.forEach(item => {
-                const createdAt = new Date(item.createdAt);
-                const dropOffDate = new Date(item.dropOffDate);
-                const pickUpDate = new Date(item.pickUpDate);
+                if (data.length === 0) {
+                    detailsContainer.innerHTML = '<p style="text-align: center; margin-top: 2em;">No pet boarding forms have been created</p>';
+                } else {
+                    data.forEach(item => {
+                        const createdAt = new Date(item.createdAt);
+                        const dropOffDate = new Date(item.dropOffDate);
+                        const pickUpDate = new Date(item.pickUpDate);
 
-                const detailDiv = document.createElement('div');
-                detailDiv.innerHTML = `
+                        const detailDiv = document.createElement('div');
+                        detailDiv.innerHTML = `
                     <div class="container">
                         <h2 style="line-height: 1.5;">
                             🧳 Pet Boarding – 📅 ${createdAt.toLocaleDateString()} - ⏰ ${createdAt.toLocaleTimeString()}
@@ -153,13 +163,13 @@
                         </div>
                     </div>
                 `;
-                detailsContainer.appendChild(detailDiv);
-            });
+                        detailsContainer.appendChild(detailDiv);
+                    });
+                }
+            } catch (error) {
+                alert('Failed to load pet boarding details: ' + error.message);
+            }
         }
-    } catch (error) {
-        alert('Failed to load pet boarding details: ' + error.message);
-    }
-}
 
         async function fetchHouseSittingData() {
             try {
