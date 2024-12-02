@@ -110,7 +110,7 @@
 				<li>
 					<i class="bx bxs-dollar-circle"></i>
 					<span class="text">
-						<h3>$240</h3>
+						<h3>$369</h3>
 						<p>Total Sales</p>
 					</span>
 				</li>
@@ -215,6 +215,19 @@
 					throw new Error("Network response was not ok");
 				}
 				const transactions = await response.json();
+
+				// Log the transactions to check the data format
+				console.log("Fetched transactions:", transactions);
+
+				// Sort transactions by creation_date in descending order
+				transactions.sort((a, b) => {
+					const dateA = new Date(a.creation_date.split(' ')[0].split('-').reverse().join('-') + 'T' + a.creation_date.split(' ')[1]);
+					const dateB = new Date(b.creation_date.split(' ')[0].split('-').reverse().join('-') + 'T' + b.creation_date.split(' ')[1]);
+					return dateB - dateA;
+				});
+
+				// Log the sorted transactions to verify sorting
+				console.log("Sorted transactions:", transactions);
 
 				// Get the table body element
 				const tableBody = document.querySelector(".order tbody");
