@@ -21,7 +21,8 @@
     <!-- 
     - custom css link
   -->
-    <link rel="stylesheet" href="./assets/css/price.css">
+    <link rel="stylesheet" href="./assets/css/about.css">
+    <link rel="stylesheet" href="./assets/css/pet-timer.css">
 
     <!-- 
     - google font link
@@ -37,13 +38,6 @@
   -->
     <link rel="preload" as="image" href="./assets/images/hero-banner.jpg">
 
-    <!-- Font Awesome CDN-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <!-- Custom CSS File -->
-    <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
-
     <script>
         // Check if the user is logged in
         if (!localStorage.getItem('loggedIn')) {
@@ -55,13 +49,13 @@
 <body id="top">
 
     <!-- 
-        - #HEADER
-      -->
+    - #HEADER
+  -->
 
     <header class="header" data-header>
         <div class="container">
 
-            <button class="nav-toggle-btn" aria-label="toggle manu" data-nav-toggler>
+            <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
                 <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
                 <ion-icon name="close-outline" aria-label="true" class="close-icon"></ion-icon>
             </button>
@@ -79,22 +73,17 @@
                         <a href="#" class="navbar-link" data-nav-link>About</a>
                     </li>
 
-                    <li class="navbar-item"></li>
-                    <a href="Price.html" class="navbar-link" data-nav-link>Price</a>
+                    <li class="navbar-item">
+                        <a href="Price.html" class="navbar-link" data-nav-link>Price</a>
                     </li>
 
                     <li class="navbar-item">
                         <a href="PetTimer.html" class="navbar-link" data-nav-link>Pet Service</a>
                     </li>
 
-                    <!-- <li class="navbar-item">
-                <a href="GroomTracker.html" class="navbar-link" data-nav-link>Groom Tracker</a>
-              </li> -->
-
                     <li class="navbar-item">
                         <a href="AdoptMe.html" class="navbar-link" data-nav-link>Adopt Me</a>
                     </li>
-
 
                     <li class="navbar-item">
                         <a href="#" class="navbar-link" id="open" data-nav-link>
@@ -108,11 +97,26 @@
                 <a href="login.html" class="navbar-action-btn">Log In</a>
             </nav>
 
-            <div class="header-actions">
+            <!-- Modal -->
+            <div class="modal-container" id="modal_container">
+                <div class="modal">
+                    <h1>🐕 Become a Pet Sitter 🐈</h1>
+                    <p>🐾 Are you interested in becoming a pet sitter? 🐾 Sign up now and start earning money by taking
+                        care of
+                        adorable pets! 🐶🐱</p>
+                    <div class="button-container">
+                        <button id="close">
+                            Close
+                        </button>
+                        <button>
+                            <a href="Price.html">Get Started</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!------------------->
 
-                <!-- <button class="action-btn" aria-label="Search">
-              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-            </button> -->
+            <div class="header-actions">
 
                 <button onclick="location.href='profile.html'" class="action-btn profile" aria-label="Profile">
                     <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
@@ -127,151 +131,79 @@
         </div>
     </header>
 
-
-
-
     <main>
         <article>
 
-
             <!-- 
         - #HERO
-        -->
+      -->
 
             <section class="section hero has-bg-image" id="home" aria-label="home"
-                style="background-image: url('./assets/images/hero-banner5.jpg')">
+                style="background-image: url('./assets/images/dog-cat-under-sheet.jpg')">
                 <div class="container">
-                    <form action="/create-payment-link0" method="POST">
-                        <h1 class="h1 hero-title">
-                            <span class="span">Become a Pet Sitter for 1 Week For Only $1!</span>
-                        </h1>
 
-                        <p class="hero-text">
-                            We provide opportunities for your companion to be happy and adventurous
+                    <h1 class="h1 hero-title" style="font-size: 9em;">
+                        <span class="span"></span>About Us
+                    </h1>
+
+                </div>
+            </section>
+            <!-- 
+        - #PET SITTERS AFTER PAYMENT AND SETUP ACCOUNT
+      -->
+            <section class="section pet-sitters" aria-label="pet sitters" id="pet-sitters">
+                <h2 class="h2 section-title" style="margin-top: 1em;">
+                    Pet<span class="span"> Care</span>
+                </h2>
+
+                <div class="pet-sttiers-container">
+
+                    <div class="pet-sitters-content">
+                        <h2 class="h2 pet-sitters-title">
+                            Your Pet's Comfort and Care, Always First
+                        </h2>
+                        <p class="pet-sitters-text">
+                            At PawTime, we comprehend your concerns. That's why we're committed to providing exceptional
+                            care and comfort for your pet, while keeping you updated at every stage. Your pet's health
+                            and happiness are our utmost priority.
                         </p>
+                        <a href="PetTimer.html" class="btn">Find out more</a>
+                    </div>
+                    <div class="pet-sitters-image">
+                        <img src="./assets/images/hau.webp" alt="pet sitters" class="pet-sitters-imgtag">
+                    </div>
 
-                        <button href="#price" class="btn">Try Now ($1)</button>
-                    </form>
                 </div>
             </section>
 
-            <div style="padding: 20px;" id="price">
-                <h2 class="h2 section-title" style="font-size: 30px;">
-                    Price <span class="span">Planning</span>
+            <section class="section pet-sitters" aria-label="pet sitters" id="pet-sitters">
+                <h2 class="h2 section-title" style="margin-top: 1em;">
+                    Pet<span class="span"> Adoption</span>
                 </h2>
-                <h3 class="h3 section-title" style="font-size: 50px;">
-                    Choose the <span class="span">Best Price</span>
-                </h3>
-            </div>
-            <section class="price-comparison">
 
-                <div class="price-column">
-                    <form action="/create-payment-link" method="POST">
-                        <div class="price-header">
-                            <div class="price">
-                                <div class="dollar-sign">$</div>
-                                24
-                                <div class="per-month">/month</div>
-                            </div>
-                            <div class="plan-name">Basic</div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Pet Boarding
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            House Sitting
-                        </div>
-                        <div class="feature inactive">
-                            <img src="./assets/images/x-square.svg">
-                            Drop-In Visits
-                        </div>
-                        <div class="feature inactive">
-                            <img src="./assets/images/x-square.svg">
-                            Adopt Me
-                        </div>
-                        <div class="feature inactive">
-                            <img src="./assets/images/x-square.svg">
-                            Veteran Badge
-                        </div>
-                        <button class="cta">Start Today</button>
-                    </form>
-                </div>
-                <div class="price-column popular">
-                    <form action="/create-payment-link2" method="POST">
-                        <div class="most-popular">Most Popular</div>
-                        <div class="price-header">
-                            <div class="price">
-                                <div class="dollar-sign">$</div>
-                                120
-                                <div class="per-month">/6 months</div>
-                            </div>
-                            <div class="plan-name">Standard</div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Pet Boarding
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            House Sitting
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Drop-In Visits
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Adopt Me
-                        </div>
-                        <div class="feature inactive">
-                            <img src="./assets/images/x-square.svg">
-                            Veteran Badge
-                        </div>
-                        <button class="cta">Start Today</button>
-                    </form>
-                </div>
-                <div class="price-column">
-                    <form action="/create-payment-link3" method="POST">
-                        <div class="price-header">
-                            <div class="price">
-                                <div class="dollar-sign">$</div>
-                                145
-                                <div class="per-month">/year</div>
-                            </div>
-                            <div class="plan-name">Premium</div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Pet Boarding
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            House Sitting
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Drop-In Visits
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Groom Tracker
-                        </div>
-                        <div class="feature">
-                            <img src="./assets/images/check-circle.svg">
-                            Veteran Badge
-                        </div>
-                        <button class="cta">Start Today</button>
-                    </form>
+                <div class="pet-sttiers-container">
+
+                    <div class="pet-sitters-image">
+                        <img src="./assets/images/Hinh_1.webp" alt="pet sitters" class="pet-sitters-imgtag">
+                    </div>
+                    <div class="pet-sitters-content">
+                        <h2 class="h2 pet-sitters-title">
+                            Your Pet's New Home, Our Priority
+                        </h2>
+                        <p class="pet-sitters-text">
+                            At PawTime, we understand your concerns about adopting a pet. That's why we're committed to
+                            ensuring a smooth and informed adoption process, keeping you updated at every step. Your new
+                            pet's well-being and happiness are our top priority.
+                        </p>
+                        <a href="AdoptMe.html" class="btn">Find out more</a>
+                    </div>
+
+
                 </div>
             </section>
             <!-- 
         - #SERVICE
-        -->
+      -->
 
             <section class="section service" aria-label="service">
                 <div class="container">
@@ -286,14 +218,8 @@
                 </div>
             </section>
 
-
-
         </article>
     </main>
-
-
-
-
 
     <!-- 
     - #FOOTER
@@ -437,10 +363,6 @@
 
     </footer>
 
-
-
-
-
     <!-- 
     - #BACK TO TOP
   -->
@@ -448,10 +370,6 @@
     <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
         <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
     </a>
-
-
-
-
 
     <!-- 
     - custom js link
@@ -473,8 +391,57 @@
             // Redirect to login page
             window.location.href = 'login.html';
         });
-
     </script>
+    <script>
+        const open = document.getElementById('open');
+        const close = document.getElementById('close');
+        const modal = document.getElementById('modal_container');
+
+        open.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        close.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+    </script>
+
+    <script>
+        // Function to handle Pet Sitter link behavior based on user role
+        function handlePetSitterAccess() {
+            // Get the stored user role from localStorage
+            const userRole = localStorage.getItem('userRole');
+
+            // Get the Pet Sitter link and modal elements
+            const petSitterLink = document.getElementById('open');
+            const modal = document.getElementById('modal_container');
+            const closeBtn = document.getElementById('close');
+
+            if (userRole === 'pet_sitter') {
+                // If user is a pet sitter, redirect directly to the PetSitter page
+                petSitterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'PetSitter.html';
+                });
+                // Hide the modal
+                modal.style.display = 'none';
+            } else {
+                // For non-pet sitters, set up the modal open/close functionality
+                petSitterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('show');
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('show');
+                });
+            }
+        }
+
+        // Run the handler when the page loads
+        document.addEventListener('DOMContentLoaded', handlePetSitterAccess);
+    </script>
+
 </body>
 
 </html>
