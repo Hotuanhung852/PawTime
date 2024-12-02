@@ -108,6 +108,24 @@
                 <a href="login.html" class="navbar-action-btn">Log In</a>
             </nav>
 
+            <!-- Modal -->
+            <div class="modal-container" id="modal_container">
+                <div class="modal">
+                    <h1>🐕 Become a Pet Sitter 🐈</h1>
+                    <p>🐾 Are you interested in becoming a pet sitter? 🐾 Sign up now and start earning money by taking
+                        care of
+                        adorable pets! 🐶🐱</p>
+                    <div class="button-container">
+                        <button id="close">
+                            Close
+                        </button>
+                        <button>
+                            <a href="Price.html">Get Started</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="header-actions">
 
                 <!-- <button class="action-btn" aria-label="Search">
@@ -474,6 +492,42 @@
             window.location.href = 'login.html';
         });
 
+    </script>
+
+    <script>
+        // Function to handle Pet Sitter link behavior based on user role
+        function handlePetSitterAccess() {
+            // Get the stored user role from localStorage
+            const userRole = localStorage.getItem('userRole');
+
+            // Get the Pet Sitter link and modal elements
+            const petSitterLink = document.getElementById('open');
+            const modal = document.getElementById('modal_container');
+            const closeBtn = document.getElementById('close');
+
+            if (userRole === 'pet_sitter') {
+                // If user is a pet sitter, redirect directly to the PetSitter page
+                petSitterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'PetSitter.html';
+                });
+                // Hide the modal
+                modal.style.display = 'none';
+            } else {
+                // For non-pet sitters, set up the modal open/close functionality
+                petSitterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('show');
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('show');
+                });
+            }
+        }
+
+        // Run the handler when the page loads
+        document.addEventListener('DOMContentLoaded', handlePetSitterAccess);
     </script>
 </body>
 
