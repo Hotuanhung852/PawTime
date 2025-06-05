@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const PayOS = require('@payos/node');
-const payos = new PayOS('533626f8-84c8-40c1-ac7c-f4f4922b9fab', '465e3d58-6209-4d5a-9176-945d13e619e3', '0ab3a353fc37b3ab303373d12e8c46d798dd44803a9e9dbb2f577a074a77444f');
+const payos = new PayOS('d8fbeec4-8d3a-4a7c-b177-0a46e5fa0896', 'a09098fb-48b0-4d15-b074-d3800c8d2130', '7b5f734b79d1afeaee6d138c1f67dcca92443080cd56c23778f44f835faa1c50');
 const YOUR_DOMAIN = 'http://localhost:3000';
 require('dotenv').config();
 
